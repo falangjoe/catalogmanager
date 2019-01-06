@@ -1,0 +1,31 @@
+<div [ngSwitch]="nodetype">
+
+  <cm-input *ngSwitchCase="'input'" [(data)]="data"  [configuration]="configuration" [name]="name"></cm-input>
+
+  <!-- <div *ngSwitchCase="'list'">
+      <div *ngFor="let item of items">
+          <cm-object [configuration]="item.configuraton" [data]="item.data" (data)="itemDataChanged(value)"></cm-object>
+      </div> 
+      <button (click)="additem()"></button>
+      <button (click)="removeitem()"></button>
+  </div> -->
+
+
+  <!-- <div *ngSwitchCase="'interface'" >
+
+      <cm-object *ngIf="instance" [configuration]="instace.configuration" [data]="instance.data" (data)="instanceDataChanged(value)"></cm-object>
+  </div> -->
+
+  <div *ngSwitchCase="'class'" >
+      <div *ngFor="let property of properties"> 
+          <cm-object 
+            [data]="getPropertyData(property.name)" 
+            (dataChange)="setPropertyData(property.name,$event)" 
+            [configuration]="property.configuration" 
+            [name]="property.name"
+            [nodetype]="property.nodetype">
+          </cm-object>
+      </div>
+  </div>
+
+</div>
