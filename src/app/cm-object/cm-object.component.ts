@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import { Component, Input, Output, OnInit,  EventEmitter } from '@angular/core';
 import { CmInputComponent } from '../cm-input/cm-input.component';
 import { PromotionMetadataService } from '../promotion-metadata.service';
 
@@ -26,36 +26,14 @@ export class CmObjectComponent implements OnInit {
   name = ''
 
   ngOnInit() {
-    console.log(this.nodetype);
-    console.log("init cm-object : ");
     
   }
 
-  dataValue = {};
-
-  getPropertyData(name){
-
-    var result = undefined;
-
-    if(this.data){
-      result = this.data[name];
-    }
-
-    //console.log("getPropertyData called :" + name);
-
-    return result;
-
-  }
-
-  setPropertyData(name,value){
-    //console.log("setPropertyData  called :" + name + ' ' + value);
-    this.dataValue[name] = value;
-    this.dataChange.emit(this.dataValue);
-
-  }
 
 
-  @Output() dataChange = new EventEmitter();
+  dataValue;
+
+  @Output() dataChange = new EventEmitter(true);
 
   @Input()
   get data(){
@@ -65,6 +43,25 @@ export class CmObjectComponent implements OnInit {
   set data(val){
     this.dataValue = val;
     this.dataChange.emit(this.dataValue);
+    console.log(this.data);
+  }
+
+
+  //object functions
+
+  getPropertyData(name){
+    if(this.data){
+      var result =  this.data[name];
+      return result;
+    }
+  }
+
+  setPropertyData(name,value){
+
+    var dataValue = this.dataValue || {};
+    dataValue[name] = value;
+    this.data = dataValue;
+
   }
 
   get properties(){

@@ -16,13 +16,14 @@ import { CmInputComponent} from './cm-input/cm-input.component'
 })
 export class AppComponent {
 
-  data =          {
-    "Type": "DollarOffReward",
-    "DiscountCode": "PRFA",
-    "SubCode": "06032016nb10",
-    "Amount": 10,
-    "Description": "$10 off order of $125 or more"
-  };
+  // data =          {
+  //   "Type": "DollarOffReward",
+  //   "DiscountCode": "PRFA",
+  //   "SubCode": "06032016nb10",
+  //   "Amount": 10,
+  //   "Description": "$10 off order of $125 or more"
+  // };
+  data = {"SubCode": "06032016nb10"};
   name = 'DollarOffReward';
   nodetype = 'class';
   type = 'DollarOffReward'

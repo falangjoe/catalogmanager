@@ -68,6 +68,7 @@ export class PromotionMetadataService {
         {name : "SubCode", nodetype:"input", configuration: {}},
         {name : "Amount", nodetype:"input", configuration: {}},
         {name : "Description", nodetype:"input", configuration: {}},
+        {name : "Rule", nodetype:"class", type:"AmountRule", configuration: {}},
       ]
     },
     "PercentOffReward" : {
