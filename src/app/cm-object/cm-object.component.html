@@ -2,12 +2,32 @@
 
   <cm-input *ngSwitchCase="'input'" [(data)]="data"  [configuration]="configuration" [name]="name"></cm-input>
 
+  <div *ngSwitchCase="'list'">
+    <div *ngFor="let item of items">
+        <div>{{item.nodetype}}</div>
+        <cm-object 
+            [data]="item.data" 
+            [nodetype]="item.nodetype" 
+            [type]="item.type" 
+            (dataChanged)="setItemData(i,value)">
+       </cm-object>
+    </div>
+    <button (click)="addItem()">Add Item</button>
+    <button (click)="removeItem()">Remove Item</button>
+  </div>
+
   <!-- <div *ngSwitchCase="'list'">
       <div *ngFor="let item of items">
-          <cm-object [configuration]="item.configuraton" [data]="item.data" (data)="itemDataChanged(value)"></cm-object>
+          <div>{{item}}</div>
+          <cm-object 
+            [data]="item.data" 
+            nodetype="item.nodetype" 
+            type="item.type" 
+            (dataChanged)="setItemData(i,value)">
+           </cm-object>
       </div> 
-      <button (click)="additem()"></button>
-      <button (click)="removeitem()"></button>
+      <button (click)="addItem()">Add Item</button>
+      <button (click)="removeItem()">Remove Item</button>
   </div> -->
 
 

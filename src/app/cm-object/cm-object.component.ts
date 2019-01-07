@@ -26,7 +26,7 @@ export class CmObjectComponent implements OnInit {
   name = ''
 
   ngOnInit() {
-    
+    console.log("object type init :" + this.nodetype);
   }
 
 
@@ -43,7 +43,6 @@ export class CmObjectComponent implements OnInit {
   set data(val){
     this.dataValue = val;
     this.dataChange.emit(this.dataValue);
-    console.log(this.data);
   }
 
 
@@ -71,6 +70,60 @@ export class CmObjectComponent implements OnInit {
     }
   }
 
+  //list functions
+
+  itemsValue;
+
+  get items(){
+    
+    if(!this.itemsValue){
+
+      this.itemsValue = (this.data || []).map(x => {
+          return  {
+            nodetype:'class',
+            type: this.type,
+            data: x
+          };
+      });
+    }
+
+    return this.itemsValue;
+  }
+
+  setItemData(index,value){
+    var data = this.data || [];
+    data[index] = value;
+    this.data = data; 
+  }
+
+  addItem(){
+    
+    var data = this.data || [];
+    (data).push(undefined);
+    this.data = data;
+  
+    this.items.push(
+      {
+        nodetype:'class',
+        type: this.type,
+        data: undefined
+      }
+    );
+
+
+    console.log(this.items);
+  }
+
+  removeItem(){ 
+
+    var items = this.items;
+    items.pop();
+    this.itemsValue = items;
+
+    var data = this.data;
+    data.pop();
+    this.data = data;
+  }
 
 
 
