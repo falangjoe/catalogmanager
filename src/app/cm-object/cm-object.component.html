@@ -3,13 +3,14 @@
   <cm-input *ngSwitchCase="'input'" [(data)]="data"  [configuration]="configuration" [name]="name"></cm-input>
 
   <div *ngSwitchCase="'list'">
-    <div *ngFor="let item of items">
+    <div *ngFor="let item of items; index as i">
+        <div>index : {{i}}</div>
         <div>{{item.nodetype}}</div>
         <cm-object 
             [data]="item.data" 
             [nodetype]="item.nodetype" 
             [type]="item.type" 
-            (dataChanged)="setItemData(i,value)">
+            (dataChange)="setItemData(i,$event)">
        </cm-object>
     </div>
     <button (click)="addItem()">Add Item</button>

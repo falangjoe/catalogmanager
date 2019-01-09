@@ -7,7 +7,7 @@ import { CmInputComponent} from './cm-input/cm-input.component'
   template: `
     <!--The content below is only a placeholder and can be replaced.-->
     <div style="text-align:center">
-        <cm-object [(data)]="data" [name]="name" [nodetype]="nodetype" [type]="type"></cm-object>
+        <cm-object [(data)]="data" [name]="name" [nodetype]="nodetype" [type]="type" (dataChange)="logdata($event)"></cm-object>
     </div>
     <div>Contents</div>
     <router-outlet></router-outlet>
@@ -27,6 +27,11 @@ export class AppComponent {
   name = undefined;
   nodetype = 'list';
   type = 'DollarOffReward'
+  logdata(value){
+    console.log(value);
+  }
+
+
 
 }
 

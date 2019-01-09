@@ -43,6 +43,7 @@ export class CmObjectComponent implements OnInit {
   set data(val){
     this.dataValue = val;
     this.dataChange.emit(this.dataValue);
+ 
   }
 
 
@@ -91,6 +92,8 @@ export class CmObjectComponent implements OnInit {
   }
 
   setItemData(index,value){
+  
+
     var data = this.data || [];
     data[index] = value;
     this.data = data; 
@@ -110,8 +113,6 @@ export class CmObjectComponent implements OnInit {
       }
     );
 
-
-    console.log(this.items);
   }
 
   removeItem(){ 
