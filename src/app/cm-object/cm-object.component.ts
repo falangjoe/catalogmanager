@@ -16,8 +16,6 @@ export class CmObjectComponent implements OnInit {
   @Input()
   configuration = undefined;
 
-  @Input()
-  type = undefined;
 
   @Input()
   nodetype = '';
@@ -66,7 +64,7 @@ export class CmObjectComponent implements OnInit {
 
   get properties(){
     if(this.nodetype == 'class'){
-      var type = this.promotionMetadataService.getType(this.type);
+      var type = this.promotionMetadataService.getType(this.configuration.type);
       return type.properties;
     }
   }
@@ -81,8 +79,8 @@ export class CmObjectComponent implements OnInit {
 
       this.itemsValue = (this.data || []).map(x => {
           return  {
-            nodetype:'class',
-            type: this.type,
+            nodetype:this.configuration.nodetype,
+            configuration: this.configuration.configuration,
             data: x
           };
       });
@@ -107,8 +105,8 @@ export class CmObjectComponent implements OnInit {
   
     this.items.push(
       {
-        nodetype:'class',
-        type: this.type,
+        nodetype: this.configuration.nodetype,
+        configuration: this.configuration.configuration,
         data: undefined
       }
     );

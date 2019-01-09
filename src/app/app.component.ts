@@ -7,7 +7,7 @@ import { CmInputComponent} from './cm-input/cm-input.component'
   template: `
     <!--The content below is only a placeholder and can be replaced.-->
     <div style="text-align:center">
-        <cm-object [(data)]="data" [name]="name" [nodetype]="nodetype" [type]="type" (dataChange)="logdata($event)"></cm-object>
+        <cm-object [(data)]="data" [name]="name" [nodetype]="nodetype" [configuration]="configuration" (dataChange)="logdata($event)"></cm-object>
     </div>
     <div>Contents</div>
     <router-outlet></router-outlet>
@@ -16,17 +16,11 @@ import { CmInputComponent} from './cm-input/cm-input.component'
 })
 export class AppComponent {
 
-  // data =          {
-  //   "Type": "DollarOffReward",
-  //   "DiscountCode": "PRFA",
-  //   "SubCode": "06032016nb10",
-  //   "Amount": 10,
-  //   "Description": "$10 off order of $125 or more"
-  // };
-  data = [];
+
+  data = undefined;
   name = undefined;
   nodetype = 'list';
-  type = 'DollarOffReward'
+  configuration = { nodetype:'class', configuration : { type : 'DollarOffReward'}};
   logdata(value){
     console.log(value);
   }

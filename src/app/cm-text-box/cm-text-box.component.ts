@@ -18,7 +18,6 @@ export class CmTextBoxComponent implements OnInit {
   ngOnInit() {
 
     console.log('init value' + this.data);
-    console.log(this.promotionMetadataService.getInterface('IReward'));
     console.log(this.promotionService.getPromotions());
   }
 

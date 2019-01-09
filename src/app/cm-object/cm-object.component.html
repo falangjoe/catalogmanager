@@ -9,7 +9,7 @@
         <cm-object 
             [data]="item.data" 
             [nodetype]="item.nodetype" 
-            [type]="item.type" 
+            [configuration]="item.configuration" 
             (dataChange)="setItemData(i,$event)">
        </cm-object>
     </div>
@@ -17,19 +17,7 @@
     <button (click)="removeItem()">Remove Item</button>
   </div>
 
-  <!-- <div *ngSwitchCase="'list'">
-      <div *ngFor="let item of items">
-          <div>{{item}}</div>
-          <cm-object 
-            [data]="item.data" 
-            nodetype="item.nodetype" 
-            type="item.type" 
-            (dataChanged)="setItemData(i,value)">
-           </cm-object>
-      </div> 
-      <button (click)="addItem()">Add Item</button>
-      <button (click)="removeItem()">Remove Item</button>
-  </div> -->
+
 
 
   <!-- <div *ngSwitchCase="'interface'" >
@@ -44,8 +32,7 @@
             (dataChange)="setPropertyData(property.name,$event)" 
             [configuration]="property.configuration" 
             [name]="property.name"
-            [nodetype]="property.nodetype"
-            [type]="property.type">
+            [nodetype]="property.nodetype">
           </cm-object>
       </div>
   </div>
