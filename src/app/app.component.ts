@@ -19,10 +19,10 @@ export class AppComponent {
 
   data = undefined;
   name = undefined;
-  nodetype = 'list';
-  configuration = { nodetype:'class', configuration : { type : 'DollarOffReward'}};
+  nodetype = 'class';
+  configuration = { type : 'PromotionContainer'};
   logdata(value){
-    console.log(value);
+    //console.log(value);
   }
 
 

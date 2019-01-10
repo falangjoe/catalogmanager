@@ -20,8 +20,8 @@
 
   <div *ngSwitchCase="'interface'" >
         <mat-form-field>
-                <mat-select placeholder="{{configuration.type}}">
-                  <mat-option *ngFor="let type of configuration.types" [value]="data.type">
+                <mat-select placeholder="{{configuration.type}}" (selectionChange)="interfaceSelectionChange($event)">
+                  <mat-option *ngFor="let type of configuration.types" [(value)]="type">
                     {{type}}
                   </mat-option>
                 </mat-select>

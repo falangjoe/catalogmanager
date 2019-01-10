@@ -45,6 +45,12 @@ export class CmObjectComponent implements OnInit {
  
   }
 
+  //interface functions
+
+  interfaceSelectionChange(x){
+    console.log("selection changed");
+    console.log(x);
+  }
 
   //object functions
 
