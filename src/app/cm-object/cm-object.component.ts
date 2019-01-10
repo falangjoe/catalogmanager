@@ -1,7 +1,7 @@
 import { Component, Input, Output, OnInit,  EventEmitter } from '@angular/core';
 import { CmInputComponent } from '../cm-input/cm-input.component';
 import { PromotionMetadataService } from '../promotion-metadata.service';
-import { MatSelect } from '@angular/material';
+import { MatSelect, MatFormFieldModule } from '@angular/material';
 
 @Component({
   selector: 'cm-object',
@@ -25,7 +25,8 @@ export class CmObjectComponent implements OnInit {
   name = ''
 
   ngOnInit() {
-    console.log("object type init :" + this.nodetype);
+    
+    this.setInterfaceSelection();
   }
 
 
@@ -47,10 +48,34 @@ export class CmObjectComponent implements OnInit {
 
   //interface functions
 
-  interfaceSelectionChange(x){
-    console.log("selection changed");
-    console.log(x);
+  interfaceSelection;
+
+  setInterfaceSelection(){
+    if(this.data){
+      this.interfaceSelection = this.data.type;
+    }
+    else{
+      this.interfaceSelection = undefined;
+    } 
+  };
+
+  interfaceConfiguration;
+
+  interfaceSelectionChange(event){
+
+    var type = event.value;
+    this.interfaceConfiguration = { type : type};
+
   }
+
+  instanceDataChange(value){
+    if(value){
+      value.type = this.interfaceSelection;
+      this.data = value;
+    }
+  }
+
+
 
   //object functions
 

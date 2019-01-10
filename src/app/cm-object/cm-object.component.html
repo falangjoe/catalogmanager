@@ -20,13 +20,13 @@
 
   <div *ngSwitchCase="'interface'" >
         <mat-form-field>
-                <mat-select placeholder="{{configuration.type}}" (selectionChange)="interfaceSelectionChange($event)">
+                <mat-select placeholder="{{configuration.type}}" (selectionChange)="interfaceSelectionChange($event)" [(value)]="interfaceSelection" >
                   <mat-option *ngFor="let type of configuration.types" [(value)]="type">
                     {{type}}
                   </mat-option>
                 </mat-select>
         </mat-form-field>
-      <!-- <cm-object *ngIf="instance" [configuration]="instace.configuration" [data]="instance.data" (data)="instanceDataChanged(value)"></cm-object> -->
+        <cm-object *ngIf="interfaceSelection" [nodetype]="'class'" [name]="name" [configuration]="interfaceConfiguration" [data]="data"></cm-object>
   </div>
 
   <div *ngSwitchCase="'class'" >

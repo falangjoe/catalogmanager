@@ -9,8 +9,11 @@ import { MatInputModule, MatFormFieldModule } from '@angular/material';
 export class CmInputComponent implements OnInit {
 
   ngOnInit() {
-
+    this.initialData = "";
+    console.log("init called");
   }
+
+  initialData;
 
   dataValue;
 
@@ -23,7 +26,7 @@ export class CmInputComponent implements OnInit {
   @Input()
   configuration = {};
 
-  @Input()
+  @Input() 
   get data(){
     return this.dataValue;
   }
@@ -36,7 +39,10 @@ export class CmInputComponent implements OnInit {
   }
 
   inputChanged(event){
+    console.log(event);
+    console.log(this.initialData);
     this.data = event.target.value;
+ 
   }
 
 }
