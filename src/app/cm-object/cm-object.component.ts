@@ -1,6 +1,7 @@
 import { Component, Input, Output, OnInit,  EventEmitter } from '@angular/core';
 import { CmInputComponent } from '../cm-input/cm-input.component';
 import { PromotionMetadataService } from '../promotion-metadata.service';
+import { MatSelect } from '@angular/material';
 
 @Component({
   selector: 'cm-object',

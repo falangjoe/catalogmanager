@@ -18,12 +18,16 @@
   </div>
 
 
-
-
-  <!-- <div *ngSwitchCase="'interface'" >
-
-      <cm-object *ngIf="instance" [configuration]="instace.configuration" [data]="instance.data" (data)="instanceDataChanged(value)"></cm-object>
-  </div> -->
+  <div *ngSwitchCase="'interface'" >
+        <mat-form-field>
+                <mat-select placeholder="{{configuration.type}}">
+                  <mat-option *ngFor="let type of configuration.types" [value]="data.type">
+                    {{type}}
+                  </mat-option>
+                </mat-select>
+        </mat-form-field>
+      <!-- <cm-object *ngIf="instance" [configuration]="instace.configuration" [data]="instance.data" (data)="instanceDataChanged(value)"></cm-object> -->
+  </div>
 
   <div *ngSwitchCase="'class'" >
       <div *ngFor="let property of properties"> 
