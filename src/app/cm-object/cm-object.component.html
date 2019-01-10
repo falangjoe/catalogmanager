@@ -17,7 +17,7 @@
     <button (click)="removeItem()">Remove Item</button>
   </div>
 
-
+  <!-- *ngIf="interfaceSelection"  -->
   <div *ngSwitchCase="'interface'" >
         <mat-form-field>
                 <mat-select placeholder="{{configuration.type}}" (selectionChange)="interfaceSelectionChange($event)" [(value)]="interfaceSelection" >
@@ -26,7 +26,13 @@
                   </mat-option>
                 </mat-select>
         </mat-form-field>
-        <cm-object *ngIf="interfaceSelection" [nodetype]="'class'" [name]="name" [configuration]="interfaceConfiguration" [data]="data"></cm-object>
+        <cm-object 
+            [data]="data" 
+            (dataChange)="interfaceDataChange($event)"
+            [configuration]="interfaceConfiguration"
+            [name]="name" 
+            [nodetype]="'class'" >
+        </cm-object>
   </div>
 
   <div *ngSwitchCase="'class'" >

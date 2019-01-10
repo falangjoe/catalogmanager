@@ -25,7 +25,7 @@ export class CmObjectComponent implements OnInit {
   name = ''
 
   ngOnInit() {
-    
+
     this.setInterfaceSelection();
   }
 
@@ -41,6 +41,7 @@ export class CmObjectComponent implements OnInit {
   }
 
   set data(val){
+  
     this.dataValue = val;
     this.dataChange.emit(this.dataValue);
  
@@ -68,7 +69,8 @@ export class CmObjectComponent implements OnInit {
 
   }
 
-  instanceDataChange(value){
+  interfaceDataChange(value){
+
     if(value){
       value.type = this.interfaceSelection;
       this.data = value;

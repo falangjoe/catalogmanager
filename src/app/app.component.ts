@@ -22,7 +22,7 @@ export class AppComponent {
   nodetype = 'class';
   configuration = { type : 'PromotionContainer'};
   logdata(value){
-    //console.log(value);
+    console.log(value);
   }
 
 

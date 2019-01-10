@@ -18,7 +18,7 @@ export class PromotionMetadataService {
         { name: "PromotionId", nodetype: "input", configuration: {} },
         { name: "PromotionName", nodetype: "input", configuration: {} },
         { name: "PromotionDescription", nodetype: "input", configuration: {} },
-       /*  { name: "Promotion", nodetype: "interface", configuration: { type: "IPromotion", types: ["StandardPromotion"] } }, */
+        { name: "Promotion", nodetype: "interface", configuration: { type: "IPromotion", types: ["StandardPromotion"] } },
         { name: "Scope", nodetype: "input", configuration: { values: ["Cart", "Item"] } },
         { name: "Category", nodetype: "input", configuration: { values: [null, "Rebate", "Shipping"] } }
       ]
