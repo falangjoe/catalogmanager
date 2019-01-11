@@ -12,12 +12,16 @@ export class CmInputComponent implements OnInit {
 
 
   }
+ 
+  get initialValue(){
+    return this.data || '';
+  };
 
-
-  dataValue;
+  @Input()
+  data
 
   @Output() 
-  dataChange = new EventEmitter(true);
+  dataChange = new EventEmitter();
 
   @Input()
   name;
@@ -25,21 +29,11 @@ export class CmInputComponent implements OnInit {
   @Input()
   configuration = {};
 
-  @Input() 
-  get data(){
-    return this.dataValue;
-  }
-
-  set data(val){
-    
-    this.dataValue = val || '';
-    this.dataChange.emit(this.dataValue);
-
-  }
-
   inputChanged(event){
-    this.data = event.target.value;
- 
+    console.log("input changed");
+    console.log(event);
+    var data = event.target.value;
+    this.dataChange.emit(data); 
   }
 
 }

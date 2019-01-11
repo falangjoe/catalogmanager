@@ -33,7 +33,7 @@ export class CmObjectComponent implements OnInit {
 
   dataValue;
 
-  @Output() dataChange = new EventEmitter(true);
+  @Output() dataChange = new EventEmitter();
 
   @Input()
   get data(){
@@ -48,6 +48,8 @@ export class CmObjectComponent implements OnInit {
   }
 
   //interface functions
+
+
 
   interfaceSelection;
 
@@ -98,6 +100,8 @@ export class CmObjectComponent implements OnInit {
 
   get properties(){
     if(this.nodetype == 'class'){
+      console.log(this.configuration);
+      console.log(this);
       var type = this.promotionMetadataService.getType(this.configuration.type);
       return type.properties;
     }
