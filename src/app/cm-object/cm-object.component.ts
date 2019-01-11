@@ -15,18 +15,18 @@ export class CmObjectComponent implements OnInit {
   }
 
   @Input()
-  configuration = undefined;
+  configuration;
 
 
   @Input()
-  nodetype = '';
+  nodetype;
 
   @Input ()
-  name = ''
+  name
 
   ngOnInit() {
 
-    this.setInterfaceSelection();
+
   }
 
 
@@ -42,6 +42,7 @@ export class CmObjectComponent implements OnInit {
 
   set data(val){
   
+  
     this.dataValue = val;
     this.dataChange.emit(this.dataValue);
  
@@ -49,18 +50,13 @@ export class CmObjectComponent implements OnInit {
 
   //interface functions
 
-
-
-  interfaceSelection;
-
-  setInterfaceSelection(){
+  get interfaceSelection(){
     if(this.data){
-      this.interfaceSelection = this.data.type;
+      return this.data.type;
     }
-    else{
-      this.interfaceSelection = undefined;
-    } 
-  };
+  }
+
+
 
   interfaceConfiguration;
 
@@ -74,7 +70,8 @@ export class CmObjectComponent implements OnInit {
   interfaceDataChange(value){
 
     if(value){
-      value.type = this.interfaceSelection;
+      console.log("interface selection:" + this.interfaceConfiguration.type);
+      value.type = this.interfaceConfiguration.type;
       this.data = value;
     }
   }
@@ -92,18 +89,24 @@ export class CmObjectComponent implements OnInit {
 
   setPropertyData(name,value){
 
-    var dataValue = this.dataValue || {};
-    dataValue[name] = value;
-    this.data = dataValue;
-
+    if(value){
+      var dataValue = this.dataValue || {};
+      dataValue[name] = value;
+      this.data = dataValue;
+    }
+  
   }
 
   get properties(){
     if(this.nodetype == 'class'){
-      console.log(this.configuration);
-      console.log(this);
-      var type = this.promotionMetadataService.getType(this.configuration.type);
-      return type.properties;
+      var result = [];
+      var configuration = this.configuration;
+
+      if(configuration){
+        var type = this.promotionMetadataService.getType(this.configuration.type);
+        result = type.properties;
+      }
+      return result;
     }
   }
 
@@ -138,7 +141,7 @@ export class CmObjectComponent implements OnInit {
   addItem(){
     
     var data = this.data || [];
-    (data).push(undefined);
+    data.push(undefined);
     this.data = data;
   
     this.items.push(

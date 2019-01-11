@@ -25,6 +25,13 @@ export class AppComponent {
     console.log(value);
   }
 
+  // data = undefined;
+  // name = "Promotion";
+  // nodetype="interface";
+  // configuration =  { type: "IPromotion", types: ["StandardPromotion"] };
+
+
+
 
 
 }
