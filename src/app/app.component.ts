@@ -17,7 +17,37 @@ import { CmInputComponent} from './cm-input/cm-input.component'
 export class AppComponent {
 
 
-  data = undefined;
+  data =   {
+    "PromotionId": "ENTERPRISE_06032016nb10",
+    "PromotionName": "06032016nb10",
+    "PromotionDescription": "$10 off order of $125 or more",
+    "Promotion": {
+        "Type": "StandardPromotion",
+        "Rules": [
+            {
+                "Type": "CouponRule",
+                "Coupon": "06032016nb10"
+            },
+            {
+                "Type": "AmountRule",
+                "Amount": 125
+            }
+        ],
+        "Rewards": [
+            {
+                "Type": "DollarOffReward",
+                "DiscountCode": "PRFA",
+                "SubCode": "06032016nb10",
+                "Amount": 10,
+                "Description": "$10 off order of $125 or more"
+            }
+        ]
+    },
+    "Scope": "Cart",
+    "Category": "cart"
+};
+
+  //data = undefined;
   name = undefined;
   nodetype = 'class';
   configuration = { type : 'PromotionContainer'};

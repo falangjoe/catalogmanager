@@ -51,14 +51,31 @@ export class CmObjectComponent implements OnInit {
   //interface functions
 
   get interfaceSelection(){
-    if(this.data){
-      return this.data.type;
+
+    if(this.interfaceConfiguration){
+      return this.interfaceConfiguration.type;
     }
   }
 
+  interfaceConfigurationValue;
 
+  get interfaceConfiguration(){
 
-  interfaceConfiguration;
+    if(!this.interfaceConfigurationValue){
+      
+      if(this.data){
+
+        this.interfaceConfigurationValue = { type : this.data.Type};
+      }
+    }
+
+    return this.interfaceConfigurationValue;
+  }
+
+  set interfaceConfiguration(value){
+
+      this.interfaceConfigurationValue = value;
+  }
 
   interfaceSelectionChange(event){
 
@@ -71,7 +88,7 @@ export class CmObjectComponent implements OnInit {
 
     if(value){
       console.log("interface selection:" + this.interfaceConfiguration.type);
-      value.type = this.interfaceConfiguration.type;
+      value.Type = this.interfaceConfiguration.type;
       this.data = value;
     }
   }
