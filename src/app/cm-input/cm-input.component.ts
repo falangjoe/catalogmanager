@@ -13,26 +13,37 @@ export class CmInputComponent implements OnInit {
 
   }
  
-  get initialValue(){
-    return this.data || '';
-  };
+
+  inputValue : string;
 
   @Input()
-  data
+  set data(value : string){
+
+    console.log("set data called : " + value);
+    this.inputValue = value || '';
+  }
+
+  get data() : string {
+    return this.inputValue;
+  }
+
 
   @Output() 
-  dataChange = new EventEmitter();
+  dataChange : EventEmitter<string> = new EventEmitter<string>();
 
   @Input()
-  name;
+  name : string;
 
   @Input()
-  configuration = {};
+  configuration : any = {};
 
-  inputChanged(event){
-    console.log("input changed");
-    console.log(event);
-    var data = event.target.value;
+  inputChanged(event){ 
+
+    let data : string = event.target.value;
+
+    console.log("input changed : " + data);
+    this.data = data;
+    //this.inputValue = data;
     this.dataChange.emit(data); 
   }
 

@@ -44,7 +44,7 @@ export class CmObjectComponent implements OnInit {
   
   
     this.dataValue = val;
-    this.dataChange.emit(this.dataValue);
+    this.dataChange.emit(this.dataValue); //only need to call when change from inside?
  
   }
 
@@ -98,6 +98,7 @@ export class CmObjectComponent implements OnInit {
   //object functions
 
   getPropertyData(name){
+    console.log("get property data called : " + name);
     if(this.data){
       var result =  this.data[name];
       return result;
@@ -115,6 +116,7 @@ export class CmObjectComponent implements OnInit {
   }
 
   get properties(){
+    console.log("get properties called");
     if(this.nodetype == 'class'){
       var result = [];
       var configuration = this.configuration;
