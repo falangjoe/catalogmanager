@@ -19,7 +19,6 @@ export class CmInputComponent implements OnInit {
   @Input()
   set data(value : string){
 
-    console.log("set data called : " + value);
     this.inputValue = value || '';
   }
 
@@ -40,10 +39,7 @@ export class CmInputComponent implements OnInit {
   inputChanged(event){ 
 
     let data : string = event.target.value;
-
-    console.log("input changed : " + data);
     this.data = data;
-    //this.inputValue = data;
     this.dataChange.emit(data); 
   }
 

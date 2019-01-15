@@ -51,23 +51,23 @@ export class AppComponent {
 //     "Category": "cart"
 // };
 
-  // data = undefined;
-  // name = undefined;
-  // index = 0;
-  // nodetype = 'class';
-  // configuration = { type : 'PromotionContainer'};
-  // logdata(value){
-  //   console.log(value);
-  // };
-  // next(){
-  //   var promotions = this.promotionService.getPromotions();
-  //   this.data = promotions[this.index++];
-  // }
+//   data = undefined;
+//   name = undefined;
+//   index = 0;
+//   nodetype = 'class';
+//   configuration = { type : 'PromotionContainer'};
+//   logdata(value){
+//     console.log(value);
+//   };
+//   next(){
+//     var promotions = this.promotionService.getPromotions();
+//     this.data = promotions[this.index++];
+//   }
 
-  // data : any = {
-  //   Group : "The groups"
-  // };
-  data : any;
+  data : any = {
+    Group : "The groups"
+  };
+  //data : any;
   name = undefined;
   index = 0;
   nodetype = 'class';
@@ -86,10 +86,10 @@ export class AppComponent {
   }
 
 
-  // data = undefined;
-  // name = "Promotion";
-  // nodetype="interface";
-  // configuration =  { type: "IPromotion", types: ["StandardPromotion"] };
+//   data = undefined;
+//   name = "Promotion";
+//   nodetype="interface";
+//   configuration =  { type: "IPromotion", types: ["StandardPromotion"] };
 
 
 

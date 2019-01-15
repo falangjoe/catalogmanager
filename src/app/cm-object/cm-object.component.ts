@@ -14,8 +14,21 @@ export class CmObjectComponent implements OnInit {
 
   }
 
+  configurationValue;
+
   @Input()
-  configuration;
+  set configuration(value){
+
+    this.configurationValue = value;
+
+    if(this.nodetype == 'class'){
+      this.classConfigurationChange();
+    }
+  };
+
+  get configuration(){
+    return this.configurationValue;
+  }
 
 
   @Input()
@@ -95,10 +108,37 @@ export class CmObjectComponent implements OnInit {
 
 
 
-  //object functions
+  //class functions
+
+  propertyList;
+
+  get properties(){
+
+    if(!this.propertyList){
+
+      this.setPropertyList();
+    }
+
+    return this.propertyList;
+  };
+
+  classConfigurationChange(){
+
+    if(this.propertyList){
+
+      this.setPropertyList();
+    }
+  }
+
+  setPropertyList(){
+
+    var type = this.promotionMetadataService.getType(this.configuration.type);  
+    this.propertyList = type.properties;
+  }
+
 
   getPropertyData(name){
-    console.log("get property data called : " + name);
+  
     if(this.data){
       var result =  this.data[name];
       return result;
@@ -111,23 +151,22 @@ export class CmObjectComponent implements OnInit {
       var dataValue = this.dataValue || {};
       dataValue[name] = value;
       this.data = dataValue;
-    }
-  
+    } 
   }
 
-  get properties(){
-    console.log("get properties called");
-    if(this.nodetype == 'class'){
-      var result = [];
-      var configuration = this.configuration;
+  // get properties(){
+  //   console.log("get properties called");
+  //   if(this.nodetype == 'class'){
+  //     var result = [];
+  //     var configuration = this.configuration;
 
-      if(configuration){
-        var type = this.promotionMetadataService.getType(this.configuration.type);
-        result = type.properties;
-      }
-      return result;
-    }
-  }
+  //     if(configuration){
+  //       var type = this.promotionMetadataService.getType(this.configuration.type);
+  //       result = type.properties;
+  //     }
+  //     return result;
+  //   }
+  // }
 
   //list functions
 
