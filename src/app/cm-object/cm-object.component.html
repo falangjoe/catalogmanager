@@ -1,6 +1,6 @@
 <div [ngSwitch]="nodetype">
 
-  <cm-input *ngSwitchCase="'input'" [(data)]="data"  [configuration]="configuration" [name]="name"></cm-input>
+  <cm-input *ngSwitchCase="'input'" [data]="data" (dataChange)="setData($event)" [configuration]="configuration" [name]="name"></cm-input>
 
   <div *ngSwitchCase="'list'">
     <div *ngFor="let item of items; index as i">

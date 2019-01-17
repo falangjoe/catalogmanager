@@ -38,28 +38,32 @@ export class CmObjectComponent implements OnInit {
   name
 
   ngOnInit() {
-
-
   }
 
-
+  //data
 
   dataValue;
 
   @Output() dataChange = new EventEmitter();
 
-  @Input()
+
   get data(){
     return this.dataValue;
   }
 
+  @Input()
   set data(val){
-  
-  
     this.dataValue = val;
-    this.dataChange.emit(this.dataValue); //only need to call when change from inside?
- 
   }
+
+
+  setData(value){
+
+    this.dataValue = value;
+    this.dataChange.emit(this.dataValue); 
+  }
+
+
 
   //interface functions
 
@@ -102,7 +106,7 @@ export class CmObjectComponent implements OnInit {
     if(value){
       console.log("interface selection:" + this.interfaceConfiguration.type);
       value.Type = this.interfaceConfiguration.type;
-      this.data = value;
+      this.setData(value);
     }
   }
 
@@ -148,9 +152,10 @@ export class CmObjectComponent implements OnInit {
   setPropertyData(name,value){
 
     if(value){
-      var dataValue = this.dataValue || {};
-      dataValue[name] = value;
-      this.data = dataValue;
+      var data = this.data || {};
+      data[name] = value;
+      this.setData(data);
+
     } 
   }
 
@@ -190,17 +195,17 @@ export class CmObjectComponent implements OnInit {
 
   setItemData(index,value){
   
-
     var data = this.data || [];
     data[index] = value;
-    this.data = data; 
+    this.setData(data);
+
   }
 
   addItem(){
     
     var data = this.data || [];
     data.push(undefined);
-    this.data = data;
+    this.setData(data);
   
     this.items.push(
       {
@@ -220,7 +225,7 @@ export class CmObjectComponent implements OnInit {
 
     var data = this.data;
     data.pop();
-    this.data = data;
+    this.setData(data);
   }
 
 
