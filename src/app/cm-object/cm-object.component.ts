@@ -129,30 +129,29 @@ export class CmObjectComponent implements OnInit {
 
   //list functions
 
-  itemsValue;
-
   get items(){
-    
-    if(!this.itemsValue){
+    return (this.data || []).map(x => true);
+  }
 
-      this.itemsValue = (this.data || []).map(x => {
-          return  {
-            nodetype:this.configuration.nodetype,
-            configuration: this.configuration.configuration,
-            data: x
-          };
-      });
+
+  getItemData(index){
+
+    if(this.data){
+      return this.data[index];
     }
-
-    return this.itemsValue;
   }
 
   setItemData(index,value){
-  
+
     var data = this.data || [];
     data[index] = value;
     this.setData(data);
+    
+  }
 
+  deleteItem(index){
+    let data = this.data.filter((x,i) => i !== index);
+    this.setData(data);
   }
 
   addItem(){
@@ -160,27 +159,8 @@ export class CmObjectComponent implements OnInit {
     var data = this.data || [];
     data.push(undefined);
     this.setData(data);
-  
-    this.items.push(
-      {
-        nodetype: this.configuration.nodetype,
-        configuration: this.configuration.configuration,
-        data: undefined
-      }
-    );
-
   }
 
-  removeItem(){ 
-
-    var items = this.items;
-    items.pop();
-    this.itemsValue = items;
-
-    var data = this.data;
-    data.pop();
-    this.setData(data);
-  }
 
 
 

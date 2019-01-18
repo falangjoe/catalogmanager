@@ -53,32 +53,32 @@ export class AppComponent {
 //     "Category": "cart"
 // };
 
-  // data = undefined;
-  // name = undefined;
-  // index = 0;
-  // nodetype = 'class';
-  // configuration = { type : 'PromotionContainer'};
-  // logdata(value){
-  //   console.log(value);
-  // };
-  // next(){
-  //   var promotions = this.promotionService.getPromotions();
-  //   this.data = promotions[this.index++];
-  // }
-
-
-  data : any;
+  data = undefined;
   name = undefined;
   index = 0;
-  nodetype = 'list';
-  configuration =  { nodetype: "class", configuration: {type: "QuantityRule"}};
+  nodetype = 'class';
+  configuration = { type : 'PromotionContainer'};
   logdata(value){
     console.log(value);
   };
   next(){
+    var promotions = this.promotionService.getPromotions();
+    this.data = promotions[this.index++];
+  }
 
 
-    this.configuration = { nodetype: "class", configuration: {type: "GroupRule"}};
+  // data : any;
+  // name = undefined;
+  // index = 0;
+  // nodetype = 'list';
+  // configuration =  { nodetype: "class", configuration: {type: "QuantityRule"}};
+  // logdata(value){
+  //   console.log(value);
+  // };
+  // next(){
+
+
+  //   this.configuration = { nodetype: "class", configuration: {type: "GroupRule"}};
     // var data = [
     //   {
     //     Type : "QuantityRule",
@@ -93,7 +93,7 @@ export class AppComponent {
     // ];
 
     // this.data = data[this.index++];
-  }
+  //}
 
 
   // data : any;
@@ -228,7 +228,6 @@ export class AppComponent {
 //   name = "Promotion";
 //   nodetype="interface";
 //   configuration =  { type: "IPromotion", types: ["StandardPromotion"] };
-
 
 
 

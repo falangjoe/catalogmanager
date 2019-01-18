@@ -4,17 +4,15 @@
 
   <div *ngSwitchCase="'list'">
     <div *ngFor="let item of items; index as i">
-        <div>index : {{i}}</div>
-        <div>{{item.nodetype}}</div>
+        <button (click)="deleteItem(i)">Delete Item</button>
         <cm-object 
-            [data]="item.data" 
-            [nodetype]="item.nodetype" 
-            [configuration]="item.configuration" 
+            [data]="getItemData(i)" 
+            [nodetype]="configuration.nodetype" 
+            [configuration]="configuration.configuration" 
             (dataChange)="setItemData(i,$event)">
        </cm-object>
     </div>
     <button (click)="addItem()">Add Item</button>
-    <button (click)="removeItem()">Remove Item</button>
   </div>
 
   <!-- *ngIf="interfaceSelection"  -->
