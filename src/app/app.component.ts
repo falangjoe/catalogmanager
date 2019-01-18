@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, enableProdMode } from '@angular/core';
 import { CmObjectComponent } from './cm-object/cm-object.component';
 import { CmInputComponent} from './cm-input/cm-input.component';
 import {PromotionService} from './promotion.service'; 
+
+enableProdMode();
 
 @Component({
   selector: 'app-root',
@@ -51,39 +53,123 @@ export class AppComponent {
 //     "Category": "cart"
 // };
 
-//   data = undefined;
-//   name = undefined;
-//   index = 0;
-//   nodetype = 'class';
-//   configuration = { type : 'PromotionContainer'};
-//   logdata(value){
-//     console.log(value);
-//   };
-//   next(){
-//     var promotions = this.promotionService.getPromotions();
-//     this.data = promotions[this.index++];
-//   }
+  // data = undefined;
+  // name = undefined;
+  // index = 0;
+  // nodetype = 'class';
+  // configuration = { type : 'PromotionContainer'};
+  // logdata(value){
+  //   console.log(value);
+  // };
+  // next(){
+  //   var promotions = this.promotionService.getPromotions();
+  //   this.data = promotions[this.index++];
+  // }
 
-  data : any = {
-    Group : "The groups"
-  };
-  //data : any;
+
+  data : any;
   name = undefined;
   index = 0;
-  nodetype = 'class';
-  configuration = { type : 'GroupRule'};
+  nodetype = 'interface';
+  configuration =  { type: "IRule", types: ["QuantityRule", "GroupRule", "CouponRule", "AmountRule"] };
   logdata(value){
     console.log(value);
   };
   next(){
-    this.configuration = { type : 'QuantityRule'};
-    this.nodetype = 'class';
-    this.data = {
+
+    var data = [
+      {
+      Type : "GroupRule",
+      Group : "The groups"
+      },
+      {
+        Type : "QuantityRule",
         Quantity : "5",
         ProductId : "0163748"
-    };
-  
+      }
+    ];
+
+    this.data = data[this.index++];
   }
+
+
+  // data : any;
+  // name = undefined;
+  // index = 0;
+  // nodetype = 'class';
+  // configuration =  { type: "QuantityRule" };
+  // logdata(value){
+  //   console.log(value);
+  // };
+  // next(){
+
+  //   var data = [
+  //     {
+  //       Type : "QuantityRule",
+  //       Quantity : "7",
+  //       ProductId : "0dafdsaf748"
+  //     },
+  //     {
+  //       Type : "QuantityRule",
+  //       Quantity : "5",
+  //       ProductId : "0163748"
+  //     }
+  //   ];
+
+  //   this.data = data[this.index++];
+  // }
+
+
+
+  // index = 0;
+  // data : any;
+  // name = undefined;
+  // nodetype = 'input';
+  // configuration =  {  };
+  // logdata(value){
+  //   console.log(value);
+  // };
+  // next(){
+
+  //   var data = [
+  //     "1111","2222"
+  //   ];
+
+  //   this.data = data[this.index++];
+  // }
+
+
+  // data : any;
+  // name = undefined;
+  // index = 0;
+  // nodetype = 'class';
+  // configuration =  { type: "CouponRule" };
+  // logdata(value){
+  //   console.log(value);
+  // };
+  // next(){
+
+  //   var configurations = [ { type: "QuantityRule" },{type : "GroupRule"} ];
+
+  //   var data = [
+  //     {
+  //       Type : "QuantityRule",
+  //       Quantity : "7",
+  //       ProductId : "0dafdsaf748"
+  //     },
+  //     {
+  //       Group : "A groups"
+  //     }
+  //   ];
+
+  //   let i = this.index++;
+
+  //   this.data = data[i];
+
+  //   this.configuration = configurations[i];
+  // }
+  
+
 
 
 //   data = undefined;

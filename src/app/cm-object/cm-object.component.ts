@@ -19,10 +19,11 @@ export class CmObjectComponent implements OnInit {
   @Input()
   set configuration(value){
 
+    console.log("configuration changed :" + value );
     this.configurationValue = value;
 
     if(this.nodetype == 'class'){
-      this.classConfigurationChange();
+      //this.classConfigurationChange();
     }
   };
 
@@ -59,6 +60,7 @@ export class CmObjectComponent implements OnInit {
 
   setData(value){
 
+    console.log("set data called : "+ value);
     this.dataValue = value;
     this.dataChange.emit(this.dataValue); 
   }
@@ -69,9 +71,17 @@ export class CmObjectComponent implements OnInit {
 
   get interfaceSelection(){
 
+    console.log("get interfaceSelection: called");
     if(this.interfaceConfiguration){
       return this.interfaceConfiguration.type;
     }
+  }
+
+  interfaceSelectionChange(event){
+
+    var type = event.value;
+    this.interfaceConfiguration = { type : type};
+
   }
 
   interfaceConfigurationValue;
@@ -94,12 +104,7 @@ export class CmObjectComponent implements OnInit {
       this.interfaceConfigurationValue = value;
   }
 
-  interfaceSelectionChange(event){
 
-    var type = event.value;
-    this.interfaceConfiguration = { type : type};
-
-  }
 
   interfaceDataChange(value){
 
@@ -114,32 +119,23 @@ export class CmObjectComponent implements OnInit {
 
   //class functions
 
-  propertyList;
+  propertiesValue;
+  //propertyList;
 
   get properties(){
 
-    if(!this.propertyList){
+    if(!this.propertiesValue || this.propertiesValue.type !== this.configuration.type){
 
-      this.setPropertyList();
+      var type = this.promotionMetadataService.getType(this.configuration.type);
+
+      this.propertiesValue = {
+        type : this.configuration.type, 
+        properties : type.properties
+      }; 
     }
 
-    return this.propertyList;
+    return this.propertiesValue.properties;
   };
-
-  classConfigurationChange(){
-
-    if(this.propertyList){
-
-      this.setPropertyList();
-    }
-  }
-
-  setPropertyList(){
-
-    var type = this.promotionMetadataService.getType(this.configuration.type);  
-    this.propertyList = type.properties;
-  }
-
 
   getPropertyData(name){
   
@@ -158,20 +154,6 @@ export class CmObjectComponent implements OnInit {
 
     } 
   }
-
-  // get properties(){
-  //   console.log("get properties called");
-  //   if(this.nodetype == 'class'){
-  //     var result = [];
-  //     var configuration = this.configuration;
-
-  //     if(configuration){
-  //       var type = this.promotionMetadataService.getType(this.configuration.type);
-  //       result = type.properties;
-  //     }
-  //     return result;
-  //   }
-  // }
 
   //list functions
 

@@ -10,22 +10,14 @@ export class CmInputComponent implements OnInit {
 
   ngOnInit() {
 
-
   }
- 
 
   inputValue : string;
 
   @Input()
   set data(value : string){
-
     this.inputValue = value || '';
   }
-
-  get data() : string {
-    return this.inputValue;
-  }
-
 
   @Output() 
   dataChange : EventEmitter<string> = new EventEmitter<string>();
@@ -37,9 +29,8 @@ export class CmInputComponent implements OnInit {
   configuration : any = {};
 
   inputChanged(event){ 
-
     let data : string = event.target.value;
-    this.data = data;
+    this.inputValue = data;
     this.dataChange.emit(data); 
   }
 
