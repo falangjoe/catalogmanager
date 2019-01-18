@@ -70,27 +70,79 @@ export class AppComponent {
   data : any;
   name = undefined;
   index = 0;
-  nodetype = 'interface';
-  configuration =  { type: "IRule", types: ["QuantityRule", "GroupRule", "CouponRule", "AmountRule"] };
+  nodetype = 'list';
+  configuration =  { nodetype: "class", configuration: {type: "QuantityRule"}};
   logdata(value){
     console.log(value);
   };
   next(){
 
-    var data = [
-      {
-      Type : "GroupRule",
-      Group : "The groups"
-      },
-      {
-        Type : "QuantityRule",
-        Quantity : "5",
-        ProductId : "0163748"
-      }
-    ];
 
-    this.data = data[this.index++];
+    this.configuration = { nodetype: "class", configuration: {type: "GroupRule"}};
+    // var data = [
+    //   {
+    //     Type : "QuantityRule",
+    //     Quantity : "7",
+    //     ProductId : "0dafdsaf748"
+    //   },
+    //   {
+    //     Type : "QuantityRule",
+    //     Quantity : "5",
+    //     ProductId : "0163748"
+    //   }
+    // ];
+
+    // this.data = data[this.index++];
   }
+
+
+  // data : any;
+  // name = undefined;
+  // index = 0;
+  // nodetype = 'interface';
+  // configuration =  { type: "IRule", types: ["QuantityRule", "GroupRule", "CouponRule", "AmountRule"] };
+  // logdata(value){
+  //   console.log(value);
+  // };
+  // next(){
+
+  //   var data = [
+  //     {
+  //     Type : "GroupRule",
+  //     Group : "The groups"
+  //     },
+  //     {
+  //       Type : "QuantityRule",
+  //       Quantity : "5",
+  //       ProductId : "0163748"
+  //     },
+  //     undefined
+  //   ];
+
+  //   this.data = data[this.index++];
+  // }
+
+
+  // data : any;
+  // name = undefined;
+  // index = 0;
+  // nodetype = 'interface';
+  // configuration : any =  { type: "IRule", types: ["QuantityRule", "GroupRule", "CouponRule", "AmountRule"] };
+  // logdata(value){
+  //   console.log(value);
+  // };
+  // next(){
+
+    
+
+  //   this.nodetype = 'class'
+  //   this.configuration =  { type: "QuantityRule" };
+  //   this.data =  {
+  //           Type : "QuantityRule",
+  //           Quantity : "5",
+  //           ProductId : "0163748"
+  //     };
+  // }
 
 
   // data : any;

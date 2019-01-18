@@ -19,12 +19,7 @@ export class CmObjectComponent implements OnInit {
   @Input()
   set configuration(value){
 
-    console.log("configuration changed :" + value );
     this.configurationValue = value;
-
-    if(this.nodetype == 'class'){
-      //this.classConfigurationChange();
-    }
   };
 
   get configuration(){
@@ -60,7 +55,6 @@ export class CmObjectComponent implements OnInit {
 
   setData(value){
 
-    console.log("set data called : "+ value);
     this.dataValue = value;
     this.dataChange.emit(this.dataValue); 
   }
@@ -71,56 +65,34 @@ export class CmObjectComponent implements OnInit {
 
   get interfaceSelection(){
 
-    console.log("get interfaceSelection: called");
-    if(this.interfaceConfiguration){
-      return this.interfaceConfiguration.type;
+    if(this.data){
+      return this.data.Type;
     }
   }
 
   interfaceSelectionChange(event){
 
-    var type = event.value;
-    this.interfaceConfiguration = { type : type};
-
+    this.setData({ Type : event.value});
   }
 
-  interfaceConfigurationValue;
+  get interfaceInstanceConfiguration(){
 
-  get interfaceConfiguration(){
-
-    if(!this.interfaceConfigurationValue){
-      
-      if(this.data){
-
-        this.interfaceConfigurationValue = { type : this.data.Type};
-      }
+    if(this.data){
+      return {type : this.data.Type};
     }
-
-    return this.interfaceConfigurationValue;
+   
   }
 
-  set interfaceConfiguration(value){
-
-      this.interfaceConfigurationValue = value;
-  }
-
-
-
-  interfaceDataChange(value){
-
+  interfaceInstanceDataChange(value){
     if(value){
-      console.log("interface selection:" + this.interfaceConfiguration.type);
-      value.Type = this.interfaceConfiguration.type;
-      this.setData(value);
+      value.Type = this.data.Type;
     }
+    this.setData(value);
   }
-
-
 
   //class functions
 
   propertiesValue;
-  //propertyList;
 
   get properties(){
 

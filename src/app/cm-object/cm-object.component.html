@@ -28,8 +28,8 @@
         </mat-form-field>
         <cm-object *ngIf="interfaceSelection"
             [data]="data" 
-            (dataChange)="interfaceDataChange($event)"
-            [configuration]="interfaceConfiguration"
+            (dataChange)="interfaceInstanceDataChange($event)"
+            [configuration]="interfaceInstanceConfiguration"
             [name]="name" 
             [nodetype]="'class'" >
         </cm-object>
