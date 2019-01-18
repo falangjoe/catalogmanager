@@ -31,7 +31,7 @@ export class PromotionMetadataService {
     },
     "QuantityRule": {
       properties: [
-        { name: "ProductId", nodetype: "input", configuration: { values: ["003598", "003598"] } },
+        { name: "Product", nodetype: "input", configuration: { values: ["003598", "003598"] } },
         { name: "Quantity", nodetype: "input", configuration: {} }
       ]
     },
