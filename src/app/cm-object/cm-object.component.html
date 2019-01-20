@@ -13,7 +13,7 @@
             [configuration]="configuration.configuration" 
             (dataChange)="setItemData(i,$event)">
        </cm-object>
-       <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
+       <!-- <mat-divider *ngIf="!last"></mat-divider> -->
     </div>
     <button class="additembutton" mat-icon-button (click)="addItem()">
         <mat-icon>add</mat-icon>
