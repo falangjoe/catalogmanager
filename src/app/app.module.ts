@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { CmTextBoxComponent } from './cm-text-box/cm-text-box.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatInputModule, MatFormFieldModule, MatSelectModule} from '@angular/material';
+import { MatInputModule, MatFormFieldModule, MatSelectModule, MatCardModule, MatIconModule,MatButtonModule, MatDividerModule} from '@angular/material';
 import { CmObjectComponent } from './cm-object/cm-object.component';
 import { CmInputComponent } from './cm-input/cm-input.component';
 
@@ -25,6 +25,10 @@ import { CmInputComponent } from './cm-input/cm-input.component';
 
     BrowserAnimationsModule,
 
+    MatDividerModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
     MatInputModule,
     MatFormFieldModule,
     MatSelectModule,

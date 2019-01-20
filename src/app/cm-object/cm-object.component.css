@@ -1,0 +1,23 @@
+mat-card {
+    text-align: left;
+    margin-bottom : 0.5em;
+
+    margin-top: 0.5em;
+}
+
+mat-header {
+    margin-left: 0em;
+}
+
+.deleteitembutton{
+    margin-top: 0em;
+    float: right;
+    z-index: 100;
+}
+
+mat-divider {
+    margin-top: 0.5em;
+}
+
+
+

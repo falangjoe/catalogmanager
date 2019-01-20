@@ -2,23 +2,28 @@
 
   <cm-input *ngSwitchCase="'input'" [data]="data" (dataChange)="setData($event)" [configuration]="configuration" [name]="name"></cm-input>
 
-  <div *ngSwitchCase="'list'">
-    <div *ngFor="let item of items; index as i">
-        <button (click)="deleteItem(i)">Delete Item</button>
+  <mat-card *ngSwitchCase="'list'">
+    <div *ngFor="let item of items; index as i; last as last">
+        <button class="deleteitembutton" mat-icon-button (click)="deleteItem(i)">
+            <mat-icon>clear</mat-icon>
+        </button>
         <cm-object 
             [data]="getItemData(i)" 
             [nodetype]="configuration.nodetype" 
             [configuration]="configuration.configuration" 
             (dataChange)="setItemData(i,$event)">
        </cm-object>
+       <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
     </div>
-    <button (click)="addItem()">Add Item</button>
-  </div>
+    <button class="additembutton" mat-icon-button (click)="addItem()">
+        <mat-icon>add</mat-icon>
+    </button>
+  </mat-card>
 
   <!-- *ngIf="interfaceSelection"  -->
-  <div *ngSwitchCase="'interface'" >
+  <mat-card *ngSwitchCase="'interface'" >
         <mat-form-field>
-                <mat-select placeholder="{{configuration.type}}" (selectionChange)="interfaceSelectionChange($event)" [value]="interfaceSelection" >
+                <mat-select (selectionChange)="interfaceSelectionChange($event)" [value]="interfaceSelection" >
                   <mat-option *ngFor="let type of configuration.types" [(value)]="type">
                     {{type}}
                   </mat-option>
@@ -31,10 +36,11 @@
             [name]="name" 
             [nodetype]="'class'" >
         </cm-object>
-  </div>
+  </mat-card>
 
-  <div *ngSwitchCase="'class'" >
+  <mat-card *ngSwitchCase="'class'">
       <div *ngFor="let property of properties"> 
+          <label *ngIf="property.nodetype !== 'input'">{{property.name}}</label>
           <cm-object 
             [data]="getPropertyData(property.name)" 
             (dataChange)="setPropertyData(property.name,$event)" 
@@ -43,6 +49,6 @@
             [nodetype]="property.nodetype">
           </cm-object>
       </div>
-  </div>
+    </mat-card>
 
 </div>
