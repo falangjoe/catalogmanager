@@ -18,15 +18,22 @@ export class PromotionMetadataService {
         { name: "PromotionId", nodetype: "input", configuration: {} },
         { name: "PromotionName", nodetype: "input", configuration: {} },
         { name: "PromotionDescription", nodetype: "input", configuration: {} },
-        { name: "Promotion", nodetype: "interface", configuration: { type: "IPromotion", types: ["StandardPromotion"] } },
         { name: "Scope", nodetype: "input", configuration: { values: ["Cart", "Item"] } },
-        { name: "Category", nodetype: "input", configuration: { values: [null, "Rebate", "Shipping"] } }
+        { name: "Category", nodetype: "input", configuration: { values: [null, "Rebate", "Shipping"] } },
+        { name: "Promotion", nodetype: "interface", configuration: { type: "IPromotion", types: ["StandardPromotion"] } },
+      
       ]
     },
     "StandardPromotion": {
       properties: [
-        { name: "Rules", nodetype: "list", configuration: { nodetype: "interface", configuration: { type: "IRule", types: ["QuantityRule", "GroupRule", "CouponRule", "AmountRule"] } } },
+        { name: "Rules", nodetype: "list", configuration: { nodetype: "interface", configuration: { type: "IRule", types: ["QuantityRule", "GroupRule", "CouponRule", "AmountRule", "ProductRule"] } } },
         { name: "Rewards", nodetype: "list", configuration: { nodetype: "interface", configuration: { type: "IReward", types: ["DollarOffReward", "PercentOffReward", "PriceChangeReward", "RebateReward"] } } },
+      ]
+    },
+    "ProductRule": {
+      properties: [
+        { name: "Products", nodetype: "list", configuration: { nodetype: "input", configuration : {} } },
+        { name: "Quantity", nodetype: "input", configuration: {} }
       ]
     },
     "QuantityRule": {

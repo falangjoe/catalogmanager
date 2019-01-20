@@ -1,16 +1,7 @@
-mat-card {
-    text-align: left;
-    margin-bottom : 0.5em;
-
-    margin-top: 0.5em;
-}
-
-mat-header {
-    margin-left: 0em;
-}
 
 .deleteitembutton{
     margin-top: 0em;
+    margin-right: 1em;
     float: right;
     z-index: 100;
 }
@@ -18,6 +9,42 @@ mat-header {
 mat-divider {
     margin-top: 0.5em;
 }
+
+.list {
+    padding: 1em 1em 1em 1em;
+    margin: 1em 1em 1em 1em;
+}
+
+.interface {
+    padding: 1em 1em 1em 1em;
+    margin: 1em 1em 1em 1em;
+
+}
+
+.classlist {
+
+    text-align: left;
+    padding: 0;
+
+}
+
+.class {
+    margin: 1em 1em 1em 1em;
+    padding: 1em 1em 1em 1em;
+    text-align: left;
+    
+}
+
+.class > * {
+    width: 100%;
+}
+
+
+
+
+
+
+
 
 
 

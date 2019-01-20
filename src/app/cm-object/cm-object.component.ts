@@ -17,6 +17,9 @@ export class CmObjectComponent implements OnInit {
   configurationValue;
 
   @Input()
+  parentnodetype;
+
+  @Input()
   set configuration(value){
 
     this.configurationValue = value;
@@ -146,7 +149,7 @@ export class CmObjectComponent implements OnInit {
     var data = this.data || [];
     data[index] = value;
     this.setData(data);
-    
+
   }
 
   deleteItem(index){

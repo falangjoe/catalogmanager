@@ -2,7 +2,7 @@
 
   <cm-input *ngSwitchCase="'input'" [data]="data" (dataChange)="setData($event)" [configuration]="configuration" [name]="name"></cm-input>
 
-  <mat-card *ngSwitchCase="'list'">
+  <div class="list "*ngSwitchCase="'list'" [class.mat-elevation-z2]="true">
     <div *ngFor="let item of items; index as i; last as last">
         <button class="deleteitembutton" mat-icon-button (click)="deleteItem(i)">
             <mat-icon>clear</mat-icon>
@@ -18,10 +18,10 @@
     <button class="additembutton" mat-icon-button (click)="addItem()">
         <mat-icon>add</mat-icon>
     </button>
-  </mat-card>
+</div>
 
   <!-- *ngIf="interfaceSelection"  -->
-  <mat-card *ngSwitchCase="'interface'" >
+  <div class="interface" *ngSwitchCase="'interface'" [class.mat-elevation-z2]="true">
         <mat-form-field>
                 <mat-select (selectionChange)="interfaceSelectionChange($event)" [value]="interfaceSelection" >
                   <mat-option *ngFor="let type of configuration.types" [(value)]="type">
@@ -34,13 +34,14 @@
             (dataChange)="interfaceInstanceDataChange($event)"
             [configuration]="interfaceInstanceConfiguration"
             [name]="name" 
-            [nodetype]="'class'" >
+            [nodetype]="'class'"
+            [parentnodetype]="nodetype" >
         </cm-object>
-  </mat-card>
+    </div>
 
-  <mat-card *ngSwitchCase="'class'">
+  <div *ngSwitchCase="'class'" [class.mat-elevation-z2]="parentnodetype !== 'interface'"  [ngClass]="'class' + (parentnodetype || '')"  [class.mat-elevation-z2]="parentnodetype !== 'interface'">
       <div *ngFor="let property of properties"> 
-          <label *ngIf="property.nodetype !== 'input'">{{property.name}}</label>
+          <label *ngIf="property.nodetype !== 'input'" class="mat-h2">{{property.name}}</label>
           <cm-object 
             [data]="getPropertyData(property.name)" 
             (dataChange)="setPropertyData(property.name,$event)" 
@@ -49,6 +50,6 @@
             [nodetype]="property.nodetype">
           </cm-object>
       </div>
-    </mat-card>
+   </div>
 
 </div>
