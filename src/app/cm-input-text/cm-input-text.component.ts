@@ -1,11 +1,11 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'cm-input',
-  templateUrl: './cm-input.component.html',
-  styleUrls: ['./cm-input.component.css']
+  selector: 'cm-input-text',
+  templateUrl: './cm-input-text.component.html',
+  styleUrls: ['./cm-input-text.component.css']
 })
-export class CmInputComponent implements OnInit {
+export class CmInputTextComponent implements OnInit {
 
   ngOnInit() {
 
@@ -15,7 +15,7 @@ export class CmInputComponent implements OnInit {
 
   @Input()
   set data(value : string){
-    this.inputValue = value;
+    this.inputValue = value || '';
   }
 
   @Output() 
@@ -27,9 +27,10 @@ export class CmInputComponent implements OnInit {
   @Input()
   configuration : any = {};
 
-  dataChanged(value){ 
-    this.inputValue = value;
-    this.dataChange.emit(value); 
+  inputChanged(event){ 
+    let data : string = event.target.value;
+    this.inputValue = data;
+    this.dataChange.emit(data); 
   }
 
 }

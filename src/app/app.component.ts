@@ -1,16 +1,16 @@
 import { Component, enableProdMode } from '@angular/core';
-import { CmObjectComponent } from './cm-object/cm-object.component';
-import { CmInputComponent} from './cm-input/cm-input.component';
 import {PromotionService} from './promotion.service'; 
 
 enableProdMode();
 
+//    <cm-input  [configuration]="configuration" [data]="data" [name]="name" (dataChange)="logdata($event)"></cm-input>
+// <cm-object [(data)]="data" [name]="name" [nodetype]="nodetype" [configuration]="configuration" (dataChange)="logdata($event)"></cm-object>
 @Component({
   selector: 'app-root',
   template: `
     <!--The content below is only a placeholder and can be replaced.-->
     <div style="text-align:center">
-        <cm-object [(data)]="data" [name]="name" [nodetype]="nodetype" [configuration]="configuration" (dataChange)="logdata($event)"></cm-object>
+    <cm-object [(data)]="data" [name]="name" [nodetype]="nodetype" [configuration]="configuration" (dataChange)="logdata($event)"></cm-object>
     </div>
     <button (click)="next()">Next</button>
     <router-outlet></router-outlet>
@@ -22,6 +22,13 @@ export class AppComponent {
   constructor(private promotionService: PromotionService) { 
 
   }
+
+  // configuration = {selector : 'product', validate: true, type: "auto"};
+  // name="";
+  // data="what";
+  // logdata(value){
+  //   console.log(value);
+  // };
 
 //   data =   {
 //     "PromotionId": "ENTERPRISE_06032016nb10",

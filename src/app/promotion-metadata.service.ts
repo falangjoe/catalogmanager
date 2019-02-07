@@ -32,13 +32,13 @@ export class PromotionMetadataService {
     },
     "ProductRule": {
       properties: [
-        { name: "Products", nodetype: "list", configuration: { nodetype: "input", configuration : {} } },
+        { name: "Products", nodetype: "list", configuration: { nodetype: "input", configuration : {selector : 'product', validate: true, type: "auto"} } },
         { name: "Quantity", nodetype: "input", configuration: {} }
       ]
     },
     "QuantityRule": {
       properties: [
-        { name: "Product", nodetype: "input", configuration: { values: ["003598", "003598"] } },
+        { name: "Product", nodetype: "input", configuration: {selector : 'product', validate: true, type: "auto"} },
         { name: "Quantity", nodetype: "input", configuration: {} }
       ]
     },
