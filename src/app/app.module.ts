@@ -13,6 +13,7 @@ import { CmInputComponent } from './cm-input/cm-input.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { CmInputAutoComponent } from './cm-input-auto/cm-input-auto.component';
 import { CmInputTextComponent } from './cm-input-text/cm-input-text.component';
+import { CmInputSelectComponent } from './cm-input-select/cm-input-select.component';
 
 
 
@@ -23,7 +24,8 @@ import { CmInputTextComponent } from './cm-input-text/cm-input-text.component';
     CmObjectComponent,
     CmInputComponent,
     CmInputAutoComponent,
-    CmInputTextComponent
+    CmInputTextComponent,
+    CmInputSelectComponent
   ],
   imports: [
     BrowserModule,

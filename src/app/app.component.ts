@@ -23,6 +23,14 @@ export class AppComponent {
 
   }
 
+
+  //   configuration = {values : ["Cart","Item"], validate: true, type: "select"};
+  // name="Scope";
+  // data=null;
+  // logdata(value){
+  //   console.log(value);
+  // };
+
   // configuration = {selector : 'product', validate: true, type: "auto"};
   // name="";
   // data="what";

@@ -2,6 +2,10 @@
 
     <cm-input-auto *ngSwitchCase="'auto'" [configuration]="configuration" [name]="name" [data]="inputValue" (dataChange)="dataChanged($event)"></cm-input-auto>
         
+
+    <cm-input-select *ngSwitchCase="'select'" [configuration]="configuration" [name]="name" [data]="inputValue" (dataChange)="dataChanged($event)"></cm-input-select>
+        
+
     <cm-input-text *ngSwitchDefault [configuration]="configuration" [name]="name" [data]="inputValue" (dataChange)="dataChanged($event)"></cm-input-text>
         
 </div>

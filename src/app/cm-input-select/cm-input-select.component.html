@@ -1,0 +1,7 @@
+<mat-form-field>
+    <mat-select placeholder="{{name}}" [formControl]="control">
+      <mat-option *ngFor="let value of configuration.values" [value]="value">
+        {{value}}
+      </mat-option>
+    </mat-select>
+</mat-form-field>

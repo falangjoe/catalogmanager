@@ -18,8 +18,8 @@ export class PromotionMetadataService {
         { name: "PromotionId", nodetype: "input", configuration: {} },
         { name: "PromotionName", nodetype: "input", configuration: {} },
         { name: "PromotionDescription", nodetype: "input", configuration: {} },
-        { name: "Scope", nodetype: "input", configuration: { values: ["Cart", "Item"] } },
-        { name: "Category", nodetype: "input", configuration: { values: [null, "Rebate", "Shipping"] } },
+        { name: "Scope", nodetype: "input", configuration: { type:"select" , values: ["Cart", "Item"] } },
+        { name: "Category", nodetype: "input", configuration : {type: "auto", selector : 'category', validate: false} },
         { name: "Promotion", nodetype: "interface", configuration: { type: "IPromotion", types: ["StandardPromotion"] } },
       
       ]
@@ -32,13 +32,13 @@ export class PromotionMetadataService {
     },
     "ProductRule": {
       properties: [
-        { name: "Products", nodetype: "list", configuration: { nodetype: "input", configuration : {selector : 'product', validate: true, type: "auto"} } },
+        { name: "Products", nodetype: "list", configuration: { nodetype: "input", configuration : { type: "auto", selector : 'product', validate: true} } },
         { name: "Quantity", nodetype: "input", configuration: {} }
       ]
     },
     "QuantityRule": {
       properties: [
-        { name: "Product", nodetype: "input", configuration: {selector : 'product', validate: true, type: "auto"} },
+        { name: "Product", nodetype: "input", configuration: {type: "auto", selector : 'product', validate: true} },
         { name: "Quantity", nodetype: "input", configuration: {} }
       ]
     },
