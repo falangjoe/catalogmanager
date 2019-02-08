@@ -6,7 +6,7 @@
     <cm-input-select *ngSwitchCase="'select'" [configuration]="configuration" [name]="name" [data]="inputValue" (dataChange)="dataChanged($event)"></cm-input-select>
         
 
-    <cm-input-text *ngSwitchDefault [configuration]="configuration" [name]="name" [data]="inputValue" (dataChange)="dataChanged($event)"></cm-input-text>
+    <cm-input-standard *ngSwitchDefault [configuration]="configuration" [name]="name" [data]="inputValue" (dataChange)="dataChanged($event)"></cm-input-standard>
         
 </div>
 

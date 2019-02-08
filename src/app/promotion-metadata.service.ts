@@ -33,13 +33,13 @@ export class PromotionMetadataService {
     "ProductRule": {
       properties: [
         { name: "Products", nodetype: "list", configuration: { nodetype: "input", configuration : { type: "auto", selector : 'product', validate: true} } },
-        { name: "Quantity", nodetype: "input", configuration: {} }
+        { name: "Quantity", nodetype: "input", configuration: {type: "number"} }
       ]
     },
     "QuantityRule": {
       properties: [
         { name: "Product", nodetype: "input", configuration: {type: "auto", selector : 'product', validate: true} },
-        { name: "Quantity", nodetype: "input", configuration: {} }
+        { name: "Quantity", nodetype: "input", configuration: {type: "number"} }
       ]
     },
     "GroupRule": {
@@ -61,7 +61,7 @@ export class PromotionMetadataService {
       properties: [
         { name: "DiscountCode", nodetype: "input", configuration: {} },
         { name: "SubCode", nodetype: "input", configuration: {} },
-        { name: "Amount", nodetype: "input", configuration: {} },
+        { name: "Amount", nodetype: "input", configuration: {type: "number"} },
         { name: "Description", nodetype: "input", configuration: {} },
       ]
     },
@@ -69,21 +69,20 @@ export class PromotionMetadataService {
       properties: [
         { name: "DiscountCode", nodetype: "input", configuration: {} },
         { name: "SubCode", nodetype: "input", configuration: {} },
-        { name: "PercentOff", nodetype: "input", configuration: {} },
+        { name: "PercentOff", nodetype: "input", configuration: {type: "number"} },
         { name: "Description", nodetype: "input", configuration: {} },
       ]
     },
     "PriceChangeReward": {
       properties: [
-        { name: "Price", nodetype: "input", configuration: {} },
+        { name: "Price", nodetype: "input", configuration: {type: "number"} },
         { name: "Description", nodetype: "input", configuration: {} },
       ]
     },
     "RebateReward": {
       properties: [
-        { name: "RebateReward", nodetype: "input", configuration: {} },
         { name: "RebateCode", nodetype: "input", configuration: {} },
-        { name: "Amount", nodetype: "input", configuration: {} },
+        { name: "Amount", nodetype: "input", configuration: {type: "number"} },
         { name: "Description", nodetype: "input", configuration: {} },
       ]
     }
