@@ -33,7 +33,7 @@ export class CmInputSelectComponent implements OnInit {
   set data(value : string){
 
     if(this.control.value !== value){
-      this.control.setValue(value);
+      this.control.setValue(value, {emitEvent : false});
     }
     
   }

@@ -43,7 +43,7 @@ export class CmInputAutoComponent implements OnInit {
   set data(value : string){
 
     if(this.validatorControl.value !== value){
-      this.validatorControl.setValue(value);
+      this.validatorControl.setValue(value, {emitEvent : false});
     }
     
   }
