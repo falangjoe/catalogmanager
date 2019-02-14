@@ -18,15 +18,14 @@ import {
   MatAutocompleteModule, 
   MatCheckboxModule } from '@angular/material';
 
-import { CmObjectComponent } from './cm-object/cm-object.component';
-import { CmInputComponent } from './cm-input/cm-input.component';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
-import { CmInputAutoComponent } from './cm-input-auto/cm-input-auto.component';
-import { CmInputSelectComponent } from './cm-input-select/cm-input-select.component';
-import { CmInputStandardComponent } from './cm-input-standard/cm-input-standard.component';
-import { CmInputCheckboxComponent } from './cm-input-checkbox/cm-input-checkbox.component';
+  import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-
+import { CmObjectComponent } from './objects/cm-object/cm-object.component';
+import { CmInputComponent } from './objects/cm-input/cm-input.component';
+import { CmInputAutoComponent } from './objects/cm-input-auto/cm-input-auto.component';
+import { CmInputSelectComponent } from './objects/cm-input-select/cm-input-select.component';
+import { CmInputStandardComponent } from './objects/cm-input-standard/cm-input-standard.component';
+import { CmInputCheckboxComponent } from './objects/cm-input-checkbox/cm-input-checkbox.component';
 
 @NgModule({
   declarations: [

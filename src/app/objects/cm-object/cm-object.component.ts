@@ -1,7 +1,5 @@
 import { Component, Input, Output, OnInit,  EventEmitter } from '@angular/core';
-import { CmInputComponent } from '../cm-input/cm-input.component';
-import { PromotionMetadataService } from '../promotion-metadata.service';
-import { MatSelect, MatFormFieldModule } from '@angular/material';
+import { PromotionMetadataService } from '../../promotion-metadata.service';
 
 @Component({
   selector: 'cm-object',
