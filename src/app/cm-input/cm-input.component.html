@@ -2,9 +2,9 @@
 
     <cm-input-auto *ngSwitchCase="'auto'" [configuration]="configuration" [name]="name" [data]="inputValue" (dataChange)="dataChanged($event)"></cm-input-auto>
         
-
     <cm-input-select *ngSwitchCase="'select'" [configuration]="configuration" [name]="name" [data]="inputValue" (dataChange)="dataChanged($event)"></cm-input-select>
         
+    <cm-input-checkbox *ngSwitchCase="'checkbox'" [configuration]="configuration" [name]="name" [data]="inputValue" (dataChange)="dataChanged($event)"></cm-input-checkbox>
 
     <cm-input-standard *ngSwitchDefault [configuration]="configuration" [name]="name" [data]="inputValue" (dataChange)="dataChanged($event)"></cm-input-standard>
         

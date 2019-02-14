@@ -23,6 +23,15 @@ export class AppComponent {
 
   }
 
+  // data = true;
+  // name = 'IsActive';
+  // nodetype = 'input';
+  // configuration = { };
+  // logdata(value){
+  //   console.log(value);
+  // };
+
+
 
   //   configuration = {values : ["Cart","Item"], validate: true, type: "select"};
   // name="Scope";

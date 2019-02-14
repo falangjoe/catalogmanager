@@ -18,6 +18,7 @@ export class PromotionMetadataService {
         { name: "PromotionId", nodetype: "input", configuration: {} },
         { name: "PromotionName", nodetype: "input", configuration: {} },
         { name: "PromotionDescription", nodetype: "input", configuration: {} },
+        { name: "Active", nodetype: "input", configuration: {type:"checkbox"} },
         { name: "Scope", nodetype: "input", configuration: { type:"select" , values: ["Cart", "Item"] } },
         { name: "Category", nodetype: "input", configuration : {type: "auto", selector : 'category', validate: false} },
         { name: "Promotion", nodetype: "interface", configuration: { type: "IPromotion", types: ["StandardPromotion"] } },
