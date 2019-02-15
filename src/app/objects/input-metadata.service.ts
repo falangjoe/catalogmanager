@@ -4,7 +4,7 @@ import { Observable, from, of } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class InputmetadataService {
+export class InputMetadataService {
 
   constructor() { }
 

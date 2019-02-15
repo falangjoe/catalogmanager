@@ -52,4 +52,12 @@
       </div>
    </div>
 
+   <cm-object *ngSwitchCase="'dictionary'"
+        [data]="getDictionaryData()" 
+        (dataChange)="setDictionaryData($event)"
+        [configuration]="getDictionaryConfiguration()"
+        [name]="name" 
+        [nodetype]="'list'">
+   </cm-object>
+
 </div>

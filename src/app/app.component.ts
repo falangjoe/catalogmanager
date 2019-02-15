@@ -23,6 +23,18 @@ export class AppComponent {
 
   }
 
+  data = {a: undefined, b: undefined};
+  name = undefined;
+  nodetype='class';
+  configuration = { type : 'Interval' }
+  //nodetype = 'dictionary';
+  //configuration = { nodetype:'input', configuration : {}};
+  //configuration = { nodetype:'class', configuration : {type : 'DollarOffReward'}};
+  logdata(value){
+    console.log(value);
+  };
+
+
   // data = true;
   // name = 'IsActive';
   // nodetype = 'input';
@@ -77,18 +89,18 @@ export class AppComponent {
 //     "Category": "cart"
 // };
 
-  data = undefined;
-  name = undefined;
-  index = 0;
-  nodetype = 'class';
-  configuration = { type : 'PromotionContainer'};
-  logdata(value){
-    console.log(value);
-  };
-  next(){
-    var promotions = this.promotionService.getPromotions();
-    this.data = promotions[this.index++];
-  }
+  // data = undefined;
+  // name = undefined;
+  // index = 0;
+  // nodetype = 'class';
+  // configuration = { type : 'PromotionContainer'};
+  // logdata(value){
+  //   console.log(value);
+  // };
+  // next(){
+  //   var promotions = this.promotionService.getPromotions();
+  //   this.data = promotions[this.index++];
+  // }
 
 
   // data : any;

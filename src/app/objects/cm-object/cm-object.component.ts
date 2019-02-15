@@ -1,5 +1,6 @@
 import { Component, Input, Output, OnInit,  EventEmitter } from '@angular/core';
-import { PromotionMetadataService } from '../../promotion-metadata.service';
+import { ObjectMetadataService } from '../object-metadata.service';
+import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
 
 @Component({
   selector: 'cm-object',
@@ -8,7 +9,7 @@ import { PromotionMetadataService } from '../../promotion-metadata.service';
 })
 export class CmObjectComponent implements OnInit {
 
-  constructor(private promotionMetadataService: PromotionMetadataService) { 
+  constructor(private objectMetadataService: ObjectMetadataService) { 
 
   }
 
@@ -91,6 +92,59 @@ export class CmObjectComponent implements OnInit {
     this.setData(value);
   }
 
+  //dictionary
+
+  dictionaryValue;
+
+  setDictionaryData(value){
+
+    var result = {};
+
+    this.dictionaryValue = value;
+
+    value.forEach(x => {
+      if(x && x.Key){
+          result[x.Key] = x.Value;
+      }
+    });
+
+    this.setData(result);
+  }
+
+  getDictionaryData(){
+    
+    if(!this.dictionaryValue){
+
+      if(this.data){
+        
+        var keys = Object.keys(this.data);
+
+        this.dictionaryValue = keys.map(x => {
+          return {Key : x, Value : this.data[x]};
+        });
+
+      }
+      else {
+        this.dictionaryValue = [];
+      }
+ 
+    }
+
+    return this.dictionaryValue;
+
+  }
+
+  getDictionaryConfiguration(){
+
+    let result = { 
+      nodetype: 'class', 
+      configuration: { 
+        type: 'KeyValue', 
+        configuration : this.configuration } };
+
+    return result;
+  }
+
   //class functions
 
   propertiesValue;
@@ -99,7 +153,21 @@ export class CmObjectComponent implements OnInit {
 
     if(!this.propertiesValue || this.propertiesValue.type !== this.configuration.type){
 
-      var type = this.promotionMetadataService.getType(this.configuration.type);
+      var type;
+
+      if(this.configuration.type === "KeyValue"){
+
+        let valueconfiguration = this.configuration.configuration;
+        type = {        
+          properties: [
+            { name: "Key", nodetype: "input", configuration: {} },
+            { name: "Value", nodetype: valueconfiguration.nodetype, configuration: valueconfiguration.configuration },
+          ]
+        };
+      }
+      else{
+        type = this.objectMetadataService.getType(this.configuration.type);
+      }
 
       this.propertiesValue = {
         type : this.configuration.type, 
@@ -120,12 +188,9 @@ export class CmObjectComponent implements OnInit {
 
   setPropertyData(name,value){
 
-    if(value){
-      var data = this.data || {};
-      data[name] = value;
-      this.setData(data);
-
-    } 
+    var data = this.data || {};
+    data[name] = value;
+    this.setData(data);
   }
 
   //list functions

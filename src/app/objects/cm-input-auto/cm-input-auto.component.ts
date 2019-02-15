@@ -1,6 +1,6 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import {FormControl, Validators, ValidatorFn, AbstractControl} from '@angular/forms';
-import {InputmetadataService } from '../../input-metadata.service';
+import {InputMetadataService } from '../input-metadata.service';
 import { map, startWith } from 'rxjs/operators';
 import {Observable} from 'rxjs';
 
@@ -12,7 +12,7 @@ import {Observable} from 'rxjs';
 })
 export class CmInputAutoComponent implements OnInit {
 
-  constructor(private inputMetadataService: InputmetadataService) { 
+  constructor(private inputMetadataService: InputMetadataService) { 
 
   }
   

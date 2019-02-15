@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class PromotionMetadataService {
+export class ObjectMetadataService {
 
   constructor() { }
 
@@ -13,12 +13,39 @@ export class PromotionMetadataService {
   };
  
   types = {
+    "Interval" : {
+      properties: [
+        { name: "StartDate", nodetype: "input", configuration: {type: "datetime-local"} },
+        { name: "EndDate", nodetype: "input", configuration: {type: "datetime-local"} },
+        { name: "IsActive", nodetype: "input", configuration: {type: "checkbox"} },
+        { name: "Association", nodetype: "interface", configuration: { type: "IAssociation", types: ["Product","Promotion","Campaign"] } }, 
+      ]
+    },
+    "Promotionn": {
+      properties: [
+        { name: "Assests", nodetype: "dictionary", configuration: { nodetype: "input", configuration: {} } }, 
+      ]
+    },
+    "Product": {
+      properties: [
+        { name: "Price", nodetype: "input", configuration: {type: "number"} },
+        { name: "Assests", nodetype: "dictionary", configuration: { nodetype: "input", configuration: {} } }, 
+      ]
+    },
+    "Campaign": {
+      properties: [
+        { name: "Name", nodetype: "input", configuration: {} },
+        { name: "Rank ", nodetype: "input", configuration: {type:"number"} },
+        { name: "Groups", nodetype: "list", configuration: { nodetype: "input", configuration : {} } },
+        { name: "Assests", nodetype: "dictionary", configuration: { nodetype: "input", configuration: {} } }, 
+    
+      ]
+    },
     "PromotionContainer": {
       properties: [
         { name: "PromotionId", nodetype: "input", configuration: {} },
         { name: "PromotionName", nodetype: "input", configuration: {} },
         { name: "PromotionDescription", nodetype: "input", configuration: {} },
-        { name: "Active", nodetype: "input", configuration: {type:"checkbox"} },
         { name: "Scope", nodetype: "input", configuration: { type:"select" , values: ["Cart", "Item"] } },
         { name: "Category", nodetype: "input", configuration : {type: "auto", selector : 'category', validate: false} },
         { name: "Promotion", nodetype: "interface", configuration: { type: "IPromotion", types: ["StandardPromotion"] } },
