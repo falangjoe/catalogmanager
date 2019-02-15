@@ -23,16 +23,27 @@ export class AppComponent {
 
   }
 
-  data = {a: undefined, b: undefined};
+  data;
   name = undefined;
   nodetype='class';
   configuration = { type : 'Interval' }
-  //nodetype = 'dictionary';
-  //configuration = { nodetype:'input', configuration : {}};
-  //configuration = { nodetype:'class', configuration : {type : 'DollarOffReward'}};
   logdata(value){
     console.log(value);
   };
+
+  // data;
+  // name = undefined;
+  // nodetype = 'dictionary';
+  // configuration = { nodetype:'input', configuration : {}};
+  // i = 0;
+  // next(){
+
+  //   let a = [{property1 : "1"},{property2 : "2", property5 : "Hi Yah!"}]
+  //   this.data = a[this.i++];
+  // }
+  // logdata(value){
+  //   console.log(value);
+  // };
 
 
   // data = true;

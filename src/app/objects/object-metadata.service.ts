@@ -21,23 +21,26 @@ export class ObjectMetadataService {
         { name: "Association", nodetype: "interface", configuration: { type: "IAssociation", types: ["Product","Promotion","Campaign"] } }, 
       ]
     },
-    "Promotionn": {
+    "Promotion": {
       properties: [
-        { name: "Assests", nodetype: "dictionary", configuration: { nodetype: "input", configuration: {} } }, 
+        { name: "PromotionId", nodetype: "input", configuration: {} },
+        { name: "Assets", nodetype: "dictionary", configuration: { nodetype: "input", configuration: {} } }, 
       ]
     },
     "Product": {
       properties: [
+        { name: "ProductId", nodetype: "input", configuration: {type: "auto", selector : 'product', validate: true} },
         { name: "Price", nodetype: "input", configuration: {type: "number"} },
-        { name: "Assests", nodetype: "dictionary", configuration: { nodetype: "input", configuration: {} } }, 
+        { name: "Assets", nodetype: "dictionary", configuration: { nodetype: "input", configuration: {} } }, 
       ]
     },
     "Campaign": {
       properties: [
+        { name: "CampaignId", nodetype: "input", configuration: {} },
         { name: "Name", nodetype: "input", configuration: {} },
         { name: "Rank ", nodetype: "input", configuration: {type:"number"} },
         { name: "Groups", nodetype: "list", configuration: { nodetype: "input", configuration : {} } },
-        { name: "Assests", nodetype: "dictionary", configuration: { nodetype: "input", configuration: {} } }, 
+        { name: "Assets", nodetype: "dictionary", configuration: { nodetype: "input", configuration: {} } }, 
     
       ]
     },

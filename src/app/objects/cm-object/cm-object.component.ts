@@ -22,6 +22,7 @@ export class CmObjectComponent implements OnInit {
   set configuration(value){
 
     this.configurationValue = value;
+
   };
 
   get configuration(){
@@ -51,7 +52,13 @@ export class CmObjectComponent implements OnInit {
 
   @Input()
   set data(val){
+
+    if(this.dataValue !== val && this.dictionaryValue){
+      this.dictionaryValue = undefined;
+    }
+
     this.dataValue = val;
+    
   }
 
 
@@ -140,7 +147,13 @@ export class CmObjectComponent implements OnInit {
       nodetype: 'class', 
       configuration: { 
         type: 'KeyValue', 
-        configuration : this.configuration } };
+        properties: [
+             { name: "Key", nodetype: "input", configuration: {} },
+             { name: "Value", nodetype: this.configuration.nodetype, configuration: this.configuration.configuration },
+        ],
+        configuration : {}
+      }
+    };
 
     return result;
   }
@@ -153,25 +166,22 @@ export class CmObjectComponent implements OnInit {
 
     if(!this.propertiesValue || this.propertiesValue.type !== this.configuration.type){
 
-      var type;
+      var properties;
 
-      if(this.configuration.type === "KeyValue"){
-
-        let valueconfiguration = this.configuration.configuration;
-        type = {        
-          properties: [
-            { name: "Key", nodetype: "input", configuration: {} },
-            { name: "Value", nodetype: valueconfiguration.nodetype, configuration: valueconfiguration.configuration },
-          ]
-        };
+      if(this.configuration.properties)
+      {       
+        properties = this.configuration.properties
       }
-      else{
-        type = this.objectMetadataService.getType(this.configuration.type);
+      else 
+      {
+        let type = this.objectMetadataService.getType(this.configuration.type);
+
+        properties = type.properties;
       }
 
       this.propertiesValue = {
         type : this.configuration.type, 
-        properties : type.properties
+        properties : properties
       }; 
     }
 
