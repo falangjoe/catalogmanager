@@ -26,6 +26,7 @@ import { CmInputAutoComponent } from './objects/cm-input-auto/cm-input-auto.comp
 import { CmInputSelectComponent } from './objects/cm-input-select/cm-input-select.component';
 import { CmInputStandardComponent } from './objects/cm-input-standard/cm-input-standard.component';
 import { CmInputCheckboxComponent } from './objects/cm-input-checkbox/cm-input-checkbox.component';
+import { CmCatalogComponent } from './intervals/cm-catalog/cm-catalog.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { CmInputCheckboxComponent } from './objects/cm-input-checkbox/cm-input-c
     CmInputAutoComponent,
     CmInputSelectComponent,
     CmInputStandardComponent,
-    CmInputCheckboxComponent
+    CmInputCheckboxComponent,
+    CmCatalogComponent
   ],
   imports: [
     BrowserModule,
