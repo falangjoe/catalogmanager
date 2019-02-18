@@ -1,4 +1,5 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'cm-input',
@@ -8,14 +9,19 @@ import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 export class CmInputComponent implements OnInit {
 
   ngOnInit() {
-
+   this.control.valueChanges.subscribe(
+      {
+        next: x => {
+          this.dataChange.emit(x); 
+        }
+      });
   }
-
-  inputValue : string;
+// 
+  //inputValue : string;
 
   @Input()
   set data(value : string){
-    this.inputValue = value;
+    this.control.setValue(value, {emitEvent : false});
   }
 
   @Output() 
@@ -27,10 +33,24 @@ export class CmInputComponent implements OnInit {
   @Input()
   configuration : any = {};
 
-  dataChanged(value){ 
-    this.inputValue = value;
-    this.dataChange.emit(value); 
-  }
+  // dataChanged(value){ 
+  //   this.inputValue = value;
+  //   this.dataChange.emit(value); 
+  // }
+
+  private control : FormControl = new FormControl(''); 
+
+
+  // private _formControl : FormControl;
+
+  // private get control() : FormControl{
+
+  //   if(!this._formControl){
+  //     this._formControl = new FormControl('');
+  //   }
+
+  //   return this._formControl;
+  // } 
 
 }
 

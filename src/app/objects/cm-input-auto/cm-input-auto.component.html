@@ -4,9 +4,10 @@
       matInput 
       placeholder="{{name}}" 
       [matAutocomplete]="auto"  
-      [formControl]="validatorControl">
+      [formControl]="control">
 
   <mat-autocomplete #auto="matAutocomplete">
       <mat-option *ngFor="let value of filteredValues | async" [value]="value.id">{{value.name}}</mat-option>
   </mat-autocomplete>
 </mat-form-field>
+

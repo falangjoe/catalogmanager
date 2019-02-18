@@ -22,7 +22,7 @@ export function DefaultControlValidatorProvider(forwardRefFn: ForwardRefFn) : Pr
 }
 
 
-export class DefaultControlValueAccessor implements ControlValueAccessor, Validator{
+export class FormComponentHelper implements ControlValueAccessor, Validator{
 
 
     constructor(private abstractControl: AbstractControl) {

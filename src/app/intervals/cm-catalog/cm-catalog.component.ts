@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CatalogService } from '../catalog.service';
-import {FormGroup, FormControl, Validators, AbstractControl} from '@angular/forms';
-import {DefaultControlAccessorProvider,DefaultControlValidatorProvider,DefaultControlValueAccessor} from '../../helpers/form.helpers';
+import {FormGroup, FormControl, Validators, AbstractControl, ControlValueAccessor, Validator, ValidationErrors} from '@angular/forms';
+import {DefaultControlAccessorProvider,DefaultControlValidatorProvider,FormComponentHelper} from '../../helpers/form.helpers';
 
 @Component({
   selector: 'cm-catalog',
@@ -12,14 +12,18 @@ import {DefaultControlAccessorProvider,DefaultControlValidatorProvider,DefaultCo
     DefaultControlValidatorProvider(() => CmCatalogComponent),
   ]
 })
-export class CmCatalogComponent extends DefaultControlValueAccessor implements OnInit  {
+export class CmCatalogComponent implements OnInit, ControlValueAccessor, Validator  {
+
+
 
   constructor(catalogService : CatalogService) { 
 
-    super(new FormGroup({
+    this.control = new FormGroup({
       environment: new FormControl('',Validators.required),
       catalog: new FormControl('',Validators.required),
-    }));
+    });
+    
+    this.formComponentHelper = new FormComponentHelper(this.control);
 
     this.catalogService = catalogService;
 
@@ -29,11 +33,15 @@ export class CmCatalogComponent extends DefaultControlValueAccessor implements O
 
   private catalogService : CatalogService;
 
+  private formComponentHelper : FormComponentHelper;
+
   private environment : AbstractControl;
   private catalog : AbstractControl;
 
   private catalogs : Array<string> = [];
   private environments : Array<string> = [];
+
+  private control : FormGroup;
 
   ngOnInit() {
 
@@ -50,7 +58,7 @@ export class CmCatalogComponent extends DefaultControlValueAccessor implements O
   private subscribeEnvironmentValueChanges() : void{
 
     this.environment.valueChanges.subscribe(x => {
-      this.catalog.setValue(undefined);
+      this.catalog.setValue(undefined,{emitEvent : false});
       this.setCatalogs(x);
 
     });
@@ -66,6 +74,32 @@ export class CmCatalogComponent extends DefaultControlValueAccessor implements O
     else{
       this.catalogs = [];
     }
+  }
+
+
+
+
+  writeValue(obj: any): void {
+    this.formComponentHelper.writeValue(obj);
+  }
+  registerOnChange(fn: any): void {
+    this.formComponentHelper.registerOnChange(fn);
+  }
+  registerOnTouched(fn: any): void {
+    this.formComponentHelper.registerOnTouched(fn);
+  }
+  setDisabledState?(isDisabled: boolean): void {
+    this.formComponentHelper.setDisabledState(isDisabled);
+  }
+
+
+  registerOnValidatorChange?(fn: () => void): void {
+    this.formComponentHelper.registerOnValidatorChange(fn);
+  }
+
+  validate(control: AbstractControl): ValidationErrors | null {
+
+    return this.formComponentHelper.validate(control);
   }
 
 }

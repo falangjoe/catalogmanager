@@ -2,8 +2,10 @@ import { Component, enableProdMode, OnInit  } from '@angular/core';
 import {PromotionService} from './promotion.service'; 
 import {FormControl,ValidatorFn, AbstractControl} from '@angular/forms';
 
-enableProdMode();1
+enableProdMode();
 
+// <cm-catalog [formControl]="control"></cm-catalog>
+//<cm-input [formControl]="control" [configuration]="configuration" [name]="name"></cm-input>
 //    <cm-input  [configuration]="configuration" [data]="data" [name]="name" (dataChange)="logdata($event)"></cm-input>
 // <cm-object [(data)]="data" [name]="name" [nodetype]="nodetype" [configuration]="configuration" (dataChange)="logdata($event)"></cm-object>
 @Component({
@@ -12,7 +14,8 @@ enableProdMode();1
     <!--The content below is only a placeholder and can be replaced.-->
     <div style="text-align:center">
 
-    <cm-catalog [formControl]="control"></cm-catalog>
+    <cm-object [(data)]="data" [name]="name" [nodetype]="nodetype" [configuration]="configuration" (dataChange)="logdata($event)"></cm-object>
+
     </div>
     <button (click)="next()">Next</button>
     <router-outlet></router-outlet>
@@ -26,31 +29,38 @@ export class AppComponent {
   }
 
   
-  ngOnInit() {
+  // ngOnInit() {
 
-    this.control.valueChanges.subscribe(x => {
-      console.log(x);
-      console.log("Valid : " + this.control.valid);
-    });
+  //   this.control.valueChanges.subscribe(x => {
+  //     console.log(x);
+  //     console.log("Valid : " + this.control.valid);
+  //   });
 
  
 
-  }
+  // }
 
-  i=0;
+  // i=0;
 
-  next(){
-    if((this.i++) % 2 === 0){
-      this.control.disable();
-    }else{
-      this.control.enable();
-    }
+  // next(){
+  //   if((this.i++) % 2 === 0){
+  //     this.control.disable();
+  //   }else{
+  //     this.control.enable();
+  //   }
 
-    console.log(this.control.value);
+  //   console.log(this.control.value);
 
-  }
+  // }
 
-  control = new FormControl('');
+  // data = true;
+  // control = new FormControl('');
+  // name =  "Scope";
+  // configuration = { type : "checkbox" };
+
+  //   logdata(value){
+  //   console.log(value);
+  // };
 
   data;
   name = undefined;
@@ -61,17 +71,7 @@ export class AppComponent {
   };
 
   
-  private valueValidator() : ValidatorFn {
 
-    return (control : AbstractControl) : {[key: string]: any} | null => {
-
-  
-      console.log(control);
-
-
-      return null;
-    };
-  }
 
   // data;
   // name = undefined;
