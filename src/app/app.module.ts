@@ -27,6 +27,13 @@ import { CmInputSelectComponent } from './objects/cm-input-select/cm-input-selec
 import { CmInputStandardComponent } from './objects/cm-input-standard/cm-input-standard.component';
 import { CmInputCheckboxComponent } from './objects/cm-input-checkbox/cm-input-checkbox.component';
 import { CmCatalogComponent } from './intervals/cm-catalog/cm-catalog.component';
+import { CmInputTestsComponent } from './tests/cm-input-tests/cm-input-tests.component';
+import { CmObjectNodetypeInputTestsComponent } from './tests/cm-object-nodetype-input-tests/cm-object-nodetype-input-tests.component';
+import { CmObjectNodetypeClassTestsComponent } from './tests/cm-object-nodetype-class-tests/cm-object-nodetype-class-tests.component';
+import { CmObjectNodetypeListTestsComponent } from './tests/cm-object-nodetype-list-tests/cm-object-nodetype-list-tests.component';
+import { CmObjectNodetypeListTestsDataComponent } from './tests/cm-object-nodetype-list-tests-data/cm-object-nodetype-list-tests-data.component';
+import { CmObjectNodetypeClassTestsDataComponent } from './tests/cm-object-nodetype-class-tests-data/cm-object-nodetype-class-tests-data.component';
+import { CmObjectNodetypeInterfaceTestsComponent } from './tests/cm-object-nodetype-interface-tests/cm-object-nodetype-interface-tests.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +44,14 @@ import { CmCatalogComponent } from './intervals/cm-catalog/cm-catalog.component'
     CmInputSelectComponent,
     CmInputStandardComponent,
     CmInputCheckboxComponent,
-    CmCatalogComponent
+    CmCatalogComponent,
+    CmInputTestsComponent,
+    CmObjectNodetypeInputTestsComponent,
+    CmObjectNodetypeClassTestsComponent,
+    CmObjectNodetypeListTestsComponent,
+    CmObjectNodetypeListTestsDataComponent,
+    CmObjectNodetypeClassTestsDataComponent,
+    CmObjectNodetypeInterfaceTestsComponent
   ],
   imports: [
     BrowserModule,

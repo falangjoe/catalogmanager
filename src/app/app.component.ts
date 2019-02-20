@@ -11,14 +11,9 @@ enableProdMode();
 @Component({
   selector: 'app-root',
   template: `
-    <!--The content below is only a placeholder and can be replaced.-->
     <div style="text-align:center">
-
-    <cm-object [(data)]="data" [name]="name" [nodetype]="nodetype" [configuration]="configuration" (dataChange)="logdata($event)"></cm-object>
-
+      <cm-object-nodetype-interface-tests></cm-object-nodetype-interface-tests>
     </div>
-    <button (click)="next()">Next</button>
-    <router-outlet></router-outlet>
   `,
   styles: []
 })
@@ -62,13 +57,13 @@ export class AppComponent {
   //   console.log(value);
   // };
 
-  data;
-  name = undefined;
-  nodetype='class';
-  configuration = { type : 'Interval' }
-  logdata(value){
-    console.log(value);
-  };
+  // data;
+  // name = undefined;
+  // nodetype='class';
+  // configuration = { type : 'Interval' }
+  // logdata(value){
+  //   console.log(value);
+  // };
 
   
 

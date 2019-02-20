@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {FormControl, Validators, ValidatorFn, AbstractControl, ControlValueAccessor, Validator, ValidationErrors} from '@angular/forms';
 import {InputMetadataService } from '../input-metadata.service';
 import { map, startWith } from 'rxjs/operators';
@@ -15,54 +15,19 @@ import {DefaultControlAccessorProvider,DefaultControlValidatorProvider,FormCompo
     DefaultControlValidatorProvider(() => CmInputAutoComponent),
   ]
 })
-export class CmInputAutoComponent implements OnInit, ControlValueAccessor, Validator  {
+export class CmInputAutoComponent implements ControlValueAccessor, Validator  {
+
+  private formComponentHelper : FormComponentHelper;
+  values : any[];
+  filteredValues : Observable<any[]>;
 
   constructor(private inputMetadataService: InputMetadataService) { 
    
     this.formComponentHelper = new FormComponentHelper(this.control);
   }
-  
-  private formComponentHelper : FormComponentHelper;
-
-  ngOnInit() {
-
-    // this.control.valueChanges.subscribe(
-    //   {
-    //     next: x => {
-    //       this.dataChange.emit(x); 
-    //     }
-    //   }
-    // );
-  }
-
-
-  //values
-
-  values : any[];
-  filteredValues : Observable<any[]>;
-
-  //name
 
   @Input()
   name : string;
-
-  //data
-
-  // @Input()
-  // set data(value : string){
-
-  //   if(this.control.value !== value){
-  //     this.control.setValue(value, {emitEvent : false});
-  //   }
-    
-  // }
-
- 
-
-  // @Output() 
-  // dataChange : EventEmitter<string> = new EventEmitter<string>();
-
-  //Configuration
 
   configurationValue;
 
@@ -130,9 +95,6 @@ export class CmInputAutoComponent implements OnInit, ControlValueAccessor, Valid
     };
   }
 
-
-
-
   writeValue(obj: any): void {
     this.formComponentHelper.writeValue(obj);
   }
@@ -155,8 +117,6 @@ export class CmInputAutoComponent implements OnInit, ControlValueAccessor, Valid
 
     return this.formComponentHelper.validate(control);
   }
-
-
 }
 
 

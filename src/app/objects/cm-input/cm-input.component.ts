@@ -1,31 +1,25 @@
-import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, Input} from '@angular/core';
+import { FormControl, AbstractControl, ControlValueAccessor, Validator, ValidationErrors } from '@angular/forms';
+import {DefaultControlAccessorProvider,DefaultControlValidatorProvider,FormComponentHelper} from '../../helpers/form.helpers';
 
 @Component({
   selector: 'cm-input',
   templateUrl: './cm-input.component.html',
-  styleUrls: ['./cm-input.component.css']
+  styleUrls: ['./cm-input.component.css'],
+  providers : [
+    DefaultControlAccessorProvider(() => CmInputComponent),
+    DefaultControlValidatorProvider(() => CmInputComponent),
+  ]
 })
-export class CmInputComponent implements OnInit {
+export class CmInputComponent implements ControlValueAccessor, Validator {
 
-  ngOnInit() {
-   this.control.valueChanges.subscribe(
-      {
-        next: x => {
-          this.dataChange.emit(x); 
-        }
-      });
+  private formComponentHelper : FormComponentHelper;
+  private control : FormControl = new FormControl('');
+
+  constructor() { 
+    
+    this.formComponentHelper = new FormComponentHelper(this.control);
   }
-// 
-  //inputValue : string;
-
-  @Input()
-  set data(value : string){
-    this.control.setValue(value, {emitEvent : false});
-  }
-
-  @Output() 
-  dataChange : EventEmitter<string> = new EventEmitter<string>();
 
   @Input()
   name : string;
@@ -33,25 +27,27 @@ export class CmInputComponent implements OnInit {
   @Input()
   configuration : any = {};
 
-  // dataChanged(value){ 
-  //   this.inputValue = value;
-  //   this.dataChange.emit(value); 
-  // }
+  writeValue(obj: any): void {
+    this.formComponentHelper.writeValue(obj);
+  }
+  registerOnChange(fn: any): void {
+    this.formComponentHelper.registerOnChange(fn);
+  }
+  registerOnTouched(fn: any): void {
+    this.formComponentHelper.registerOnTouched(fn);
+  }
+  setDisabledState?(isDisabled: boolean): void {
+    this.formComponentHelper.setDisabledState(isDisabled);
+  }
 
-  private control : FormControl = new FormControl(''); 
+  registerOnValidatorChange?(fn: () => void): void {
+    this.formComponentHelper.registerOnValidatorChange(fn);
+  }
 
+  validate(control: AbstractControl): ValidationErrors | null {
 
-  // private _formControl : FormControl;
-
-  // private get control() : FormControl{
-
-  //   if(!this._formControl){
-  //     this._formControl = new FormControl('');
-  //   }
-
-  //   return this._formControl;
-  // } 
-
+    return this.formComponentHelper.validate(control);
+  }
 }
 
 

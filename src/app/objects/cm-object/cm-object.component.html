@@ -1,6 +1,18 @@
 <div [ngSwitch]="nodetype">
 
-  <cm-input *ngSwitchCase="'input'" [data]="data" (dataChange)="setData($event)" [configuration]="configuration" [name]="name"></cm-input>
+  <cm-input *ngSwitchCase="'input'" [formControl]="control" [configuration]="configuration" [name]="name"></cm-input>
+
+  <div *ngSwitchCase="'class'" [class.mat-elevation-z2]="parentnodetype !== 'interface'"  [ngClass]="'class' + (parentnodetype || '')"  [class.mat-elevation-z2]="parentnodetype !== 'interface'">
+        <div *ngFor="let property of properties"> 
+            <label *ngIf="property.nodetype !== 'input'" class="mat-h2">{{property.name}}</label>
+            <cm-object 
+              [configuration]="property.configuration" 
+              [name]="property.name"
+              [nodetype]="property.nodetype"
+              [formControl]="getPropertyControl(property.name)">
+            </cm-object>
+        </div>
+     </div>
 
   <div class="list "*ngSwitchCase="'list'" [class.mat-elevation-z2]="true">
     <div *ngFor="let item of items; index as i; last as last">
@@ -8,56 +20,40 @@
             <mat-icon>clear</mat-icon>
         </button>
         <cm-object 
-            [data]="getItemData(i)" 
+            [formControl]="item"
             [nodetype]="configuration.nodetype" 
-            [configuration]="configuration.configuration" 
-            (dataChange)="setItemData(i,$event)">
+            [configuration]="configuration.configuration">
        </cm-object>
-       <!-- <mat-divider *ngIf="!last"></mat-divider> -->
     </div>
     <button class="additembutton" mat-icon-button (click)="addItem()">
         <mat-icon>add</mat-icon>
     </button>
-</div>
+  </div>
 
-  <!-- *ngIf="interfaceSelection"  -->
   <div class="interface" *ngSwitchCase="'interface'" [class.mat-elevation-z2]="true">
         <mat-form-field>
-                <mat-select (selectionChange)="interfaceSelectionChange($event)" [value]="interfaceSelection" >
+                <mat-select [formControl]="interfaceTypeControl" >
                   <mat-option *ngFor="let type of configuration.types" [(value)]="type">
                     {{type}}
                   </mat-option>
                 </mat-select>
         </mat-form-field>
-        <cm-object *ngIf="interfaceSelection"
-            [data]="data" 
-            (dataChange)="interfaceInstanceDataChange($event)"
-            [configuration]="interfaceInstanceConfiguration"
+        <cm-object *ngIf="interfaceTypeControl.value"
+            [formControl] = "interfaceObjectControl"
+            [configuration]="interfaceObjectConfiguration"
             [name]="name" 
             [nodetype]="'class'"
             [parentnodetype]="nodetype" >
         </cm-object>
-    </div>
+  </div>
 
-  <div *ngSwitchCase="'class'" [class.mat-elevation-z2]="parentnodetype !== 'interface'"  [ngClass]="'class' + (parentnodetype || '')"  [class.mat-elevation-z2]="parentnodetype !== 'interface'">
-      <div *ngFor="let property of properties"> 
-          <label *ngIf="property.nodetype !== 'input'" class="mat-h2">{{property.name}}</label>
-          <cm-object 
-            [data]="getPropertyData(property.name)" 
-            (dataChange)="setPropertyData(property.name,$event)" 
-            [configuration]="property.configuration" 
-            [name]="property.name"
-            [nodetype]="property.nodetype">
-          </cm-object>
-      </div>
-   </div>
-
+  <!-- 
    <cm-object *ngSwitchCase="'dictionary'"
         [data]="getDictionaryData()" 
         (dataChange)="setDictionaryData($event)"
         [configuration]="getDictionaryConfiguration()"
         [name]="name" 
         [nodetype]="'list'">
-   </cm-object>
+   </cm-object> -->
 
 </div>

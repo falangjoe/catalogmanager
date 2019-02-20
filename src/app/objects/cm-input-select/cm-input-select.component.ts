@@ -1,5 +1,5 @@
 
-import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {FormControl, AbstractControl, ControlValueAccessor, Validator, ValidationErrors, Validators} from '@angular/forms';
 import {DefaultControlAccessorProvider,DefaultControlValidatorProvider,FormComponentHelper} from '../../helpers/form.helpers';
 
@@ -12,63 +12,27 @@ import {DefaultControlAccessorProvider,DefaultControlValidatorProvider,FormCompo
     DefaultControlValidatorProvider(() => CmInputSelectComponent),
   ]
 })
-export class CmInputSelectComponent implements OnInit, ControlValueAccessor, Validator   {
+export class CmInputSelectComponent implements ControlValueAccessor, Validator   {
+  
+  private formComponentHelper : FormComponentHelper;
 
   constructor(){
     this.formComponentHelper = new FormComponentHelper(this.control);
   }
 
-  private formComponentHelper : FormComponentHelper;
-
-  ngOnInit() {
-    // this.control.valueChanges.subscribe(
-    //   {
-    //     next: x => {
-    //       this.dataChange.emit(x); 
-    //     }
-    //   }
-    // );
-  }
-
-
-  //values
-
-  //name
-
   @Input()
   name : string;
-
-  //data
-
-  // @Input()
-  // set data(value : string){
-
-  //   if(this.control.value !== value){
-  //     this.control.setValue(value, {emitEvent : false});
-  //   }
-    
-  // }
-
- 
-
-  // @Output() 
-  // dataChange : EventEmitter<string> = new EventEmitter<string>();
-
-  //Configuration
 
   configurationValue;
 
   @Input()
-  set configuration(value){
-      
+  set configuration(value){    
     this.configurationValue = value;
   }
-
 
   get configuration(){
     return this.configurationValue;
   }
-
 
   control = new FormControl('', Validators.required);
 

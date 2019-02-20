@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import { Component, Input} from '@angular/core';
 import {FormControl, AbstractControl, ControlValueAccessor, Validator, ValidationErrors} from '@angular/forms';
 import {DefaultControlAccessorProvider,DefaultControlValidatorProvider,FormComponentHelper} from '../../helpers/form.helpers';
 
@@ -11,7 +11,7 @@ import {DefaultControlAccessorProvider,DefaultControlValidatorProvider,FormCompo
     DefaultControlValidatorProvider(() => CmInputStandardComponent),
   ]
 })
-export class CmInputStandardComponent implements OnInit, ControlValueAccessor, Validator  {
+export class CmInputStandardComponent implements ControlValueAccessor, Validator  {
 
   constructor(){
     this.formComponentHelper = new FormComponentHelper(this.control);
@@ -19,41 +19,8 @@ export class CmInputStandardComponent implements OnInit, ControlValueAccessor, V
 
   private formComponentHelper : FormComponentHelper;
 
-  ngOnInit() {
-    // this.control.valueChanges.subscribe(
-    //   {
-    //     next: x => {
-    //       this.dataChange.emit(x); 
-    //     }
-    //   }
-    // );
-  }
-
-
-  //values
-
-  //name
-
   @Input()
   name : string;
-
-  //data
-
-  // @Input()
-  // set data(value : string){
-
-  //   if(this.control.value !== value){
-  //     this.control.setValue(value, {emitEvent : false});
-  //   }
-    
-  // }
-
- 
-
-  // @Output() 
-  // dataChange : EventEmitter<string> = new EventEmitter<string>();
-
-  //Configuration
 
   configurationValue;
 
@@ -63,11 +30,9 @@ export class CmInputStandardComponent implements OnInit, ControlValueAccessor, V
     this.configurationValue = value;
   }
 
-
   get configuration(){
     return this.configurationValue;
   }
-
 
   control = new FormControl('');
 

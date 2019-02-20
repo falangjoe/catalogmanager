@@ -1,34 +1,28 @@
 import { Component, Input, Output, OnInit,  EventEmitter } from '@angular/core';
 import { ObjectMetadataService } from '../object-metadata.service';
-import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
+import { FormControl, AbstractControl, ControlValueAccessor, Validator, ValidationErrors, FormGroup, CheckboxControlValueAccessor, FormArray  } from '@angular/forms';
+import {DefaultControlAccessorProvider,DefaultControlValidatorProvider,FormComponentHelper} from '../../helpers/form.helpers';
+
 
 @Component({
   selector: 'cm-object',
   templateUrl: './cm-object.component.html',
-  styleUrls: ['./cm-object.component.css']
+  styleUrls: ['./cm-object.component.css'],
+  providers : [
+    DefaultControlAccessorProvider(() => CmObjectComponent),
+    DefaultControlValidatorProvider(() => CmObjectComponent),
+  ]
 })
-export class CmObjectComponent implements OnInit {
+export class CmObjectComponent implements OnInit, ControlValueAccessor, Validator {
+  
+  private formComponentHelper : FormComponentHelper;
 
   constructor(private objectMetadataService: ObjectMetadataService) { 
-
+    this.formComponentHelper = new FormComponentHelper(this.control);
   }
-
-  configurationValue;
 
   @Input()
   parentnodetype;
-
-  @Input()
-  set configuration(value){
-
-    this.configurationValue = value;
-
-  };
-
-  get configuration(){
-    return this.configurationValue;
-  }
-
 
   @Input()
   nodetype;
@@ -39,203 +33,371 @@ export class CmObjectComponent implements OnInit {
   ngOnInit() {
   }
 
-  //data
+ //configuration
 
-  dataValue;
-
-  @Output() dataChange = new EventEmitter();
-
-
-  get data(){
-    return this.dataValue;
-  }
+  private configurationValue;
 
   @Input()
-  set data(val){
+  set configuration(value){
+    this.configurationValue = value;
+  };
 
-    if(this.dataValue !== val && this.dictionaryValue){
-      this.dictionaryValue = undefined;
-    }
+  get configuration(){
+    return this.configurationValue;
+  }
 
-    this.dataValue = val;
+
+
+
+  private controlContainerValue;
+
+  private get control(){
+
+    let container = this.controlContainer;
+
+    return container.control;
+  }
+
+
+  private get controlContainer(){
+
+    if(!this.controlContainerValue || this.controlContainerValue.configuration != this.configuration){
+
+      let objectControl = this.createControl();
+
+      this.controlContainerValue =  {
+        control : objectControl,
+        configuration : this.configuration,
+        helper : new FormComponentHelper(objectControl)
+      };
+
+      if(objectControl){
+
+        objectControl.valueChanges.subscribe(this.createPropateChange());
+      }
     
-  }
-
-
-  setData(value){
-
-    this.dataValue = value;
-    this.dataChange.emit(this.dataValue); 
-  }
-
-
-
-  //interface functions
-
-  get interfaceSelection(){
-
-    if(this.data){
-      return this.data.Type;
-    }
-  }
-
-  interfaceSelectionChange(event){
-
-    this.setData({ Type : event.value});
-  }
-
-  get interfaceInstanceConfiguration(){
-
-    if(this.data){
-      return {type : this.data.Type};
-    }
-   
-  }
-
-  interfaceInstanceDataChange(value){
-    if(value){
-      value.Type = this.data.Type;
-    }
-    this.setData(value);
-  }
-
-  //dictionary
-
-  dictionaryValue;
-
-  setDictionaryData(value){
-
-    var result = {};
-
-    this.dictionaryValue = value;
-
-    value.forEach(x => {
-      if(x && x.Key){
-          result[x.Key] = x.Value;
-      }
-    });
-
-    this.setData(result);
-  }
-
-  getDictionaryData(){
-    
-    if(!this.dictionaryValue){
-
-      if(this.data){
-        
-        var keys = Object.keys(this.data);
-
-        this.dictionaryValue = keys.map(x => {
-          return {Key : x, Value : this.data[x]};
-        });
-
-      }
-      else {
-        this.dictionaryValue = [];
-      }
- 
     }
 
-    return this.dictionaryValue;
-
+    return this.controlContainerValue;
   }
 
-  getDictionaryConfiguration(){
 
-    let result = { 
-      nodetype: 'class', 
-      configuration: { 
-        type: 'KeyValue', 
-        properties: [
-             { name: "Key", nodetype: "input", configuration: {} },
-             { name: "Value", nodetype: this.configuration.nodetype, configuration: this.configuration.configuration },
-        ],
-        configuration : {}
+  private createControl(){
+
+    let control;
+
+    if(this.nodetype == 'input'){
+
+      control = new FormControl();
+    }
+    else if(this.nodetype == 'class')
+    {
+      let group = new FormGroup({});
+
+      var properties = this.getClassProperties();
+
+      properties.forEach(property => {
+
+        group.addControl(property.name,new FormControl());
+      
+      });
+
+      control = group;
+    }
+    else if (this.nodetype == 'list')
+    {
+      let array = new FormArray([]);
+
+      control = array;
+    }
+    else if(this.nodetype == 'interface')
+    {
+      let group = new FormGroup({
+        Type : new FormControl(),
+        Object : new FormControl()
+      });
+
+      control = group;
+    }
+
+
+    return control;
+  }
+
+
+
+  private registeredPropagateChange = (_: any) => {};
+
+
+  private createPropateChange() : (_: any) => void {
+
+    let self = this;
+
+    return ( x : any) => {
+
+      if(self.registeredPropagateChange){
+
+        let value = undefined;
+
+        if(this.nodetype == 'interface'){
+      
+          if(x.Object){
+            value = x.Object;
+            value['Type'] = x.Type;
+          }          
+        }
+        else{
+
+          value = x;
+        }
+
+        self.registeredPropagateChange(value);
       }
     };
 
-    return result;
+  }
+
+  //class
+
+  propertiesContainer;
+
+  get properties(){
+
+    if(!this.propertiesContainer || this.propertiesContainer.configuration !== this.configuration){
+
+      this.propertiesContainer = {
+
+        properties : this.getClassProperties(),
+        configuration : this.configuration
+      };
+    }
+
+    return this.propertiesContainer.properties;
+  };
+
+  getPropertyControl(name){
+    return this.control.get(name);
+  }
+
+
+  private getClassProperties(){
+
+    let properties;
+
+    if(this.configuration.properties)
+    {       
+      properties = this.configuration.properties
+    }
+    else 
+    {
+      let type = this.objectMetadataService.getType(this.configuration.type);
+
+      properties = type.properties;
+    }
+
+    return properties;
+
+  };
+
+  //list functions
+  get items(){
+    return this.control.controls;
+  }
+
+  deleteItem(index){
+    this.control.removeAt(index);
+  }
+
+  addItem(){
+
+    this.control.push(new FormControl());
+  }
+
+
+
+ // //interface functions
+
+  get interfaceTypeControl(){
+
+    let type = this.control.get('Type');
+
+    return type;
+  }
+
+
+  get interfaceObjectConfiguration(){
+
+    let type = this.interfaceTypeControl;
+
+    if(type.value){
+      return {type : type.value};
+    }   
+  }
+
+  get interfaceObjectControl(){
+
+    let object = this.control.get('Object');
+
+    return object;
+  }
+
+
+
+
+  private setFormArrayLength(length){
+
+    while (this.control.length > length) {
+      this.control.removeAt(0);
+    }
+
+    while (this.control.length < length) {
+      this.control.push(new FormControl());
+    }
+  }
+
+  writeValue(obj: any): void {
+
+    if(this.nodetype == "list")
+    {
+      if(obj){
+     
+        this.setFormArrayLength((obj || []).length);
+        this.control.setValue(obj, {emitEvent : false});
+      }
+    }
+    else if(this.nodetype == 'interface') {
+
+      if(obj){
+        this.control.setValue({Type : obj.Type, Object : obj},{emitEvent : false});
+      }
+
+    }
+    else{
+      if(obj){
+        this.control.setValue(obj, {emitEvent : false});
+      }
+    }
+   
+  }
+  registerOnChange(fn: any): void {
+    this.registeredPropagateChange = fn;
+  }
+  registerOnTouched(fn: any): void {
+    this.controlContainer.helper.registerOnTouched(fn);
+  }
+  setDisabledState?(isDisabled: boolean): void {
+
+    if(isDisabled && this.control.enabled){
+      this.control.disable({emitEvent : false});
+    }else if(!isDisabled && this.control.disable){
+      this.control.enable({emitEvent : false});
+    }
+  }
+
+  registerOnValidatorChange?(fn: () => void): void {
+  }
+
+  validate(control: AbstractControl): ValidationErrors | null {
+
+    return this.controlContainer.helper.validate(control);
   }
 
   //class functions
 
-  propertiesValue;
-
-  get properties(){
-
-    if(!this.propertiesValue || this.propertiesValue.type !== this.configuration.type){
-
-      var properties;
-
-      if(this.configuration.properties)
-      {       
-        properties = this.configuration.properties
-      }
-      else 
-      {
-        let type = this.objectMetadataService.getType(this.configuration.type);
-
-        properties = type.properties;
-      }
-
-      this.propertiesValue = {
-        type : this.configuration.type, 
-        properties : properties
-      }; 
-    }
-
-    return this.propertiesValue.properties;
-  };
-
-  getPropertyData(name){
-  
-    if(this.data){
-      var result =  this.data[name];
-      return result;
-    }
-  }
-
-  setPropertyData(name,value){
-
-    var data = this.data || {};
-    data[name] = value;
-    this.setData(data);
-  }
-
-  //list functions
-
-  get items(){
-    return (this.data || []).map(x => true);
-  }
 
 
-  getItemData(index){
 
-    if(this.data){
-      return this.data[index];
-    }
-  }
+  // //data
 
-  setItemData(index,value){
+  // dataValue;
 
-    var data = this.data || [];
-    data[index] = value;
-    this.setData(data);
+  // @Output() dataChange = new EventEmitter();
 
-  }
 
-  deleteItem(index){
-    let data = this.data.filter((x,i) => i !== index);
-    this.setData(data);
-  }
+  // get data(){
+  //   return this.dataValue;
+  // }
 
-  addItem(){
+  // @Input()
+  // set data(val){
+
+  //   if(this.dataValue !== val && this.dictionaryValue){
+  //     this.dictionaryValue = undefined;
+  //   }
+
+  //   this.dataValue = val;
     
-    var data = this.data || [];
-    data.push(undefined);
-    this.setData(data);
-  }
+  // }
+
+
+  // setData(value){
+
+  //   this.dataValue = value;
+  //   this.dataChange.emit(this.dataValue); 
+  // }
+
+
+  // //dictionary
+
+  // dictionaryValue;
+
+  // setDictionaryData(value){
+
+  //   var result = {};
+
+  //   this.dictionaryValue = value;
+
+  //   value.forEach(x => {
+  //     if(x && x.Key){
+  //         result[x.Key] = x.Value;
+  //     }
+  //   });
+
+  //   this.setData(result);
+  // }
+
+  // getDictionaryData(){
+    
+  //   if(!this.dictionaryValue){
+
+  //     if(this.data){
+        
+  //       var keys = Object.keys(this.data);
+
+  //       this.dictionaryValue = keys.map(x => {
+  //         return {Key : x, Value : this.data[x]};
+  //       });
+
+  //     }
+  //     else {
+  //       this.dictionaryValue = [];
+  //     }
+ 
+  //   }
+
+  //   return this.dictionaryValue;
+
+  // }
+
+  // getDictionaryConfiguration(){
+
+  //   let result = { 
+  //     nodetype: 'class', 
+  //     configuration: { 
+  //       type: 'KeyValue', 
+  //       properties: [
+  //            { name: "Key", nodetype: "input", configuration: {} },
+  //            { name: "Value", nodetype: this.configuration.nodetype, configuration: this.configuration.configuration },
+  //       ],
+  //       configuration : {}
+  //     }
+  //   };
+
+  //   return result;
+  // }
+
+
+
 
 
 

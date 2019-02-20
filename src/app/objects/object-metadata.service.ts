@@ -41,7 +41,6 @@ export class ObjectMetadataService {
         { name: "Rank ", nodetype: "input", configuration: {type:"number"} },
         { name: "Groups", nodetype: "list", configuration: { nodetype: "input", configuration : {} } },
         { name: "Assets", nodetype: "dictionary", configuration: { nodetype: "input", configuration: {} } }, 
-    
       ]
     },
     "PromotionContainer": {
