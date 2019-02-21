@@ -3,8 +3,11 @@ import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'cm-object-nodetype-list-tests-data',
-  templateUrl: './cm-object-nodetype-list-tests-data.component.html',
-  styleUrls: ['./cm-object-nodetype-list-tests-data.component.css']
+  template: `<cm-object  [formControl]="control" [nodetype]="nodetype" [configuration]="configuration" [name]="name"></cm-object>
+  <button (click)="disable()">Disable</button>
+  <button (click)="enable()">Enable</button>
+  <button (click)="next()">Next Data</button>`,
+  styles: []
 })
 export class CmObjectNodetypeListTestsDataComponent implements OnInit {
 
@@ -32,7 +35,7 @@ export class CmObjectNodetypeListTestsDataComponent implements OnInit {
         []
         ];
 
-      this.control.setValue(data[(this.i++) % 4]);
+      this.control.setValue(data[(this.i++) % 4],{emitEvent : false});
   }
 
   ngOnInit(){  

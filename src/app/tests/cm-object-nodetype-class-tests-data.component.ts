@@ -3,8 +3,11 @@ import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'cm-object-nodetype-class-tests-data',
-  templateUrl: './cm-object-nodetype-class-tests-data.component.html',
-  styleUrls: ['./cm-object-nodetype-class-tests-data.component.css']
+  template: `<cm-object  [formControl]="control" [nodetype]="nodetype" [configuration]="configuration" [name]="name"></cm-object>
+  <button (click)="disable()">Disable</button>
+  <button (click)="enable()">Enable</button>
+  <button (click)="next()">Next Data</button>`,
+  styles: []
 })
 export class CmObjectNodetypeClassTestsDataComponent implements OnInit {
   
@@ -32,7 +35,7 @@ export class CmObjectNodetypeClassTestsDataComponent implements OnInit {
       {DiscountCode : "discountd", SubCode: undefined, Amount: 13.00, Description: "this is a test discountd"},
       ];
 
-    this.control.setValue(data[(this.i++) % 3]);
+    this.control.setValue(data[(this.i++) % 3],{emitEvent : false});
   }
 
   ngOnInit(){  

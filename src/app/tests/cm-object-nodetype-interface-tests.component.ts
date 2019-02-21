@@ -3,8 +3,11 @@ import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'cm-object-nodetype-interface-tests',
-  templateUrl: './cm-object-nodetype-interface-tests.component.html',
-  styleUrls: ['./cm-object-nodetype-interface-tests.component.css']
+  template: `<cm-object  [formControl]="control" [nodetype]="nodetype" [configuration]="configuration" [name]="name"></cm-object>
+  <button (click)="disable()">Disable</button>
+  <button (click)="enable()">Enable</button>
+  <button (click)="next()">Next Configuration</button>`,
+  styles: []
 })
 export class CmObjectNodetypeInterfaceTestsComponent implements OnInit {
 

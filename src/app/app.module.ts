@@ -18,7 +18,7 @@ import {
   MatAutocompleteModule, 
   MatCheckboxModule } from '@angular/material';
 
-  import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CmObjectComponent } from './objects/cm-object/cm-object.component';
 import { CmInputComponent } from './objects/cm-input/cm-input.component';
@@ -27,13 +27,17 @@ import { CmInputSelectComponent } from './objects/cm-input-select/cm-input-selec
 import { CmInputStandardComponent } from './objects/cm-input-standard/cm-input-standard.component';
 import { CmInputCheckboxComponent } from './objects/cm-input-checkbox/cm-input-checkbox.component';
 import { CmCatalogComponent } from './intervals/cm-catalog/cm-catalog.component';
-import { CmInputTestsComponent } from './tests/cm-input-tests/cm-input-tests.component';
-import { CmObjectNodetypeInputTestsComponent } from './tests/cm-object-nodetype-input-tests/cm-object-nodetype-input-tests.component';
-import { CmObjectNodetypeClassTestsComponent } from './tests/cm-object-nodetype-class-tests/cm-object-nodetype-class-tests.component';
-import { CmObjectNodetypeListTestsComponent } from './tests/cm-object-nodetype-list-tests/cm-object-nodetype-list-tests.component';
-import { CmObjectNodetypeListTestsDataComponent } from './tests/cm-object-nodetype-list-tests-data/cm-object-nodetype-list-tests-data.component';
-import { CmObjectNodetypeClassTestsDataComponent } from './tests/cm-object-nodetype-class-tests-data/cm-object-nodetype-class-tests-data.component';
-import { CmObjectNodetypeInterfaceTestsComponent } from './tests/cm-object-nodetype-interface-tests/cm-object-nodetype-interface-tests.component';
+
+import { CmInputTestsComponent } from './tests/cm-input-tests.component';
+import { CmObjectNodetypeInputTestsComponent } from './tests/cm-object-nodetype-input-tests.component';
+import { CmObjectNodetypeClassTestsComponent } from './tests/cm-object-nodetype-class-tests.component';
+import { CmObjectNodetypeListTestsComponent } from './tests/cm-object-nodetype-list-tests.component';
+import { CmObjectNodetypeListTestsDataComponent } from './tests/cm-object-nodetype-list-tests-data.component';
+import { CmObjectNodetypeClassTestsDataComponent } from './tests/cm-object-nodetype-class-tests-data.component';
+import { CmObjectNodetypeInterfaceTestsComponent } from './tests/cm-object-nodetype-interface-tests.component';
+import { CmObjectNodetypeInterfaceTestsDataComponent } from './tests/cm-object-nodetype-interface-tests-data.component';
+import { CmObjectNodetypeDictionaryTestsComponent } from './tests/cm-object-nodetype-dictionary-tests.component';
+import { CmObjectNodetypeDictionaryTestsDataComponent } from './tests/cm-object-nodetype-dictionary-tests-data.component';
 
 @NgModule({
   declarations: [
@@ -45,13 +49,17 @@ import { CmObjectNodetypeInterfaceTestsComponent } from './tests/cm-object-nodet
     CmInputStandardComponent,
     CmInputCheckboxComponent,
     CmCatalogComponent,
+
     CmInputTestsComponent,
     CmObjectNodetypeInputTestsComponent,
     CmObjectNodetypeClassTestsComponent,
     CmObjectNodetypeListTestsComponent,
     CmObjectNodetypeListTestsDataComponent,
     CmObjectNodetypeClassTestsDataComponent,
-    CmObjectNodetypeInterfaceTestsComponent
+    CmObjectNodetypeInterfaceTestsComponent,
+    CmObjectNodetypeInterfaceTestsDataComponent,
+    CmObjectNodetypeDictionaryTestsComponent,
+    CmObjectNodetypeDictionaryTestsDataComponent
   ],
   imports: [
     BrowserModule,

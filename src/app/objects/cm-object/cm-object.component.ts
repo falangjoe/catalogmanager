@@ -94,7 +94,7 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
     {
       let group = new FormGroup({});
 
-      var properties = this.getClassProperties();
+      let properties = this.getClassProperties();
 
       properties.forEach(property => {
 
@@ -106,7 +106,13 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
     }
     else if (this.nodetype == 'list')
     {
-      let array = new FormArray([]);
+      let controls = [];
+
+      for(var i = 0; i < this.listLength; i++) {
+        controls.push(new FormControl() as AbstractControl);
+      }
+
+      let array = new FormArray(controls);
 
       control = array;
     }
@@ -118,6 +124,11 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
       });
 
       control = group;
+    }
+    else if (this.nodetype == 'dictionary')
+    {
+      control = new FormControl();
+
     }
 
 
@@ -145,6 +156,18 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
             value = x.Object;
             value['Type'] = x.Type;
           }          
+        }
+        if(this.nodetype == 'dictionary'){
+
+
+          value = {};
+
+          x.forEach(keyValuePair => {
+            if(keyValuePair) {
+              value[keyValuePair.Key] = keyValuePair.Value;
+            }
+          });
+
         }
         else{
 
@@ -205,14 +228,16 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
   }
 
   deleteItem(index){
+    this.listLength -= 1;
     this.control.removeAt(index);
   }
 
   addItem(){
-
+    this.listLength += 1;
     this.control.push(new FormControl());
   }
 
+  private listLength = 0;
 
 
  // //interface functions
@@ -242,18 +267,47 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
   }
 
 
+  //dictionary
 
 
-  private setFormArrayLength(length){
+  private dictionaryConfigurationContainer;
 
-    while (this.control.length > length) {
-      this.control.removeAt(0);
+  getDictionaryConfiguration(){
+
+    if(!this.dictionaryConfigurationContainer || this.dictionaryConfigurationContainer.configuration != this.configuration)
+    {
+      this.dictionaryConfigurationContainer = {
+        configuration : this.configuration,
+        dictionaryConfiguration : { 
+          nodetype: 'class', 
+          configuration: { 
+            type: 'KeyValue', 
+            properties: [
+                 { name: "Key", nodetype: "input", configuration: {} },
+                 { name: "Value", nodetype: this.configuration.nodetype, configuration: this.configuration.configuration },
+            ],
+            configuration : {}
+          }
+        }
+      };  
     }
 
-    while (this.control.length < length) {
-      this.control.push(new FormControl());
-    }
+    return this.dictionaryConfigurationContainer.dictionaryConfiguration;
   }
+
+  
+
+
+  // private setFormArrayLength(length){
+
+  //   while (this.control.length > length) {
+  //     this.control.removeAt(0);
+  //   }
+
+  //   while (this.control.length < length) {
+  //     this.control.push(new FormControl());
+  //   }
+  // }
 
   writeValue(obj: any): void {
 
@@ -261,14 +315,44 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
     {
       if(obj){
      
-        this.setFormArrayLength((obj || []).length);
+        this.controlContainerValue = undefined;
+        this.listLength = obj.length;
+        // this.setFormArrayLength((obj || []).length);
         this.control.setValue(obj, {emitEvent : false});
       }
     }
     else if(this.nodetype == 'interface') {
 
       if(obj){
-        this.control.setValue({Type : obj.Type, Object : obj},{emitEvent : false});
+
+        this.controlContainerValue = undefined;
+
+        var keys = Object.keys(obj);
+
+        var value = {};
+
+        keys.forEach(key => {
+          if(key !== 'Type'){
+            value[key] = obj[key];
+          }
+          value
+        });
+
+        this.control.setValue({Type : obj.Type, Object : value},{emitEvent : false});
+      }
+
+    }
+    else if(this.nodetype == 'dictionary'){
+
+      if(obj){
+
+        var keys = Object.keys(obj);
+
+        let values = keys.map(x => {
+          return {Key : x, Value : obj[x]};
+        });
+
+        this.control.setValue(values, {emitEvent : false});
       }
 
     }

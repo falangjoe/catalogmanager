@@ -2,12 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl} from '@angular/forms';
 
 @Component({
-  selector: 'cm-input-tests',
-  templateUrl: './cm-input-tests.component.html',
-  styleUrls: ['./cm-input-tests.component.css']
+  selector: 'cm-object-nodetype-input-tests',
+  template: `<cm-object  [formControl]="control" [nodetype]="nodetype" [configuration]="configuration" [name]="name"></cm-object>
+  <button (click)="disable()">Disable</button>
+  <button (click)="enable()">Enable</button>
+  <button (click)="next()">Next Configuration</button>`,
+  styles: []
 })
-export class CmInputTestsComponent implements OnInit {
-
+export class CmObjectNodetypeInputTestsComponent implements OnInit {
+  
   private control : FormControl = new FormControl('');
 
   public enable() {
@@ -21,6 +24,7 @@ export class CmInputTestsComponent implements OnInit {
   private i = 0;
   private configuration = {};
   private name = "The Name";
+  private nodetype = "input";
 
   public next(){
 
@@ -40,5 +44,4 @@ export class CmInputTestsComponent implements OnInit {
       console.log("Valid : " + this.control.valid);
     });
   }
-
 }
