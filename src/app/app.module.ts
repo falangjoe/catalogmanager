@@ -38,6 +38,8 @@ import { CmObjectNodetypeInterfaceTestsComponent } from './tests/cm-object-nodet
 import { CmObjectNodetypeInterfaceTestsDataComponent } from './tests/cm-object-nodetype-interface-tests-data.component';
 import { CmObjectNodetypeDictionaryTestsComponent } from './tests/cm-object-nodetype-dictionary-tests.component';
 import { CmObjectNodetypeDictionaryTestsDataComponent } from './tests/cm-object-nodetype-dictionary-tests-data.component';
+import { CmObjectNodeTypeClassDisplayTestsComponent } from './tests/cm-object-nodetype-class-display-tests.component';
+import { CmObjectNodeTypeInterfaceDisplayTestsComponent } from './tests/cm-object-nodetype-interface-display-tests.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,9 @@ import { CmObjectNodetypeDictionaryTestsDataComponent } from './tests/cm-object-
     CmObjectNodetypeInterfaceTestsComponent,
     CmObjectNodetypeInterfaceTestsDataComponent,
     CmObjectNodetypeDictionaryTestsComponent,
-    CmObjectNodetypeDictionaryTestsDataComponent
+    CmObjectNodetypeDictionaryTestsDataComponent,
+    CmObjectNodeTypeClassDisplayTestsComponent,
+    CmObjectNodeTypeInterfaceDisplayTestsComponent
   ],
   imports: [
     BrowserModule,

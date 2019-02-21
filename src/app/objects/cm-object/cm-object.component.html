@@ -7,7 +7,7 @@
             <label *ngIf="property.nodetype !== 'input'" class="mat-h2">{{property.name}}</label>
             <cm-object 
               [configuration]="property.configuration" 
-              [name]="property.name"
+              [name]="property.display || property.name"
               [nodetype]="property.nodetype"
               [formControl]="getPropertyControl(property.name)">
             </cm-object>
@@ -33,8 +33,8 @@
   <div class="interface" *ngSwitchCase="'interface'" [class.mat-elevation-z2]="true">
         <mat-form-field>
                 <mat-select [formControl]="interfaceTypeControl" >
-                  <mat-option *ngFor="let type of configuration.types" [(value)]="type">
-                    {{type}}
+                  <mat-option *ngFor="let option of interfaceTypeOptions" [(value)]="option.value">
+                    {{option.display}}
                   </mat-option>
                 </mat-select>
         </mat-form-field>

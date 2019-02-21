@@ -13,6 +13,21 @@ export class ObjectMetadataService {
   };
  
   types = {
+    "ProductAssociation" : {
+      properties: [
+        { name: "AssociationId", display: "ProductId", nodetype: "input", configuration: {type: "auto", selector : 'product', validate: true} },
+      ]     
+    },
+    "PromotionAssociation" : {
+      properties: [
+        { name: "AssociationId", display: "PromotionId", nodetype: "input", configuration: {type: "auto", selector : 'promotion', validate: true} },
+      ]     
+    },
+    "CampaignAssociation" : {
+      properties: [
+        { name: "AssociationId", display: "CampaignId", nodetype: "input", configuration: {type: "auto", selector : 'campaign', validate: true} },
+      ]     
+    },
     "Interval" : {
       properties: [
         { name: "StartDate", nodetype: "input", configuration: {type: "datetime-local"} },
@@ -24,7 +39,12 @@ export class ObjectMetadataService {
     "Promotion": {
       properties: [
         { name: "PromotionId", nodetype: "input", configuration: {} },
+        { name: "PromotionName", nodetype: "input", configuration: {} },
+        { name: "PromotionDescription", nodetype: "input", configuration: {} },
+        { name: "Scope", nodetype: "input", configuration: { type:"select" , values: ["Cart", "Item"] } },
+        { name: "Category", nodetype: "input", configuration : {type: "auto", selector : 'category', validate: false} },
         { name: "Assets", nodetype: "dictionary", configuration: { nodetype: "input", configuration: {} } }, 
+        { name: "Promotion", nodetype: "interface", configuration: { type: "IPromotion", types: ["StandardPromotion"] } },
       ]
     },
     "Product": {
@@ -41,17 +61,6 @@ export class ObjectMetadataService {
         { name: "Rank ", nodetype: "input", configuration: {type:"number"} },
         { name: "Groups", nodetype: "list", configuration: { nodetype: "input", configuration : {} } },
         { name: "Assets", nodetype: "dictionary", configuration: { nodetype: "input", configuration: {} } }, 
-      ]
-    },
-    "PromotionContainer": {
-      properties: [
-        { name: "PromotionId", nodetype: "input", configuration: {} },
-        { name: "PromotionName", nodetype: "input", configuration: {} },
-        { name: "PromotionDescription", nodetype: "input", configuration: {} },
-        { name: "Scope", nodetype: "input", configuration: { type:"select" , values: ["Cart", "Item"] } },
-        { name: "Category", nodetype: "input", configuration : {type: "auto", selector : 'category', validate: false} },
-        { name: "Promotion", nodetype: "interface", configuration: { type: "IPromotion", types: ["StandardPromotion"] } },
-      
       ]
     },
     "StandardPromotion": {

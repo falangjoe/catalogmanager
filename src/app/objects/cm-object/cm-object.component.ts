@@ -27,8 +27,9 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
   @Input()
   nodetype;
 
-  @Input ()
-  name
+  @Input()
+  name;
+
 
   ngOnInit() {
   }
@@ -154,10 +155,10 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
       
           if(x.Object){
             value = x.Object;
-            value['Type'] = x.Type;
+            value[this.interfaceTypePropertyName] = x.Type;
           }          
         }
-        if(this.nodetype == 'dictionary'){
+        else if(this.nodetype == 'dictionary'){
 
 
           value = {};
@@ -249,6 +250,38 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
     return type;
   }
 
+  private interfaceConfigurationContainer;
+
+  get interfaceTypeOptions(){
+
+    if(!this.interfaceConfigurationContainer || this.interfaceConfigurationContainer.configuration != this.configuration)
+    {
+        let options = this.configuration.types.map(x => {
+          if(x instanceof Object)
+          {
+            return {
+              value : x.type,
+              display : x.display
+            };
+
+          }
+          else {
+            return {
+              value : x,
+              display : x
+            };
+          }
+        });
+
+        this.interfaceConfigurationContainer = {
+          options: options,
+          configuration: this.configuration
+        };
+    }
+
+    return this.interfaceConfigurationContainer.options;
+  }
+
 
   get interfaceObjectConfiguration(){
 
@@ -264,6 +297,11 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
     let object = this.control.get('Object');
 
     return object;
+  }
+
+  get interfaceTypePropertyName(){
+
+    return this.configuration.property || "Type";
   }
 
 
@@ -298,17 +336,6 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
   
 
 
-  // private setFormArrayLength(length){
-
-  //   while (this.control.length > length) {
-  //     this.control.removeAt(0);
-  //   }
-
-  //   while (this.control.length < length) {
-  //     this.control.push(new FormControl());
-  //   }
-  // }
-
   writeValue(obj: any): void {
 
     if(this.nodetype == "list")
@@ -332,13 +359,13 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
         var value = {};
 
         keys.forEach(key => {
-          if(key !== 'Type'){
+          if(key !== this.interfaceTypePropertyName){
             value[key] = obj[key];
           }
           value
         });
 
-        this.control.setValue({Type : obj.Type, Object : value},{emitEvent : false});
+        this.control.setValue({Type : obj[this.interfaceTypePropertyName], Object : value},{emitEvent : false});
       }
 
     }
@@ -386,105 +413,7 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
     return this.controlContainer.helper.validate(control);
   }
 
-  //class functions
-
-
-
-
-  // //data
-
-  // dataValue;
-
-  // @Output() dataChange = new EventEmitter();
-
-
-  // get data(){
-  //   return this.dataValue;
-  // }
-
-  // @Input()
-  // set data(val){
-
-  //   if(this.dataValue !== val && this.dictionaryValue){
-  //     this.dictionaryValue = undefined;
-  //   }
-
-  //   this.dataValue = val;
-    
-  // }
-
-
-  // setData(value){
-
-  //   this.dataValue = value;
-  //   this.dataChange.emit(this.dataValue); 
-  // }
-
-
-  // //dictionary
-
-  // dictionaryValue;
-
-  // setDictionaryData(value){
-
-  //   var result = {};
-
-  //   this.dictionaryValue = value;
-
-  //   value.forEach(x => {
-  //     if(x && x.Key){
-  //         result[x.Key] = x.Value;
-  //     }
-  //   });
-
-  //   this.setData(result);
-  // }
-
-  // getDictionaryData(){
-    
-  //   if(!this.dictionaryValue){
-
-  //     if(this.data){
-        
-  //       var keys = Object.keys(this.data);
-
-  //       this.dictionaryValue = keys.map(x => {
-  //         return {Key : x, Value : this.data[x]};
-  //       });
-
-  //     }
-  //     else {
-  //       this.dictionaryValue = [];
-  //     }
- 
-  //   }
-
-  //   return this.dictionaryValue;
-
-  // }
-
-  // getDictionaryConfiguration(){
-
-  //   let result = { 
-  //     nodetype: 'class', 
-  //     configuration: { 
-  //       type: 'KeyValue', 
-  //       properties: [
-  //            { name: "Key", nodetype: "input", configuration: {} },
-  //            { name: "Value", nodetype: this.configuration.nodetype, configuration: this.configuration.configuration },
-  //       ],
-  //       configuration : {}
-  //     }
-  //   };
-
-  //   return result;
-  // }
-
-
-
-
-
-
+  
 
 
 

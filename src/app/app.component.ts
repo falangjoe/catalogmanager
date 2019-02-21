@@ -11,7 +11,7 @@ enableProdMode();
   selector: 'app-root',
   template: `
     <div style="text-align:center">
-      <cm-object-nodetype-dictionary-tests-data></cm-object-nodetype-dictionary-tests-data>
+      <cm-object-nodetype-interface-display-tests></cm-object-nodetype-interface-display-tests>
     </div>
   `,
   styles: []
