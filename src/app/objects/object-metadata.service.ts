@@ -20,12 +20,12 @@ export class ObjectMetadataService {
     },
     "PromotionAssociation" : {
       properties: [
-        { name: "AssociationId", display: "PromotionId", nodetype: "input", configuration: {type: "auto", selector : 'promotion', validate: true} },
+        { name: "AssociationId", display: "PromotionId", nodetype: "input", configuration: {type: "auto", selector : 'promotion', validate: false} },
       ]     
     },
     "CampaignAssociation" : {
       properties: [
-        { name: "AssociationId", display: "CampaignId", nodetype: "input", configuration: {type: "auto", selector : 'campaign', validate: true} },
+        { name: "AssociationId", display: "CampaignId", nodetype: "input", configuration: {type: "auto", selector : 'campaign', validate: false} },
       ]     
     },
     "Interval" : {

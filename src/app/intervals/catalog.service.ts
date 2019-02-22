@@ -8,11 +8,13 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 export class CatalogService {
 
   private searches;
+  private creates;
   private intervals = [];
 
   constructor() { 
 
     this.searches = new EventEmitter<any[]>();
+    this.creates = new EventEmitter<any>();
 
   }
 
@@ -58,25 +60,79 @@ export class CatalogService {
   }
 
 
+  public getAssociations(associationType : string) : Observable<string[]>{
 
+    //need to limit by catalog and environment or show all?
+    let matches = this.intervals
+      .filter(
+        x => 
+          associationType === x.Interval.Association.Type
+        )
+      .map(x => x.AssocationId as string); 
+    
+    var results = Array.from(new Set(matches));
 
-  public getSearches() : Observable<any[]> {
+    return of(results);
+  }
 
-    return this.searches;
+  public createInterval(catalog,interval) : void {
+
+    this.intervals.push({Catalog : catalog, Interval : interval});
+
+    let association = this.getAssociations(interval);
+
+    this.creates.emit({
+      Catalog : catalog,
+      Assocation : association
+    })
+  }
+
+  private getAssociation(interval){
+
+      if(interval.Assocation.Type == "Product"){
+        return {
+          AssocationType : "Product",
+          AssociationId : interval.Assocation.ProductId
+        };
+      }
+      else if(interval.Assocation.Type == "Campaign"){
+        return {
+          AssocationType : "Campaign",
+          AssociationId : interval.Assocation.CampaignId
+        };
+      }
+      else if(interval.Assocation.Type == "Promotion"){
+        return {
+          AssociationType : "Promotion",
+          AssociationId : interval.Assocation.PromotionId
+        };
+      }
 
   }
 
-  public search(query : any) : void {
-    let matches = this.intervals.filter(
-      x => 
 
-        query.CatalogId === x.Catalog.CatalogId
-        && query.Environment === x.Catalog.Environment 
-        && query.AssociationType === x.Interval.Association.Type 
-        && (x.Interval.Assocation.ProductId && query.AssocationId === x.Interval.Assocation.ProductId)
-        && (x.Interval.Assocation.CampaignId && query.AssocationId === x.Interval.Assocation.CampaignId)
-        && (x.Interval.Assocation.PromotionId && query.AssocationId === x.Interval.Assocation.PromotionId)
-        ); 
+
+  public getCreates() : Observable<any>{
+    return this.creates;
+  }  
+
+
+  public getSearches() : Observable<any[]> {
+    return this.searches;
+  }
+
+  public search(catalog : any, query : any) : void {
+    let matches = this.intervals.filter(
+      x => {
+      
+      let association = this.getAssociation(x.Interval);
+
+      return catalog.CatalogId === x.Catalog.CatalogId
+        && catalog.Environment === x.Catalog.Environment 
+        && query.AssociationType === association.AssociationType 
+        && (query.ProductId && query.AssocationId
+      ); 
+    })
 
     this.searches.emit(matches);
   }

@@ -9,10 +9,9 @@ import { CatalogService } from '../catalog.service';
 })
 export class CmSearchComponent implements OnInit {
 
- 
   control;
 
-  constructor(private catalogService: CatalogService ) {
+  constructor(private catalogService: CatalogService) {
     this.control = new FormGroup({
       catalog : new FormControl(undefined, Validators.required), 
       association : new FormControl(undefined, Validators.required) 
@@ -21,19 +20,16 @@ export class CmSearchComponent implements OnInit {
 
    search(){
 
-    var value = this.control.value;
+    let value = this.control.value;
 
-    var query = {
-      Environment : value.catalog.Environment,
-      CatalogId : value.catalog.CatalogId,
-      AssociationType : value.association.AssociationType,
-      AssociationId : value.association.AssociationId
-    };
+    let catalog =  value.catalog;
+    let query = value.association;
 
-    this.catalogService.search(query);
+    this.catalogService.search(catalog, query);
    }
 
   ngOnInit() {
+
   }
 
 }

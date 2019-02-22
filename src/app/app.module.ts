@@ -41,6 +41,7 @@ import { CmObjectNodetypeDictionaryTestsComponent } from './tests/cm-object-node
 import { CmObjectNodetypeDictionaryTestsDataComponent } from './tests/cm-object-nodetype-dictionary-tests-data.component';
 import { CmObjectNodeTypeClassDisplayTestsComponent } from './tests/cm-object-nodetype-class-display-tests.component';
 import { CmObjectNodeTypeInterfaceDisplayTestsComponent } from './tests/cm-object-nodetype-interface-display-tests.component';
+import { CmIntervalComponent } from './intervals/cm-interval/cm-interval.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { CmObjectNodeTypeInterfaceDisplayTestsComponent } from './tests/cm-objec
     CmObjectNodetypeDictionaryTestsDataComponent,
     CmObjectNodeTypeClassDisplayTestsComponent,
     CmObjectNodeTypeInterfaceDisplayTestsComponent,
+    CmIntervalComponent,
   ],
   imports: [
     BrowserModule,

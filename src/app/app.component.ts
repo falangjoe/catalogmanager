@@ -12,7 +12,7 @@ enableProdMode();
   selector: 'app-root',
   template: `
     <div style="text-align:center">
-      <cm-search></cm-search>
+      <cm-interval></cm-interval>
     </div>
   `,
   styles: []

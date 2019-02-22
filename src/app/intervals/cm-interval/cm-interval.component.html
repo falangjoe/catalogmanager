@@ -1,0 +1,16 @@
+<form [formGroup]="control">
+  
+    <cm-catalog formControlName="catalog" ></cm-catalog>
+  
+    <cm-object 
+      formControlName="interval" 
+      [nodetype]="'class'"
+      [configuration]="{type: 'Interval'}">
+    </cm-object>
+  
+    <button mat-raised-button 
+      (click)="submit()" 
+      [disabled]="!control.valid">
+      Submit
+    </button>
+  </form>

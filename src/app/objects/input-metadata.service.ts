@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Observable, from, of } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { CatalogService } from '../intervals/catalog.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InputMetadataService {
 
-  constructor() { }
+  private _catalogService;
+
+  constructor(private catalogService: CatalogService) {
+    this._catalogService = catalogService;
+   }
 
   inputvalues(selector : string){
 
@@ -21,6 +27,17 @@ export class InputMetadataService {
       return of([
         {id : "Rebate", name : "Rebate"},
         {id : "Shipping", name : "Shipping"}]);
+    }
+
+    if(selector == "campaign" || selector == "promotion"){
+
+      let associations = this._catalogService.getAssociations(selector);
+
+      let mapping = map((x : string) => {
+        return {id : x, name : x}
+      });
+
+      return mapping(associations);
     }
   }
 }
