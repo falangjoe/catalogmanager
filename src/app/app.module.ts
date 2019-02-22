@@ -27,6 +27,7 @@ import { CmInputSelectComponent } from './objects/cm-input-select/cm-input-selec
 import { CmInputStandardComponent } from './objects/cm-input-standard/cm-input-standard.component';
 import { CmInputCheckboxComponent } from './objects/cm-input-checkbox/cm-input-checkbox.component';
 import { CmCatalogComponent } from './intervals/cm-catalog/cm-catalog.component';
+import { CmSearchComponent } from './intervals/cm-search/cm-search.component';
 
 import { CmInputTestsComponent } from './tests/cm-input-tests.component';
 import { CmObjectNodetypeInputTestsComponent } from './tests/cm-object-nodetype-input-tests.component';
@@ -51,6 +52,7 @@ import { CmObjectNodeTypeInterfaceDisplayTestsComponent } from './tests/cm-objec
     CmInputStandardComponent,
     CmInputCheckboxComponent,
     CmCatalogComponent,
+    CmSearchComponent,
 
     CmInputTestsComponent,
     CmObjectNodetypeInputTestsComponent,
@@ -63,7 +65,7 @@ import { CmObjectNodeTypeInterfaceDisplayTestsComponent } from './tests/cm-objec
     CmObjectNodetypeDictionaryTestsComponent,
     CmObjectNodetypeDictionaryTestsDataComponent,
     CmObjectNodeTypeClassDisplayTestsComponent,
-    CmObjectNodeTypeInterfaceDisplayTestsComponent
+    CmObjectNodeTypeInterfaceDisplayTestsComponent,
   ],
   imports: [
     BrowserModule,

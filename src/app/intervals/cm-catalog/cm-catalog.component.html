@@ -2,7 +2,7 @@
 
   <div>
     <mat-form-field>
-      <mat-select placeholder="Environment" formControlName="environment">
+      <mat-select placeholder="Environment" formControlName="Environment">
         <mat-option *ngFor="let e of environments" [value]="e">
           {{e}}
         </mat-option>
@@ -12,7 +12,7 @@
 
   <div>
     <mat-form-field>
-      <mat-select placeholder="Catalog" formControlName="catalog">
+      <mat-select placeholder="Catalog" formControlName="CatalogId">
         <mat-option *ngFor="let c of catalogs" [value]="c">
           {{c}}
         </mat-option>

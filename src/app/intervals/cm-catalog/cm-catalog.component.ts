@@ -14,21 +14,19 @@ import {DefaultControlAccessorProvider,DefaultControlValidatorProvider,FormCompo
 })
 export class CmCatalogComponent implements OnInit, ControlValueAccessor, Validator  {
 
-
-
   constructor(catalogService : CatalogService) { 
 
     this.control = new FormGroup({
-      environment: new FormControl('',Validators.required),
-      catalog: new FormControl('',Validators.required),
+      Environment: new FormControl('',Validators.required),
+      CatalogId: new FormControl('',Validators.required),
     });
     
     this.formComponentHelper = new FormComponentHelper(this.control);
 
     this.catalogService = catalogService;
 
-    this.environment = this.control.get('environment');
-    this.catalog = this.control.get('catalog');
+    this.environment = this.control.get('Environment');
+    this.catalog = this.control.get('CatalogId');
   }
 
   private catalogService : CatalogService;

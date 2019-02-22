@@ -1,5 +1,6 @@
 import { Component, enableProdMode, OnInit  } from '@angular/core';
 import {PromotionService} from './promotion.service'; 
+import { CatalogService } from './intervals/catalog.service';
 
 enableProdMode();
 
@@ -11,16 +12,21 @@ enableProdMode();
   selector: 'app-root',
   template: `
     <div style="text-align:center">
-      <cm-object-nodetype-interface-display-tests></cm-object-nodetype-interface-display-tests>
+      <cm-search></cm-search>
     </div>
   `,
   styles: []
 })
 export class AppComponent {
 
-  constructor(private promotionService: PromotionService) { 
-
+  constructor(private promotionService: PromotionService, private catalogService: CatalogService) { 
+    catalogService.getSearches().subscribe(x => {
+      console.log(x);
+    });
   }
+
+
+
 
 }
 

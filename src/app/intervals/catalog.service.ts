@@ -1,12 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Observable, from, of } from 'rxjs';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CatalogService {
 
-  constructor() { }
+  private searches;
+  private intervals = [];
+
+  constructor() { 
+
+    this.searches = new EventEmitter<any[]>();
+
+  }
 
   getEnvironments(){
 
@@ -15,7 +23,6 @@ export class CatalogService {
       "Staging", 
       "Production"]);
   }
-
 
   getCatalogs(environment){
 
@@ -48,6 +55,30 @@ export class CatalogService {
 
     return of(catalogs[environment]);
 
+  }
+
+
+
+
+  public getSearches() : Observable<any[]> {
+
+    return this.searches;
+
+  }
+
+  public search(query : any) : void {
+    let matches = this.intervals.filter(
+      x => 
+
+        query.CatalogId === x.Catalog.CatalogId
+        && query.Environment === x.Catalog.Environment 
+        && query.AssociationType === x.Interval.Association.Type 
+        && (x.Interval.Assocation.ProductId && query.AssocationId === x.Interval.Assocation.ProductId)
+        && (x.Interval.Assocation.CampaignId && query.AssocationId === x.Interval.Assocation.CampaignId)
+        && (x.Interval.Assocation.PromotionId && query.AssocationId === x.Interval.Assocation.PromotionId)
+        ); 
+
+    this.searches.emit(matches);
   }
 
 }
