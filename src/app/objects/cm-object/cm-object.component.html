@@ -2,19 +2,22 @@
 
   <cm-input *ngSwitchCase="'input'" [formControl]="control" [configuration]="configuration" [name]="name"></cm-input>
 
-  <div *ngSwitchCase="'class'" [class.mat-elevation-z2]="parentnodetype !== 'interface'"  [ngClass]="'class' + (parentnodetype || '')"  [class.mat-elevation-z2]="parentnodetype !== 'interface'">
+  <div *ngSwitchCase="'class'" 
+    [class.mat-elevation-z2]="parentnodetype && parentnodetype !== 'interface'" 
+    [ngClass]="'class' + (parentnodetype && parentnodetype !== 'interface' ? 'child' : 'root')">
         <div *ngFor="let property of properties"> 
             <label *ngIf="property.nodetype !== 'input'" class="mat-h2">{{property.name}}</label>
             <cm-object 
               [configuration]="property.configuration" 
               [name]="property.display || property.name"
               [nodetype]="property.nodetype"
-              [formControl]="getPropertyControl(property.name)">
+              [formControl]="getPropertyControl(property.name)"
+              [parentnodetype]="'class'">
             </cm-object>
         </div>
      </div>
 
-  <div class="list "*ngSwitchCase="'list'" [class.mat-elevation-z2]="true">
+  <div class="list "*ngSwitchCase="'list'">
     <div *ngFor="let item of items; index as i; last as last">
         <button class="deleteitembutton" mat-icon-button (click)="deleteItem(i)">
             <mat-icon>clear</mat-icon>
@@ -22,15 +25,18 @@
         <cm-object 
             [formControl]="item"
             [nodetype]="configuration.nodetype" 
-            [configuration]="configuration.configuration">
+            [configuration]="configuration.configuration"
+            [parentnodetype]="'list'">
        </cm-object>
     </div>
-    <button class="additembutton" mat-icon-button (click)="addItem()">
+    <button class="additembutton" mat-raised-button (click)="addItem()">
         <mat-icon>add</mat-icon>
     </button>
   </div>
 
-  <div class="interface" *ngSwitchCase="'interface'" [class.mat-elevation-z2]="true">
+  <div *ngSwitchCase="'interface'" 
+    [class.mat-elevation-z2]="parentnodetype" 
+    [ngClass]="'interface' + (parentnodetype ? 'child' : 'root')">
         <mat-form-field>
                 <mat-select [formControl]="interfaceTypeControl" >
                   <mat-option *ngFor="let option of interfaceTypeOptions" [(value)]="option.value">
@@ -43,7 +49,7 @@
             [configuration]="interfaceObjectConfiguration"
             [name]="name" 
             [nodetype]="'class'"
-            [parentnodetype]="nodetype" >
+            [parentnodetype]="'interface'" >
         </cm-object>
   </div>
 
@@ -51,7 +57,8 @@
         [formControl]="control"
         [configuration]="getDictionaryConfiguration()"
         [name]="name" 
-        [nodetype]="'list'">
+        [nodetype]="'list'"
+        [parentnodetype]="parentnodetype">
    </cm-object>
 
 </div>

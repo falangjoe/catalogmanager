@@ -15,17 +15,17 @@ export class ObjectMetadataService {
   types = {
     "ProductAssociation" : {
       properties: [
-        { name: "AssociationId", display: "ProductId", nodetype: "input", configuration: {type: "auto", selector : 'product', validate: true} },
+        { name: "AssociationId", display: "ProductId", nodetype: "input", configuration: {type: "auto", selector : 'Product', validate: true} },
       ]     
     },
     "PromotionAssociation" : {
       properties: [
-        { name: "AssociationId", display: "PromotionId", nodetype: "input", configuration: {type: "auto", selector : 'promotion', validate: false} },
+        { name: "AssociationId", display: "PromotionId", nodetype: "input", configuration: {type: "auto", selector : 'Promotion', validate: false} },
       ]     
     },
     "CampaignAssociation" : {
       properties: [
-        { name: "AssociationId", display: "CampaignId", nodetype: "input", configuration: {type: "auto", selector : 'campaign', validate: false} },
+        { name: "AssociationId", display: "CampaignId", nodetype: "input", configuration: {type: "auto", selector : 'Campaign', validate: false} },
       ]     
     },
     "Interval" : {
@@ -33,7 +33,7 @@ export class ObjectMetadataService {
         { name: "StartDate", nodetype: "input", configuration: {type: "datetime-local"} },
         { name: "EndDate", nodetype: "input", configuration: {type: "datetime-local"} },
         { name: "IsActive", nodetype: "input", configuration: {type: "checkbox"} },
-        { name: "Association", nodetype: "interface", configuration: { type: "IAssociation", types: ["Product","Promotion","Campaign"] } }, 
+        { name: "Association", nodetype: "interface", required: true, configuration: { type: "IAssociation", types: ["Product","Promotion","Campaign"] } }, 
       ]
     },
     "Promotion": {
@@ -42,14 +42,14 @@ export class ObjectMetadataService {
         { name: "PromotionName", nodetype: "input", configuration: {} },
         { name: "PromotionDescription", nodetype: "input", configuration: {} },
         { name: "Scope", nodetype: "input", configuration: { type:"select" , values: ["Cart", "Item"] } },
-        { name: "Category", nodetype: "input", configuration : {type: "auto", selector : 'category', validate: false} },
+        { name: "Category", nodetype: "input", configuration : {type: "auto", selector : 'Category', validate: false} },
         { name: "Assets", nodetype: "dictionary", configuration: { nodetype: "input", configuration: {} } }, 
         { name: "Promotion", nodetype: "interface", configuration: { type: "IPromotion", types: ["StandardPromotion"] } },
       ]
     },
     "Product": {
       properties: [
-        { name: "ProductId", nodetype: "input", configuration: {type: "auto", selector : 'product', validate: true} },
+        { name: "ProductId", nodetype: "input", configuration: {type: "auto", selector : 'Product', validate: true} },
         { name: "Price", nodetype: "input", configuration: {type: "number"} },
         { name: "Assets", nodetype: "dictionary", configuration: { nodetype: "input", configuration: {} } }, 
       ]
@@ -71,13 +71,13 @@ export class ObjectMetadataService {
     },
     "ProductRule": {
       properties: [
-        { name: "Products", nodetype: "list", configuration: { nodetype: "input", configuration : { type: "auto", selector : 'product', validate: true} } },
+        { name: "Products", nodetype: "list", configuration: { nodetype: "input", configuration : { type: "auto", selector : 'Product', validate: true} } },
         { name: "Quantity", nodetype: "input", configuration: {type: "number"} }
       ]
     },
     "QuantityRule": {
       properties: [
-        { name: "Product", nodetype: "input", configuration: {type: "auto", selector : 'product', validate: true} },
+        { name: "Product", nodetype: "input", configuration: {type: "auto", selector : 'Product', validate: true} },
         { name: "Quantity", nodetype: "input", configuration: {type: "number"} }
       ]
     },

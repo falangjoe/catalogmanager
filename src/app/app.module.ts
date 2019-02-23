@@ -16,7 +16,8 @@ import {
   MatButtonModule, 
   MatDividerModule, 
   MatAutocompleteModule, 
-  MatCheckboxModule } from '@angular/material';
+  MatCheckboxModule,
+  MatSidenavModule } from '@angular/material';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -42,6 +43,8 @@ import { CmObjectNodetypeDictionaryTestsDataComponent } from './tests/cm-object-
 import { CmObjectNodeTypeClassDisplayTestsComponent } from './tests/cm-object-nodetype-class-display-tests.component';
 import { CmObjectNodeTypeInterfaceDisplayTestsComponent } from './tests/cm-object-nodetype-interface-display-tests.component';
 import { CmIntervalComponent } from './intervals/cm-interval/cm-interval.component';
+import { CmIntervalEditorComponent } from './intervals/cm-interval-editor/cm-interval-editor.component';
+import { CmSearchResultsComponent } from './intervals/cm-search-results/cm-search-results.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +71,8 @@ import { CmIntervalComponent } from './intervals/cm-interval/cm-interval.compone
     CmObjectNodeTypeClassDisplayTestsComponent,
     CmObjectNodeTypeInterfaceDisplayTestsComponent,
     CmIntervalComponent,
+    CmIntervalEditorComponent,
+    CmSearchResultsComponent,
   ],
   imports: [
     BrowserModule,
@@ -83,7 +88,8 @@ import { CmIntervalComponent } from './intervals/cm-interval/cm-interval.compone
     MatFormFieldModule,
     MatSelectModule,
     MatAutocompleteModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSidenavModule
   ],
   providers: [],
   bootstrap: [AppComponent]

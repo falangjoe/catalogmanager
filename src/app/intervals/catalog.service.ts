@@ -63,12 +63,13 @@ export class CatalogService {
   public getAssociations(associationType : string) : Observable<string[]>{
 
     //need to limit by catalog and environment or show all?
-    let matches = this.intervals
-      .filter(
-        x => 
-          associationType === x.Interval.Association.Type
-        )
-      .map(x => x.AssocationId as string); 
+
+    let all = this.intervals
+    .map(x => this.getAssociation(x.Interval));
+
+    let matches = all
+      .filter(x => associationType === x.AssociationType)
+      .map(x => x.AssociationId as string); 
     
     var results = Array.from(new Set(matches));
 
@@ -79,32 +80,32 @@ export class CatalogService {
 
     this.intervals.push({Catalog : catalog, Interval : interval});
 
-    let association = this.getAssociations(interval);
+    let association = this.getAssociation(interval);
 
     this.creates.emit({
       Catalog : catalog,
-      Assocation : association
+      Association : association
     })
   }
 
   private getAssociation(interval){
 
-      if(interval.Assocation.Type == "Product"){
+      if(interval.Association.Type == "Product"){
         return {
-          AssocationType : "Product",
-          AssociationId : interval.Assocation.ProductId
+          AssociationType : "Product",
+          AssociationId : interval.Association.ProductId
         };
       }
-      else if(interval.Assocation.Type == "Campaign"){
+      else if(interval.Association.Type == "Campaign"){
         return {
-          AssocationType : "Campaign",
-          AssociationId : interval.Assocation.CampaignId
+          AssociationType : "Campaign",
+          AssociationId : interval.Association.CampaignId
         };
       }
-      else if(interval.Assocation.Type == "Promotion"){
+      else if(interval.Association.Type == "Promotion"){
         return {
           AssociationType : "Promotion",
-          AssociationId : interval.Assocation.PromotionId
+          AssociationId : interval.Association.PromotionId
         };
       }
 

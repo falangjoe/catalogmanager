@@ -11,9 +11,7 @@ enableProdMode();
 @Component({
   selector: 'app-root',
   template: `
-    <div style="text-align:center">
-      <cm-interval></cm-interval>
-    </div>
+    <cm-interval-editor></cm-interval-editor>
   `,
   styles: []
 })

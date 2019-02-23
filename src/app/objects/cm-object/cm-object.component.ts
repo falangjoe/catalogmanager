@@ -1,6 +1,6 @@
 import { Component, Input, Output, OnInit,  EventEmitter } from '@angular/core';
 import { ObjectMetadataService } from '../object-metadata.service';
-import { FormControl, AbstractControl, ControlValueAccessor, Validator, ValidationErrors, FormGroup, CheckboxControlValueAccessor, FormArray  } from '@angular/forms';
+import { FormControl, AbstractControl, ControlValueAccessor, Validator, ValidationErrors, FormGroup, CheckboxControlValueAccessor, FormArray, Validators  } from '@angular/forms';
 import {DefaultControlAccessorProvider,DefaultControlValidatorProvider,FormComponentHelper} from '../../helpers/form.helpers';
 
 
@@ -99,7 +99,9 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
 
       properties.forEach(property => {
 
-        group.addControl(property.name,new FormControl());
+        let validators = property.required ? [Validators.required] : [];
+
+        group.addControl(property.name,new FormControl(undefined,validators));
       
       });
 
