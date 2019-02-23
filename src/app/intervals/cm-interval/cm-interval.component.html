@@ -1,4 +1,4 @@
-<form [formGroup]="control">
+<form [formGroup]="control" class="interval-form">
   
     <cm-catalog formControlName="catalog" ></cm-catalog>
   
@@ -8,9 +8,9 @@
       [configuration]="{type: 'Interval'}">
     </cm-object>
   
-    <button mat-raised-button 
+    <button mat-raised-button
       (click)="submit()" 
       [disabled]="!control.valid">
       Submit
     </button>
-  </form>
+</form>

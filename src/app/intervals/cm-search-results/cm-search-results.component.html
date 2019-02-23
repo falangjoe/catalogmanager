@@ -1,3 +1,16 @@
-<p>
-  cm-search-results works!
-</p>
+<div *ngFor="let interval of intervals; index as i; last as last" > 
+    <div [ngClass]="class(i)" (click)="show(i)" [class.mat-elevation-z2]="true">
+      <button *ngIf="deletable(i)" class="deleteintervalbutton" mat-icon-button (click)="delete(i)">
+            <mat-icon>clear</mat-icon>
+      </button>
+      <div *ngIf="interval.StopDate">
+        <span class="mat-h2">Stop Date : {{ interval.StopDate | date:'short' }}</span>
+      </div>
+      <div>
+        <span>Start Date : {{ interval.StopDate | date:'short' }}</span>
+      </div>
+      <div>
+          <mat-icon>{{interval.IsActive ? 'check-box' : 'check-box_outline_blank'}}</mat-icon>
+      </div>
+    </div>
+</div>

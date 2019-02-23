@@ -9,12 +9,14 @@ export class CatalogService {
 
   private searches;
   private creates;
+  private shows;
   private intervals = [];
 
   constructor() { 
 
     this.searches = new EventEmitter<any[]>();
     this.creates = new EventEmitter<any>();
+    this.shows = new EventEmitter<any>();
 
   }
 
@@ -120,6 +122,14 @@ export class CatalogService {
 
   public getSearches() : Observable<any[]> {
     return this.searches;
+  }
+
+  public getShows() : Observable<any>{
+    return this.shows;
+  }
+
+  public createShow(interval) : void{
+    this.shows.emit(interval);
   }
 
   public search(catalog : any, query : any) : void {
