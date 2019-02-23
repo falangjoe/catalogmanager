@@ -22,12 +22,15 @@
         <button class="deleteitembutton" mat-icon-button (click)="deleteItem(i)">
             <mat-icon>clear</mat-icon>
         </button>
-        <cm-object 
-            [formControl]="item"
-            [nodetype]="configuration.nodetype" 
-            [configuration]="configuration.configuration"
-            [parentnodetype]="'list'">
-       </cm-object>
+        <div style="margin-right: 2em;">
+           
+            <cm-object
+                [formControl]="item"
+                [nodetype]="configuration.nodetype" 
+                [configuration]="configuration.configuration"
+                [parentnodetype]="'list'">
+            </cm-object>
+       </div>
     </div>
     <button class="additembutton" mat-raised-button (click)="addItem()">
         <mat-icon>add</mat-icon>
