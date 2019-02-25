@@ -80,7 +80,9 @@ export class CatalogService {
 
   public createInterval(catalog,interval) : void {
 
-    this.intervals.push({Catalog : catalog, Interval : interval});
+    let obj = {Catalog : catalog, Interval : interval};
+
+    this.intervals.push(obj);
 
     let association = this.getAssociation(interval);
 

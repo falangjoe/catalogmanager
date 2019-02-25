@@ -34,7 +34,7 @@ export class CmInputStandardComponent implements ControlValueAccessor, Validator
     return this.configurationValue;
   }
 
-  control = new FormControl('');
+  control = new FormControl();
 
   writeValue(obj: any): void {
     this.formComponentHelper.writeValue(obj);

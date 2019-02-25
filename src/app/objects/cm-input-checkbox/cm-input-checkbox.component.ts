@@ -37,7 +37,7 @@ export class CmInputCheckboxComponent implements ControlValueAccessor, Validator
   }
 
 
-  control = new FormControl('');
+  control = new FormControl();
 
   writeValue(obj: any): void {
     this.formComponentHelper.writeValue(obj);

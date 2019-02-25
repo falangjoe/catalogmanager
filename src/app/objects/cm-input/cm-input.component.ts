@@ -14,10 +14,10 @@ import {DefaultControlAccessorProvider,DefaultControlValidatorProvider,FormCompo
 export class CmInputComponent implements ControlValueAccessor, Validator {
 
   private formComponentHelper : FormComponentHelper;
-  private control : FormControl = new FormControl('');
+  private control : FormControl = new FormControl();
 
   constructor() { 
-    
+
     this.formComponentHelper = new FormComponentHelper(this.control);
   }
 

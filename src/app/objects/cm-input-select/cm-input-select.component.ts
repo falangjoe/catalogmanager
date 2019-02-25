@@ -34,7 +34,7 @@ export class CmInputSelectComponent implements ControlValueAccessor, Validator  
     return this.configurationValue;
   }
 
-  control = new FormControl('', Validators.required);
+  control = new FormControl(undefined, Validators.required);
 
   writeValue(obj: any): void {
     this.formComponentHelper.writeValue(obj);

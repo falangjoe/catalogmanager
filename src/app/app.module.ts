@@ -40,8 +40,8 @@ import { CmObjectNodetypeInterfaceTestsComponent } from './tests/cm-object-nodet
 import { CmObjectNodetypeInterfaceTestsDataComponent } from './tests/cm-object-nodetype-interface-tests-data.component';
 import { CmObjectNodetypeDictionaryTestsComponent } from './tests/cm-object-nodetype-dictionary-tests.component';
 import { CmObjectNodetypeDictionaryTestsDataComponent } from './tests/cm-object-nodetype-dictionary-tests-data.component';
-import { CmObjectNodeTypeClassDisplayTestsComponent } from './tests/cm-object-nodetype-class-display-tests.component';
-import { CmObjectNodeTypeInterfaceDisplayTestsComponent } from './tests/cm-object-nodetype-interface-display-tests.component';
+import { CmObjectNodeTypeClassTestsDisplayComponent } from './tests/cm-object-nodetype-class-tests-display.component';
+import { CmObjectNodeTypeInterfaceTestsDisplayComponent } from './tests/cm-object-nodetype-interface-tests-display.component';
 import { CmIntervalComponent } from './intervals/cm-interval/cm-interval.component';
 import { CmIntervalEditorComponent } from './intervals/cm-interval-editor/cm-interval-editor.component';
 import { CmSearchResultsComponent } from './intervals/cm-search-results/cm-search-results.component';
@@ -68,8 +68,8 @@ import { CmSearchResultsComponent } from './intervals/cm-search-results/cm-searc
     CmObjectNodetypeInterfaceTestsDataComponent,
     CmObjectNodetypeDictionaryTestsComponent,
     CmObjectNodetypeDictionaryTestsDataComponent,
-    CmObjectNodeTypeClassDisplayTestsComponent,
-    CmObjectNodeTypeInterfaceDisplayTestsComponent,
+    CmObjectNodeTypeClassTestsDisplayComponent,
+    CmObjectNodeTypeInterfaceTestsDisplayComponent,
     CmIntervalComponent,
     CmIntervalEditorComponent,
     CmSearchResultsComponent,

@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl} from '@angular/forms';
 
 @Component({
-  selector: 'cm-object-nodetype-class-display-tests',
+  selector: 'cm-object-nodetype-class-tests-display',
   template: `<cm-object  [formControl]="control" [nodetype]="nodetype" [configuration]="configuration" [name]="name"></cm-object>`,
   styles: []
 })
-export class CmObjectNodeTypeClassDisplayTestsComponent implements OnInit {
+export class CmObjectNodeTypeClassTestsDisplayComponent implements OnInit {
 
   private control : FormControl = new FormControl('');
 

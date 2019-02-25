@@ -93,7 +93,7 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
     }
     else if(this.nodetype == 'class')
     {
-      let group = new FormGroup({});
+      let controls = {};
 
       let properties = this.getClassProperties();
 
@@ -101,11 +101,11 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
 
         let validators = property.required ? [Validators.required] : [];
 
-        group.addControl(property.name,new FormControl(undefined,validators));
+        controls[property.name] = new FormControl(undefined,validators);
       
       });
 
-      control = group;
+      control = new FormGroup(controls);
     }
     else if (this.nodetype == 'list')
     {
@@ -156,12 +156,19 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
         if(this.nodetype == 'interface'){
       
           if(x.Object){
-            value = x.Object;
-            value[this.interfaceTypePropertyName] = x.Type;
-          }          
-        }
-        else if(this.nodetype == 'dictionary'){
 
+            var keys = Object.keys(x.Object);
+
+            value = {};
+
+            keys.forEach(key => {
+              value[key] = x.Object[key];
+            });
+
+            value[self.interfaceTypePropertyName] = x.Type;
+          } 
+        }
+        else if(self.nodetype == 'dictionary'){
 
           value = {};
 
@@ -177,8 +184,14 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
           value = x;
         }
 
-        self.registeredPropagateChange(value);
+
+        if(value){
+          self.registeredPropagateChange(value);
+        }
+        
       }
+
+     
     };
 
   }
@@ -285,13 +298,18 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
   }
 
 
+  private interfaceObjectConfigurationValue;
+
   get interfaceObjectConfiguration(){
 
     let type = this.interfaceTypeControl;
 
-    if(type.value){
-      return {type : type.value};
-    }   
+    if(!this.interfaceObjectConfigurationValue || this.interfaceObjectConfigurationValue.type != type.value){
+
+      this.interfaceObjectConfigurationValue = {type : type.value};
+    }  
+
+    return this.interfaceObjectConfigurationValue ;    
   }
 
   get interfaceObjectControl(){
@@ -346,8 +364,9 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
      
         this.controlContainerValue = undefined;
         this.listLength = obj.length;
-        // this.setFormArrayLength((obj || []).length);
         this.control.setValue(obj, {emitEvent : false});
+
+
       }
     }
     else if(this.nodetype == 'interface') {
@@ -368,6 +387,7 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
         });
 
         this.control.setValue({Type : obj[this.interfaceTypePropertyName], Object : value},{emitEvent : false});
+    
       }
 
     }
@@ -382,12 +402,21 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
         });
 
         this.control.setValue(values, {emitEvent : false});
+
+     
       }
 
+    }
+    else if(this.nodetype == 'class'){
+      if(obj){
+        this.control.setValue(obj, {emitEvent : false});
+
+      }
     }
     else{
       if(obj){
         this.control.setValue(obj, {emitEvent : false});
+
       }
     }
    

@@ -21,6 +21,10 @@ export class AppComponent {
     catalogService.getSearches().subscribe(x => {
       console.log(x);
     });
+
+    catalogService.getCreates().subscribe(x => {
+      console.log(JSON.stringify(x));
+    });
   }
 
 

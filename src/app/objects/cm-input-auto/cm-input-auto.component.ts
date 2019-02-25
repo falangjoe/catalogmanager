@@ -59,7 +59,7 @@ export class CmInputAutoComponent implements ControlValueAccessor, Validator  {
   }
 
 
-  private control : FormControl = new FormControl('', [
+  private control : FormControl = new FormControl(undefined, [
     Validators.required,
     this.valueValidator()
   ]);
