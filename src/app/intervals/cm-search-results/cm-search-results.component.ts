@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CatalogService } from '../catalog.service';
-import { getLocaleDateTimeFormat } from '@angular/common';
 
 @Component({
   selector: 'cm-search-results',
@@ -25,39 +24,23 @@ export class CmSearchResultsComponent implements OnInit {
   private catalog: any;
 
   private class(i : number){
+
     let interval = this.intervals[i];
 
-    let result = "";
+    let result = '';
 
-    if(interval.IsActive){
-      result = "interval-active";
-    }
-    else {
-      result = "interval-inactive";
-    }
-
-    if(new Date(interval.StartDate) > new Date()){
-      result = result + ' future-interval';
-    }
-    else if ( !interval.EndDate || new Date(interval.EndDate) > new Date()) {
-      result = result + ' present-interval';
-    }
-    else {
-      result = result + ' past-interval';
+    if (interval.EndDate && new Date(interval.EndDate) < new Date()) {
+      result = 'interval-past';
     }
 
     return result;
   }
 
-
-  private getTimeClass(){
-
-  }
-
   private show(i : number){
 
     let interval = this.intervals[i];
-    this.catalogService.createShow(interval);
+
+    this.catalogService.createShow(this.catalog, interval);
   }
 
   private deletable(i : number){
@@ -72,8 +55,10 @@ export class CmSearchResultsComponent implements OnInit {
   }
 
   private delete(i : number){
-    let assocationId = this.intervals[i].Association.AssocationId
-    //this.catalogService.delete(assocationId);
+
+    let interval = this.intervals[i];
+    
+    this.catalogService.delete(this.catalog, interval);
   }
 
 }

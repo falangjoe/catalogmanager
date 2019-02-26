@@ -1,11 +1,11 @@
 <form [formGroup]="control">
   
-  <cm-catalog formControlName="catalog" ></cm-catalog>
+  <cm-catalog formControlName="Catalog" ></cm-catalog>
 
   <cm-object 
-    formControlName="association" 
+    formControlName="Association" 
     [nodetype]="'interface'"
-    [configuration]="{types: [{type: 'ProductSearch', display: 'Product'},{type: 'PromotionSearch', display: 'Promotion'},{type: 'CampaignSearch', display: 'Campaign'}] }">
+    [configuration]="{types: [ {type: 'ProductSearch', display: 'Product'},{type: 'PromotionSearch', display: 'Promotion'},{type: 'CampaignSearch', display: 'Campaign'}] }">
   </cm-object>
 
   <button mat-raised-button 

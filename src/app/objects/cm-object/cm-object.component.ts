@@ -409,8 +409,24 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
     }
     else if(this.nodetype == 'class'){
       if(obj){
-        this.control.setValue(obj, {emitEvent : false});
 
+        
+        let control = this.control as FormGroup;
+        let formKeys = Object.keys(control.controls);
+
+        let data = {};
+
+        var keys = Object.keys(obj);
+
+        keys.forEach(x => {
+
+          if(formKeys.includes(x)){
+            data[x] = obj[x];
+          }
+
+        });
+
+        this.control.setValue(data, {emitEvent : false});
       }
     }
     else{

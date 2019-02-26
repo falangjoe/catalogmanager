@@ -29,6 +29,10 @@ import { CmInputStandardComponent } from './objects/cm-input-standard/cm-input-s
 import { CmInputCheckboxComponent } from './objects/cm-input-checkbox/cm-input-checkbox.component';
 import { CmCatalogComponent } from './intervals/cm-catalog/cm-catalog.component';
 import { CmSearchComponent } from './intervals/cm-search/cm-search.component';
+import { CmIntervalComponent } from './intervals/cm-interval/cm-interval.component';
+import { CmIntervalEditorComponent } from './intervals/cm-interval-editor/cm-interval-editor.component';
+import { CmSearchResultsComponent } from './intervals/cm-search-results/cm-search-results.component';
+
 
 import { CmInputTestsComponent } from './tests/cm-input-tests.component';
 import { CmObjectNodetypeInputTestsComponent } from './tests/cm-object-nodetype-input-tests.component';
@@ -42,9 +46,7 @@ import { CmObjectNodetypeDictionaryTestsComponent } from './tests/cm-object-node
 import { CmObjectNodetypeDictionaryTestsDataComponent } from './tests/cm-object-nodetype-dictionary-tests-data.component';
 import { CmObjectNodeTypeClassTestsDisplayComponent } from './tests/cm-object-nodetype-class-tests-display.component';
 import { CmObjectNodeTypeInterfaceTestsDisplayComponent } from './tests/cm-object-nodetype-interface-tests-display.component';
-import { CmIntervalComponent } from './intervals/cm-interval/cm-interval.component';
-import { CmIntervalEditorComponent } from './intervals/cm-interval-editor/cm-interval-editor.component';
-import { CmSearchResultsComponent } from './intervals/cm-search-results/cm-search-results.component';
+import { CmCatalogTestsDataComponent } from './tests/cm-catalog-tests-data.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,9 @@ import { CmSearchResultsComponent } from './intervals/cm-search-results/cm-searc
     CmInputCheckboxComponent,
     CmCatalogComponent,
     CmSearchComponent,
+    CmIntervalComponent,
+    CmIntervalEditorComponent,
+    CmSearchResultsComponent,
 
     CmInputTestsComponent,
     CmObjectNodetypeInputTestsComponent,
@@ -70,9 +75,7 @@ import { CmSearchResultsComponent } from './intervals/cm-search-results/cm-searc
     CmObjectNodetypeDictionaryTestsDataComponent,
     CmObjectNodeTypeClassTestsDisplayComponent,
     CmObjectNodeTypeInterfaceTestsDisplayComponent,
-    CmIntervalComponent,
-    CmIntervalEditorComponent,
-    CmSearchResultsComponent,
+    CmCatalogTestsDataComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CatalogService } from '../catalog.service';
-import {FormGroup, FormControl, Validators, AbstractControl, ControlValueAccessor, Validator, ValidationErrors} from '@angular/forms';
+import {FormGroup, FormControl, Validators, AbstractControl, ControlValueAccessor, Validator, ValidationErrors, ValidatorFn} from '@angular/forms';
 import {DefaultControlAccessorProvider,DefaultControlValidatorProvider,FormComponentHelper} from '../../helpers/form.helpers';
 
 @Component({
@@ -19,7 +19,7 @@ export class CmCatalogComponent implements OnInit, ControlValueAccessor, Validat
     this.control = new FormGroup({
       Environment: new FormControl('',Validators.required),
       CatalogId: new FormControl('',Validators.required),
-    });
+    },[this.getCatalogValidator()]);
     
     this.formComponentHelper = new FormComponentHelper(this.control);
 
@@ -56,7 +56,6 @@ export class CmCatalogComponent implements OnInit, ControlValueAccessor, Validat
   private subscribeEnvironmentValueChanges() : void{
 
     this.environment.valueChanges.subscribe(x => {
-      this.catalog.setValue(undefined,{emitEvent : false});
       this.setCatalogs(x);
 
     });
@@ -75,9 +74,34 @@ export class CmCatalogComponent implements OnInit, ControlValueAccessor, Validat
   }
 
 
+  private getCatalogValidator() : ValidatorFn {
+
+    let self = this;
+
+    return (control : AbstractControl) : {[key: string]: any} | null => {
+      
+      let isValid : boolean = true;
+  
+      let value = control.value;
+
+      if(value && value.Environment && value.CatalogId){
+
+        isValid = self.catalogs.includes(value.CatalogId);
+
+      }
+
+      return !isValid ? {'invalidCatalog': value.CatalogId} : null;
+    };
+  }
 
 
   writeValue(obj: any): void {
+
+    if(obj){
+      this.environment.setValue(obj.Environment, {emitEvent : false});
+      this.setCatalogs(obj.Environment);
+      this.catalog.setValue(obj.CatalogId,{emitEvent : false});
+    }
     this.formComponentHelper.writeValue(obj);
   }
   registerOnChange(fn: any): void {

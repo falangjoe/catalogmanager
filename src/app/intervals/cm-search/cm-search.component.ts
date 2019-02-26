@@ -13,8 +13,8 @@ export class CmSearchComponent implements OnInit {
 
   constructor(private catalogService: CatalogService) {
     this.control = new FormGroup({
-      catalog : new FormControl(undefined, Validators.required), 
-      association : new FormControl(undefined, Validators.required) 
+      Catalog : new FormControl(undefined, Validators.required), 
+      Association : new FormControl(undefined, Validators.required) 
     })
    }
 
@@ -22,14 +22,35 @@ export class CmSearchComponent implements OnInit {
 
     let value = this.control.value;
 
-    let catalog =  value.catalog;
-    let query = value.association;
+    let catalog =  value.Catalog;
+    let query = value.Association;
 
     this.catalogService.search(catalog, {AssociationId : query.AssociationId, AssociationType : query.Type.replace("Search", "") });
    }
 
   ngOnInit() {
 
+    let self = this;
+    this.catalogService.getCreates().subscribe(
+      x => 
+        {
+          self.setControl(x.Catalog, x.Association);
+          self.search();
+        });
+
+  this.catalogService.getDeletes().subscribe(
+    x => 
+      {
+        self.setControl(x.Catalog, x.Association);
+        self.search();
+      });
+  }
+
+  private setControl(catalog, association) {
+
+    let value = {Catalog: catalog, Association : {Type : association.AssociationType + "Search", AssociationId: association.AssociationId }};
+
+    this.control.setValue(value, {emitEvent : false});
   }
 
 }

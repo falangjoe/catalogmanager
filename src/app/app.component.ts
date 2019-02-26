@@ -18,13 +18,7 @@ enableProdMode();
 export class AppComponent {
 
   constructor(private promotionService: PromotionService, private catalogService: CatalogService) { 
-    catalogService.getSearches().subscribe(x => {
-      console.log(x);
-    });
 
-    catalogService.getCreates().subscribe(x => {
-      console.log(JSON.stringify(x));
-    });
   }
 
 

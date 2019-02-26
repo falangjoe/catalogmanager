@@ -7,9 +7,12 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 })
 export class CatalogService {
 
-  private searches;
-  private creates;
-  private shows;
+  private searches = new EventEmitter<any>();
+  private creates = new EventEmitter<any>();
+  private shows = new EventEmitter<any>();
+  private deletes = new EventEmitter<any>();
+  private index = 1;
+
   private intervals = [
     {
       "Catalog": {
@@ -17,9 +20,9 @@ export class CatalogService {
         "CatalogId": "ENTERPRISE_1"
       },
       "Interval": {
-        "IntervalId": 1,
-        "StartDate": "2019-02-24T11:00",
-        "EndDate": "2019-02-25T11:00",
+        "IntervalId": this.getIndex(),
+        "StartDate": "2019-02-25T11:00",
+        "EndDate": "2019-02-26T11:00",
         "IsActive": true,
         "Association": {
           "ProductId": "002562",
@@ -37,9 +40,9 @@ export class CatalogService {
         "CatalogId": "ENTERPRISE_1"
       },
       "Interval": {
-        "IntervalId": 2,
-        "StartDate": "2019-02-25T11:00",
-        "EndDate": "2019-02-26T10:00",
+        "IntervalId": this.getIndex(),
+        "StartDate": "2019-02-26T11:00",
+        "EndDate": "2019-02-27T10:00",
         "IsActive": true,
         "Association": {
           "ProductId": "002562",
@@ -57,8 +60,8 @@ export class CatalogService {
         "CatalogId": "ENTERPRISE_1"
       },
       "Interval": {
-        "IntervalId": 3,
-        "StartDate": "2019-02-26T10:00",
+        "IntervalId": this.getIndex(),
+        "StartDate": "2019-02-27T10:00",
         "EndDate": null,
         "IsActive": false,
         "Association": {
@@ -73,12 +76,14 @@ export class CatalogService {
     }
 
   ];
-  constructor() { 
 
-    this.searches = new EventEmitter<any[]>();
-    this.creates = new EventEmitter<any>();
-    this.shows = new EventEmitter<any>();
+  constructor() {
+  }
 
+  getIndex() {
+    this.index += 1;
+
+    return (this.index).toString();
   }
 
   getEnvironments(){
@@ -141,13 +146,15 @@ export class CatalogService {
 
   public createInterval(catalog,interval) : void {
 
+    interval["IntervalId"] = this.getIndex();
+
     let obj = {Catalog : catalog, Interval : interval};
 
     this.intervals.push(obj);
 
     let association = this.getAssociation(interval);
 
-    this.creates.emit(obj);
+    this.creates.emit({Catalog : catalog, Association : association});
   }
 
   private getAssociation(interval){
@@ -180,7 +187,7 @@ export class CatalogService {
   }  
 
 
-  public getSearches() : Observable<any[]> {
+  public getSearches() : Observable<any> {
     return this.searches;
   }
 
@@ -188,8 +195,12 @@ export class CatalogService {
     return this.shows;
   }
 
-  public createShow(interval) : void{
-    this.shows.emit(interval);
+  public getDeletes() : Observable<any>{
+    return this.deletes;
+  }
+
+  public createShow(catalog, interval) : void{
+    this.shows.emit({catalog : catalog, interval : interval});
   }
 
   public search(catalog : any, query : any) : void {
@@ -204,11 +215,26 @@ export class CatalogService {
         && association.AssociationId && query.AssociationId; 
     });
 
-    let intervals = matches.map(x => x.Interval).sort(x => -1 * x.IntervalId);
+    let intervals = matches.map(x => x.Interval).sort(x => -1 * new Date(x.StartDate).getTime());
 
     let result = {Catalog : catalog, Intervals : intervals};
 
     this.searches.emit(result);
   }
 
+  public delete(catalog : any, interval : any) {
+
+    let association = this.getAssociation(interval);
+    let intervalId = interval.IntervalId;
+
+    this.intervals = this.intervals.filter(x => {
+
+      return !(catalog.CatalogId === x.Catalog.CatalogId
+        &&  catalog.Environment === x.Catalog.Environment
+        && intervalId === x.Interval.IntervalId);
+    });
+
+    this.deletes.emit({Catalog : catalog, Association : association});
+
+  }
 }

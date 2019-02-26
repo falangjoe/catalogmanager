@@ -31,7 +31,6 @@ export class ObjectMetadataService {
     "Interval" : {
       properties: [
         { name: "StartDate", nodetype: "input", configuration: {type: "datetime-local"} },
-        { name: "EndDate", nodetype: "input", configuration: {type: "datetime-local"} },
         { name: "IsActive", nodetype: "input", configuration: {type: "checkbox"} },
         { name: "Association", nodetype: "interface", required: true, configuration: { type: "IAssociation", types: ["Product","Promotion","Campaign"] } }, 
       ]
