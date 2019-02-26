@@ -1,16 +1,13 @@
 <div *ngFor="let interval of intervals; index as i; last as last" > 
-    <div [ngClass]="class(i)" (click)="show(i)" [class.mat-elevation-z2]="true">
-      <button *ngIf="deletable(i)" class="deleteintervalbutton" mat-icon-button (click)="delete(i)">
-            <mat-icon>clear</mat-icon>
-      </button>
-      <div *ngIf="interval.StopDate">
-        <span class="mat-h2">Stop Date : {{ interval.StopDate | date:'short' }}</span>
+    <button  *ngIf="deletable(i)" class="deleteintervalbutton" mat-icon-button (click)="delete(i)">
+        <mat-icon>clear</mat-icon>
+   </button>
+    <div class="interval-container" [ngClass]="class(i)" (click)="show(i)" [class.mat-elevation-z2]="true">
+      <div>
+        <span class="mat-h3">Start Date : {{ interval.StartDate | date:'short' }}</span> 
       </div>
       <div>
-        <span>Start Date : {{ interval.StopDate | date:'short' }}</span>
-      </div>
-      <div>
-          <mat-icon>{{interval.IsActive ? 'check-box' : 'check-box_outline_blank'}}</mat-icon>
+          <span *ngIf="interval.EndDate" class="mat-h6">End Date : {{ interval.EndDate | date:'short' }}</span>
       </div>
     </div>
 </div>

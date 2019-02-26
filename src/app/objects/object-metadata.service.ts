@@ -13,17 +13,17 @@ export class ObjectMetadataService {
   };
  
   types = {
-    "ProductAssociation" : {
+    "ProductSearch" : {
       properties: [
         { name: "AssociationId", display: "ProductId", nodetype: "input", configuration: {type: "auto", selector : 'Product', validate: true} },
       ]     
     },
-    "PromotionAssociation" : {
+    "PromotionSearch" : {
       properties: [
         { name: "AssociationId", display: "PromotionId", nodetype: "input", configuration: {type: "auto", selector : 'Promotion', validate: false} },
       ]     
     },
-    "CampaignAssociation" : {
+    "CampaignSearch" : {
       properties: [
         { name: "AssociationId", display: "CampaignId", nodetype: "input", configuration: {type: "auto", selector : 'Campaign', validate: false} },
       ]     

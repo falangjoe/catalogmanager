@@ -1,6 +1,40 @@
 .deleteintervalbutton{
     margin-top: 0em;
-    margin-right: 1em;
-    float: right;
+    margin-right: 0em;
     z-index: 100;
+    float: right;
 }
+.interval-container {
+    height: 3em;
+    padding-left: 0.25em;   
+    margin-right: 3em;
+    margin-left: 0.25em;
+    margin-bottom: 0.5em;
+    /* margin-top: 1em; */
+    /* margin-right: 2em; */
+}
+
+
+.interval-active {
+    border-left: 0.2em solid green;
+}
+
+.interval-inactive {
+    border-left: 0.2em solid red;
+}
+
+.present-interval {
+    background-color: gainsboro;
+}
+
+
+.future-interval {
+
+}
+
+.past-interval {
+
+}
+
+
+

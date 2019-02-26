@@ -10,8 +10,69 @@ export class CatalogService {
   private searches;
   private creates;
   private shows;
-  private intervals = [];
+  private intervals = [
+    {
+      "Catalog": {
+        "Environment": "Development",
+        "CatalogId": "ENTERPRISE_1"
+      },
+      "Interval": {
+        "IntervalId": 1,
+        "StartDate": "2019-02-24T11:00",
+        "EndDate": "2019-02-25T11:00",
+        "IsActive": true,
+        "Association": {
+          "ProductId": "002562",
+          "Price": "10.00",
+          "Assets": {
+            "Key1": "Value1"
+          },
+          "Type": "Product"
+        }
+      }
+    },
+    {
+      "Catalog": {
+        "Environment": "Development",
+        "CatalogId": "ENTERPRISE_1"
+      },
+      "Interval": {
+        "IntervalId": 2,
+        "StartDate": "2019-02-25T11:00",
+        "EndDate": "2019-02-26T10:00",
+        "IsActive": true,
+        "Association": {
+          "ProductId": "002562",
+          "Price": "12.00",
+          "Assets": {
+            "Key2": "Value2"
+          },
+          "Type": "Product"
+        }
+      }
+    },
+    {
+      "Catalog": {
+        "Environment": "Development",
+        "CatalogId": "ENTERPRISE_1"
+      },
+      "Interval": {
+        "IntervalId": 3,
+        "StartDate": "2019-02-26T10:00",
+        "EndDate": null,
+        "IsActive": false,
+        "Association": {
+          "ProductId": "002562",
+          "Price": "12.00",
+          "Assets": {
+            "Key2": "Value2"
+          },
+          "Type": "Product"
+        }
+      }
+    }
 
+  ];
   constructor() { 
 
     this.searches = new EventEmitter<any[]>();
@@ -86,10 +147,7 @@ export class CatalogService {
 
     let association = this.getAssociation(interval);
 
-    this.creates.emit({
-      Catalog : catalog,
-      Association : association
-    })
+    this.creates.emit(obj);
   }
 
   private getAssociation(interval){
@@ -142,12 +200,15 @@ export class CatalogService {
 
       return catalog.CatalogId === x.Catalog.CatalogId
         && catalog.Environment === x.Catalog.Environment 
-        && query.AssociationType === association.AssociationType 
-        && (query.ProductId && query.AssocationId
-      ); 
-    })
+        && association.AssociationType === query.AssociationType 
+        && association.AssociationId && query.AssociationId; 
+    });
 
-    this.searches.emit(matches);
+    let intervals = matches.map(x => x.Interval).sort(x => -1 * x.IntervalId);
+
+    let result = {Catalog : catalog, Intervals : intervals};
+
+    this.searches.emit(result);
   }
 
 }

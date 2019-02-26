@@ -25,7 +25,7 @@ export class CmSearchComponent implements OnInit {
     let catalog =  value.catalog;
     let query = value.association;
 
-    this.catalogService.search(catalog, query);
+    this.catalogService.search(catalog, {AssociationId : query.AssociationId, AssociationType : query.Type.replace("Search", "") });
    }
 
   ngOnInit() {
