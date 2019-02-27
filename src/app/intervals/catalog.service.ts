@@ -1,6 +1,7 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Observable, from, of } from 'rxjs';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import * as _ from "lodash";
 
 @Injectable({
   providedIn: 'root'
@@ -146,6 +147,9 @@ export class CatalogService {
 
   public createInterval(catalog,interval) : void {
 
+    interval = _.clone(interval);
+    catalog = _.clone(catalog);
+
     interval["IntervalId"] = this.getIndex();
 
     let obj = {Catalog : catalog, Interval : interval};
@@ -222,6 +226,7 @@ export class CatalogService {
 
   private getIntervals(catalog : any, association : any){
 
+    
     let matches = this.intervals.filter(
       x => {
       

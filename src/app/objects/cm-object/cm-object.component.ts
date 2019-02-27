@@ -185,9 +185,7 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
         }
 
 
-        if(value){
-          self.registeredPropagateChange(value);
-        }
+        self.registeredPropagateChange(value);
         
       }
 

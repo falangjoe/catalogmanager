@@ -28,7 +28,7 @@ export class CmInputComponent implements ControlValueAccessor, Validator {
   configuration : any = {};
 
   writeValue(obj: any): void {
-    this.formComponentHelper.writeValue(obj);
+    this.control.setValue(obj, {emitEvent : false});
   }
   registerOnChange(fn: any): void {
     this.formComponentHelper.registerOnChange(fn);
