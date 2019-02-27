@@ -35,7 +35,7 @@ export class CmIntervalComponent implements OnInit {
    }
 
   ngOnInit() {
-
+  
   }
 
 }

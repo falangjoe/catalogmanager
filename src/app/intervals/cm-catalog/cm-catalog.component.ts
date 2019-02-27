@@ -111,6 +111,7 @@ export class CmCatalogComponent implements OnInit, ControlValueAccessor, Validat
     this.formComponentHelper.registerOnTouched(fn);
   }
   setDisabledState?(isDisabled: boolean): void {
+
     this.formComponentHelper.setDisabledState(isDisabled);
   }
 

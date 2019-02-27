@@ -31,7 +31,7 @@ export class CmObjectNodetypeInputTestsComponent implements OnInit {
       var configurations = [
           { type: "select" , values: ["Cart", "Item"] },
           { type: "checkbox"},
-          { type: "auto", selector : 'product', validate: true} ,
+          { type: "auto", selector : 'Product', validate: true} ,
           { type: "datetime-local"}
         ];
 

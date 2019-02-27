@@ -121,9 +121,11 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
     }
     else if(this.nodetype == 'interface')
     {
+      let validators = this.configuration.required ? [Validators.required] : [];
+
       let group = new FormGroup({
-        Type : new FormControl(),
-        Object : new FormControl()
+        Type : new FormControl(undefined, validators),
+        Object : new FormControl(undefined, validators)
       });
 
       control = group;
@@ -131,7 +133,6 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
     else if (this.nodetype == 'dictionary')
     {
       control = new FormControl();
-
     }
 
 
@@ -339,7 +340,7 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
           configuration: { 
             type: 'KeyValue', 
             properties: [
-                 { name: "Key", nodetype: "input", configuration: {} },
+                 { name: "Key", nodetype: "input", configuration: { required: true } },
                  { name: "Value", nodetype: this.configuration.nodetype, configuration: this.configuration.configuration },
             ],
             configuration : {}
@@ -436,9 +437,9 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
   registerOnChange(fn: any): void {
 
     this.registeredPropagateChange = fn;
-
+  
     if(this.nodetype === 'list' && this.control.value.length === 0){
-      this.registeredPropagateChange (this.control.value);
+      this.registeredPropagateChange(this.control.value);
     }
 
   }

@@ -41,5 +41,33 @@ export class InputMetadataService {
 
       return result;
     }
+
+
+    if(selector === "Rebate")
+    {
+      return of([
+        {id : "004826", name : "$90 AcOas1DA30 Reb 12M-2019b"},
+        {id : "004827", name : "$90 DACPT90 Reb 12M-2019b"}, 
+        {id : "004828", name : "$90 DailTot190 Reb 12M-2019b"}]);
+    }
+
+
+    if(selector === "Coupon")
+    {
+      return of([
+        {id : "cord-exship-email", name : "cord-exship-email"},
+        {id : "DEAL10", name : "DEAL10"}, 
+        {id : "Bncex02", name : "Bncex02"}]);
+    }
+
+
+    if(selector === "Group")
+    {
+      return of([
+        {id : "ReturningCustomer", name : "ReturningCustomer"},
+        {id : "ReceivedAquasoft2WeekTrial", name : "ReceivedAquasoft2WeekTrial"}, 
+        {id : "ReceivedAquasoft2WeekTrial", name : "ReceivedAquasoft2WeekTrial"}]);
+    }
+
   }
 }

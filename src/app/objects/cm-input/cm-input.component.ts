@@ -1,6 +1,6 @@
 import { Component, Input} from '@angular/core';
 import { FormControl, AbstractControl, ControlValueAccessor, Validator, ValidationErrors } from '@angular/forms';
-import {DefaultControlAccessorProvider,DefaultControlValidatorProvider,FormComponentHelper} from '../../helpers/form.helpers';
+import {DefaultControlAccessorProvider,DefaultControlValidatorProvider, FormHelperSetDisabledState, FormHelperValidate} from '../../helpers/form.helpers';
 
 @Component({
   selector: 'cm-input',
@@ -13,12 +13,10 @@ import {DefaultControlAccessorProvider,DefaultControlValidatorProvider,FormCompo
 })
 export class CmInputComponent implements ControlValueAccessor, Validator {
 
-  private formComponentHelper : FormComponentHelper;
-  private control : FormControl = new FormControl();
+  private controlValue : FormControl;
 
   constructor() { 
 
-    this.formComponentHelper = new FormComponentHelper(this.control);
   }
 
   @Input()
@@ -27,26 +25,33 @@ export class CmInputComponent implements ControlValueAccessor, Validator {
   @Input()
   configuration : any = {};
 
+  get control() {
+    if(!this.controlValue){
+
+      this.controlValue = new FormControl();
+    }
+    return this.controlValue;
+  }
+
   writeValue(obj: any): void {
     this.control.setValue(obj, {emitEvent : false});
   }
   registerOnChange(fn: any): void {
-    this.formComponentHelper.registerOnChange(fn);
+    this.control.valueChanges.subscribe(fn);
   }
   registerOnTouched(fn: any): void {
-    this.formComponentHelper.registerOnTouched(fn);
+   
   }
   setDisabledState?(isDisabled: boolean): void {
-    this.formComponentHelper.setDisabledState(isDisabled);
+    FormHelperSetDisabledState(this.control, isDisabled);
   }
 
   registerOnValidatorChange?(fn: () => void): void {
-    this.formComponentHelper.registerOnValidatorChange(fn);
+   
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-
-    return this.formComponentHelper.validate(control);
+    return FormHelperValidate(this.control);
   }
 }
 

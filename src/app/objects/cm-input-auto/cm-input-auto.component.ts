@@ -3,7 +3,7 @@ import {FormControl, Validators, ValidatorFn, AbstractControl, ControlValueAcces
 import {InputMetadataService } from '../input-metadata.service';
 import { map, startWith } from 'rxjs/operators';
 import {Observable} from 'rxjs';
-import {DefaultControlAccessorProvider,DefaultControlValidatorProvider,FormComponentHelper} from '../../helpers/form.helpers';
+import {DefaultControlAccessorProvider,DefaultControlValidatorProvider,FormHelperSetDisabledState, FormHelperValidate} from '../../helpers/form.helpers';
 
 
 @Component({
@@ -17,13 +17,13 @@ import {DefaultControlAccessorProvider,DefaultControlValidatorProvider,FormCompo
 })
 export class CmInputAutoComponent implements ControlValueAccessor, Validator  {
 
-  private formComponentHelper : FormComponentHelper;
+
   values : any[];
   filteredValues : Observable<any[]>;
 
   constructor(private inputMetadataService: InputMetadataService) { 
    
-    this.formComponentHelper = new FormComponentHelper(this.control);
+
   }
 
   @Input()
@@ -58,11 +58,20 @@ export class CmInputAutoComponent implements ControlValueAccessor, Validator  {
     return this.configurationValue;
   }
 
+  private controlValue;
 
-  private control : FormControl = new FormControl(undefined, [
-    Validators.required,
-    this.valueValidator()
-  ]);
+  get control() : FormControl {
+    if(!this.controlValue){
+
+      this.controlValue = new FormControl(undefined, [
+        Validators.required,
+        this.valueValidator()
+      ]);
+    }
+    return this.controlValue;
+  }
+
+  
 
   
 
@@ -99,23 +108,22 @@ export class CmInputAutoComponent implements ControlValueAccessor, Validator  {
     this.control.setValue(obj, {emitEvent : false});
   }
   registerOnChange(fn: any): void {
-    this.formComponentHelper.registerOnChange(fn);
+    this.control.valueChanges.subscribe(fn);
+
   }
   registerOnTouched(fn: any): void {
-    this.formComponentHelper.registerOnTouched(fn);
+   
   }
   setDisabledState?(isDisabled: boolean): void {
-    this.formComponentHelper.setDisabledState(isDisabled);
+    FormHelperSetDisabledState(this.control, isDisabled);
   }
 
-
   registerOnValidatorChange?(fn: () => void): void {
-    this.formComponentHelper.registerOnValidatorChange(fn);
+   
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-
-    return this.formComponentHelper.validate(control);
+    return FormHelperValidate(this.control);
   }
 }
 

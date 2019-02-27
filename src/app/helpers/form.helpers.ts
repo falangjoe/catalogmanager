@@ -21,6 +21,20 @@ export function DefaultControlValidatorProvider(forwardRefFn: ForwardRefFn) : Pr
       };
 }
 
+export function FormHelperSetDisabledState(control : AbstractControl, isDisabled: boolean): void {
+    if(isDisabled && this._control.enabled){
+      control.disable({emitEvent : false});
+    }else if(!isDisabled && this._control.disable){
+      control.enable({emitEvent : false});
+    }
+}
+
+export function FormHelperValidate(control: AbstractControl): ValidationErrors | null {
+
+    return control.invalid ? {err : "invalid"} : null;
+}
+
+
 
 export class FormComponentHelper implements ControlValueAccessor, Validator{
 
