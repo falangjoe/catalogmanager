@@ -150,9 +150,16 @@ export class CatalogService {
 
     let obj = {Catalog : catalog, Interval : interval};
 
-    this.intervals.push(obj);
-
     let association = this.getAssociation(interval);
+
+    let existing = this.getIntervals(catalog,association);
+
+    if(existing.length > 0){
+
+      existing[0].EndDate = interval.StartDate;
+    }
+
+    this.intervals.push(obj);
 
     this.creates.emit({Catalog : catalog, Association : association});
   }
@@ -203,23 +210,32 @@ export class CatalogService {
     this.shows.emit({catalog : catalog, interval : interval});
   }
 
-  public search(catalog : any, query : any) : void {
-    let matches = this.intervals.filter(
-      x => {
-      
-      let association = this.getAssociation(x.Interval);
+  public search(catalog : any, association : any) : void {
 
-      return catalog.CatalogId === x.Catalog.CatalogId
-        && catalog.Environment === x.Catalog.Environment 
-        && association.AssociationType === query.AssociationType 
-        && association.AssociationId && query.AssociationId; 
-    });
 
-    let intervals = matches.map(x => x.Interval).sort(x => -1 * new Date(x.StartDate).getTime());
-
+    let intervals = this.getIntervals(catalog,association);
+   
     let result = {Catalog : catalog, Intervals : intervals};
 
     this.searches.emit(result);
+  }
+
+  private getIntervals(catalog : any, association : any){
+
+    let matches = this.intervals.filter(
+      x => {
+      
+      let y = this.getAssociation(x.Interval);
+
+      return catalog.CatalogId === x.Catalog.CatalogId
+        && catalog.Environment === x.Catalog.Environment 
+        && association.AssociationType === y.AssociationType 
+        && association.AssociationId === y.AssociationId; 
+    });
+
+    let results = matches.map(x => x.Interval).sort(x => -1 * new Date(x.StartDate).getTime());
+
+    return results;
   }
 
   public delete(catalog : any, interval : any) {

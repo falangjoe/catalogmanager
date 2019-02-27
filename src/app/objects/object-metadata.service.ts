@@ -37,7 +37,7 @@ export class ObjectMetadataService {
     },
     "Promotion": {
       properties: [
-        { name: "PromotionId", nodetype: "input", configuration: {} },
+        { name: "PromotionId", nodetype: "input" , configuration: {type: "auto", selector : 'Promotion'}},
         { name: "PromotionName", nodetype: "input", configuration: {} },
         { name: "PromotionDescription", nodetype: "input", configuration: {} },
         { name: "Scope", nodetype: "input", configuration: { type:"select" , values: ["Cart", "Item"] } },
@@ -55,7 +55,7 @@ export class ObjectMetadataService {
     },
     "Campaign": {
       properties: [
-        { name: "CampaignId", nodetype: "input", configuration: {} },
+        { name: "CampaignId", nodetype: "input", configuration: {type: "auto", selector : 'Campaign', validate: true} },
         { name: "Name", nodetype: "input", configuration: {} },
         { name: "Rank ", nodetype: "input", configuration: {type:"number"} },
         { name: "Groups", nodetype: "list", configuration: { nodetype: "input", configuration : {} } },
