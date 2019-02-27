@@ -47,7 +47,7 @@ export class CmSearchResultsComponent implements OnInit {
     let result = false;
 
     let interval = this.intervals[i];
-    if(!interval.StopDate && new Date(interval.StartDate) > new Date())
+    if(!interval.StopDate && new Date(interval.StartDate) > new Date() && i === 0)
     {
       result = true;
     }
@@ -57,7 +57,7 @@ export class CmSearchResultsComponent implements OnInit {
   private delete(i : number){
 
     let interval = this.intervals[i];
-    
+
     this.catalogService.delete(this.catalog, interval);
   }
 

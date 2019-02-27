@@ -365,8 +365,6 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
         this.controlContainerValue = undefined;
         this.listLength = obj.length;
         this.control.setValue(obj, {emitEvent : false});
-
-
       }
     }
     else if(this.nodetype == 'interface') {
@@ -438,7 +436,13 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
    
   }
   registerOnChange(fn: any): void {
+
     this.registeredPropagateChange = fn;
+
+    if(this.nodetype === 'list' && this.control.value.length === 0){
+      this.registeredPropagateChange (this.control.value);
+    }
+
   }
   registerOnTouched(fn: any): void {
     this.controlContainer.helper.registerOnTouched(fn);

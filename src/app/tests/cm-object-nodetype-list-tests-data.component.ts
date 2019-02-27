@@ -11,7 +11,7 @@ import { FormControl } from '@angular/forms';
 })
 export class CmObjectNodetypeListTestsDataComponent implements OnInit {
 
-  private control : FormControl = new FormControl('');
+  private control : FormControl = new FormControl();
 
   public enable() {
     this.control.enable();
@@ -22,7 +22,7 @@ export class CmObjectNodetypeListTestsDataComponent implements OnInit {
   }
 
   private i = 0;
-  private configuration : any = { nodetype: "input", configuration : { type: "auto", selector : 'product', validate: true} }
+  private configuration : any = { nodetype: "input", configuration : { type: "auto", selector : 'Product', validate: true} }
   private name = "The Name";
   private nodetype = "list";
 
