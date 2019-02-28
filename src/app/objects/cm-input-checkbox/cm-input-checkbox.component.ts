@@ -1,6 +1,6 @@
 import { Component, Input} from '@angular/core';
-import {FormControl, AbstractControl, ControlValueAccessor, Validator, ValidationErrors} from '@angular/forms';
-import {DefaultControlAccessorProvider,DefaultControlValidatorProvider,FormComponentHelper} from '../../helpers/form.helpers';
+import {FormControl, AbstractControl, ControlValueAccessor, Validator, ValidationErrors,Validators} from '@angular/forms';
+import {DefaultControlAccessorProvider,DefaultControlValidatorProvider,FormHelperSetDisabledState, FormHelperValidate} from '../../helpers/form.helpers';
 
 @Component({
   selector: 'cm-input-checkbox',
@@ -13,10 +13,9 @@ import {DefaultControlAccessorProvider,DefaultControlValidatorProvider,FormCompo
 })
 export class CmInputCheckboxComponent implements ControlValueAccessor, Validator  {
 
-  private formComponentHelper : FormComponentHelper;
 
   constructor() { 
-    this.formComponentHelper = new FormComponentHelper(this.control);
+  
   }
 
 
@@ -37,28 +36,46 @@ export class CmInputCheckboxComponent implements ControlValueAccessor, Validator
   }
 
 
-  control = new FormControl();
+  private controlValue;
+
+  get control() : FormControl {
+    if(!this.controlValue){
+
+      let validators = this.configuration.required ? [Validators.required] : [];
+
+      this.controlValue = new FormControl(undefined, validators);
+    }
+    return this.controlValue;
+  }
 
   writeValue(obj: any): void {
-    this.formComponentHelper.writeValue(obj);
+    this.control.setValue(obj, {emitEvent : false});
   }
   registerOnChange(fn: any): void {
-    this.formComponentHelper.registerOnChange(fn);
+
+    if(!this.control.value){
+      this.control.setValue(false, {emitEvent : false});
+    }
+    this.control.valueChanges.subscribe(fn);
+
+    fn(this.control.value);
+
   }
   registerOnTouched(fn: any): void {
-    this.formComponentHelper.registerOnTouched(fn);
+   
   }
   setDisabledState?(isDisabled: boolean): void {
-    this.formComponentHelper.setDisabledState(isDisabled);
+    FormHelperSetDisabledState(this.control, isDisabled);
   }
 
-
   registerOnValidatorChange?(fn: () => void): void {
-    this.formComponentHelper.registerOnValidatorChange(fn);
+   
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
 
-    return this.formComponentHelper.validate(control);
+    let result = FormHelperValidate(this.control);
+
+    return result;
   }
 }

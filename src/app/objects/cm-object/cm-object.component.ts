@@ -1,6 +1,6 @@
 import { Component, Input, Output, OnInit,  EventEmitter } from '@angular/core';
 import { ObjectMetadataService } from '../object-metadata.service';
-import { FormControl, AbstractControl, ControlValueAccessor, Validator, ValidationErrors, FormGroup, CheckboxControlValueAccessor, FormArray, Validators  } from '@angular/forms';
+import { FormControl, AbstractControl, ControlValueAccessor, Validator, ValidationErrors, FormGroup, FormArray, Validators  } from '@angular/forms';
 import {DefaultControlAccessorProvider,DefaultControlValidatorProvider,FormHelperSetDisabledState, FormHelperValidate} from '../../helpers/form.helpers';
 
 
@@ -433,10 +433,11 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
   registerOnChange(fn: any): void {
 
     this.registeredPropagateChange = fn;
+    this.registeredPropagateChange(this.control.value);
   
-    if(this.nodetype === 'list' && this.control.value.length === 0){
-      this.registeredPropagateChange(this.control.value);
-    }
+    // if(this.nodetype === 'list' && this.control.value.length === 0){
+    //   this.registeredPropagateChange(this.control.value);
+    // }
 
   }
   registerOnTouched(fn: any): void {
@@ -450,6 +451,7 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
+    
     return FormHelperValidate(this.control);
   }
 

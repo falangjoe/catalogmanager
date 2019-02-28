@@ -63,10 +63,9 @@ export class CmInputAutoComponent implements ControlValueAccessor, Validator  {
   get control() : FormControl {
     if(!this.controlValue){
 
-      this.controlValue = new FormControl(undefined, [
-        Validators.required,
-        this.valueValidator()
-      ]);
+      let validators = this.configuration.required ? [Validators.required,this.selectorValidator()] : [this.selectorValidator()];
+
+      this.controlValue = new FormControl(undefined, validators);
     }
     return this.controlValue;
   }
@@ -82,12 +81,12 @@ export class CmInputAutoComponent implements ControlValueAccessor, Validator  {
     return this.values.filter(x => x.name.toLowerCase().includes(filterValue));
   }
 
-  private valueValidator() : ValidatorFn {
+  private selectorValidator() : ValidatorFn {
 
     return (control : AbstractControl) : {[key: string]: any} | null => {
 
   
-      if(!this.configuration || !this.configuration.validate){
+      if(!this.configuration || !this.configuration.validate || !control.value){
         return null;
       }
 
@@ -109,6 +108,7 @@ export class CmInputAutoComponent implements ControlValueAccessor, Validator  {
   }
   registerOnChange(fn: any): void {
     this.control.valueChanges.subscribe(fn);
+    fn(this.control.value);
 
   }
   registerOnTouched(fn: any): void {
@@ -123,7 +123,10 @@ export class CmInputAutoComponent implements ControlValueAccessor, Validator  {
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    return FormHelperValidate(this.control);
+
+    let result = FormHelperValidate(this.control);
+
+    return result;
   }
 }
 

@@ -6,7 +6,8 @@ import {FormControl} from '@angular/forms';
   template: `<cm-input [formControl]="control" [configuration]="configuration" [name]="name"></cm-input>
             <button (click)="disable()">Disable</button>
             <button (click)="enable()">Enable</button>
-            <button (click)="next()">Next Configuration</button>`,
+            <button (click)="next()">Next Configuration</button>
+            <div>{{this.control.valid}}</div>`,
   styles: []
 })
 export class CmInputTestsComponent implements OnInit {
@@ -28,10 +29,10 @@ export class CmInputTestsComponent implements OnInit {
   public next(){
 
       var configurations = [
-          { type: "select" , values: ["Cart", "Item"] },
+          { type: "select" , values: ["Cart", "Item"], required : true },
           { type: "checkbox"},
-          { type: "auto", selector : 'product', validate: true} ,
-          { type: "datetime-local"}
+          { type: "auto", selector : 'Product', validate: true, required : true} ,
+          { type: "datetime-local", required : true}
         ];
 
       this.configuration = configurations[(this.i++) % 4];

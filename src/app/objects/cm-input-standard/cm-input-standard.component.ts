@@ -48,6 +48,7 @@ export class CmInputStandardComponent implements ControlValueAccessor, Validator
   }
   registerOnChange(fn: any): void {
     this.control.valueChanges.subscribe(fn);
+    fn(this.control.value);
   }
   registerOnTouched(fn: any): void {
    

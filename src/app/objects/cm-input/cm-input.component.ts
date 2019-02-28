@@ -51,7 +51,9 @@ export class CmInputComponent implements ControlValueAccessor, Validator {
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    return FormHelperValidate(this.control);
+    let result = FormHelperValidate(this.control);
+    return result;
+
   }
 }
 
