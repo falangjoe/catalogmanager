@@ -29,6 +29,7 @@ export class CmInputTestsComponent implements OnInit {
   public next(){
 
       var configurations = [
+        { type: "checkbox"},
           { type: "select" , values: ["Cart", "Item"], required : true },
           { type: "checkbox"},
           { type: "auto", selector : 'Product', validate: true, required : true} ,

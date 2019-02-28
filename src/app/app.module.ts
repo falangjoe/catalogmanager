@@ -47,7 +47,7 @@ import { CmObjectNodetypeDictionaryTestsDataComponent } from './tests/cm-object-
 import { CmObjectNodeTypeClassTestsDisplayComponent } from './tests/cm-object-nodetype-class-tests-display.component';
 import { CmObjectNodeTypeInterfaceTestsDisplayComponent } from './tests/cm-object-nodetype-interface-tests-display.component';
 import { CmCatalogTestsDataComponent } from './tests/cm-catalog-tests-data.component';
-import {CmInputAutoTestsComponent} from './tests/cm-input-auto-tests.component';
+
 
 @NgModule({
   declarations: [
@@ -77,7 +77,6 @@ import {CmInputAutoTestsComponent} from './tests/cm-input-auto-tests.component';
     CmObjectNodeTypeClassTestsDisplayComponent,
     CmObjectNodeTypeInterfaceTestsDisplayComponent,
     CmCatalogTestsDataComponent,
-    CmInputAutoTestsComponent
   ],
   imports: [
     BrowserModule,

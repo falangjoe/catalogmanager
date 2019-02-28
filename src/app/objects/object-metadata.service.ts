@@ -15,17 +15,17 @@ export class ObjectMetadataService {
   types = {
     "ProductSearch" : {
       properties: [
-        { name: "AssociationId", display: "ProductId", nodetype: "input", configuration: {type: "auto", selector : 'Product', validate: true} },
+        { name: "AssociationId", display: "ProductId", nodetype: "input", configuration: {type: "auto", selector : 'Product', validate: true, required : true} },
       ]     
     },
     "PromotionSearch" : {
       properties: [
-        { name: "AssociationId", display: "PromotionId", nodetype: "input", configuration: {type: "auto", selector : 'Promotion', validate: false} },
+        { name: "AssociationId", display: "PromotionId", nodetype: "input", configuration: {type: "auto", selector : 'Promotion', validate: false, required : true} },
       ]     
     },
     "CampaignSearch" : {
       properties: [
-        { name: "AssociationId", display: "CampaignId", nodetype: "input", configuration: {type: "auto", selector : 'Campaign', validate: false} },
+        { name: "AssociationId", display: "CampaignId", nodetype: "input", configuration: {type: "auto", selector : 'Campaign', validate: false, required : true} },
       ]     
     },
     "Interval" : {
