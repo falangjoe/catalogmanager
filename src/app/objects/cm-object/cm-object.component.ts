@@ -1,7 +1,7 @@
 import { Component, Input, Output, OnInit,  EventEmitter } from '@angular/core';
 import { ObjectMetadataService } from '../object-metadata.service';
 import { FormControl, AbstractControl, ControlValueAccessor, Validator, ValidationErrors, FormGroup, CheckboxControlValueAccessor, FormArray, Validators  } from '@angular/forms';
-import {DefaultControlAccessorProvider,DefaultControlValidatorProvider,FormComponentHelper} from '../../helpers/form.helpers';
+import {DefaultControlAccessorProvider,DefaultControlValidatorProvider,FormHelperSetDisabledState, FormHelperValidate} from '../../helpers/form.helpers';
 
 
 @Component({
@@ -15,10 +15,7 @@ import {DefaultControlAccessorProvider,DefaultControlValidatorProvider,FormCompo
 })
 export class CmObjectComponent implements OnInit, ControlValueAccessor, Validator {
   
-  private formComponentHelper : FormComponentHelper;
-
   constructor(private objectMetadataService: ObjectMetadataService) { 
-    this.formComponentHelper = new FormComponentHelper(this.control);
   }
 
   @Input()
@@ -68,8 +65,7 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
 
       this.controlContainerValue =  {
         control : objectControl,
-        configuration : this.configuration,
-        helper : new FormComponentHelper(objectControl)
+        configuration : this.configuration
       };
 
       if(objectControl){
@@ -444,23 +440,17 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
 
   }
   registerOnTouched(fn: any): void {
-    this.controlContainer.helper.registerOnTouched(fn);
+ 
   }
   setDisabledState?(isDisabled: boolean): void {
-
-    if(isDisabled && this.control.enabled){
-      this.control.disable({emitEvent : false});
-    }else if(!isDisabled && this.control.disable){
-      this.control.enable({emitEvent : false});
-    }
+    FormHelperSetDisabledState(this.control, isDisabled);
   }
 
   registerOnValidatorChange?(fn: () => void): void {
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-
-    return this.controlContainer.helper.validate(control);
+    return FormHelperValidate(this.control);
   }
 
   
