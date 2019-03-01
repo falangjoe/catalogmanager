@@ -1,7 +1,7 @@
 import { Component, Input, Output, OnInit,  EventEmitter } from '@angular/core';
 import { ObjectMetadataService } from '../object-metadata.service';
 import { FormControl, AbstractControl, ControlValueAccessor, Validator, ValidationErrors, FormGroup, FormArray, Validators  } from '@angular/forms';
-import {DefaultControlAccessorProvider,DefaultControlValidatorProvider,FormHelperSetDisabledState, FormHelperValidate} from '../../helpers/form.helpers';
+import {FormComponentHelper} from '../../helpers/form-component-helper';
 
 
 @Component({
@@ -9,8 +9,8 @@ import {DefaultControlAccessorProvider,DefaultControlValidatorProvider,FormHelpe
   templateUrl: './cm-object.component.html',
   styleUrls: ['./cm-object.component.css'],
   providers : [
-    DefaultControlAccessorProvider(() => CmObjectComponent),
-    DefaultControlValidatorProvider(() => CmObjectComponent),
+    FormComponentHelper.CreateControlValueAccessorProvider(() => CmObjectComponent),
+    FormComponentHelper.CreateValidatorProvider(() => CmObjectComponent),
   ]
 })
 export class CmObjectComponent implements OnInit, ControlValueAccessor, Validator {
@@ -444,15 +444,16 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
  
   }
   setDisabledState?(isDisabled: boolean): void {
-    FormHelperSetDisabledState(this.control, isDisabled);
+    FormComponentHelper.SetDisabledState(this.control, isDisabled);
   }
 
   registerOnValidatorChange?(fn: () => void): void {
+    console.log("registerOnValidatorChange called " + this.nodetype );
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
     
-    return FormHelperValidate(this.control);
+    return FormComponentHelper.Validate(this.control);
   }
 
   

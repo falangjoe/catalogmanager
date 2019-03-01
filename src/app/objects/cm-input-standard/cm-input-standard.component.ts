@@ -1,14 +1,14 @@
 import { Component, Input} from '@angular/core';
 import {FormControl, AbstractControl, ControlValueAccessor, Validator, ValidationErrors, Validators} from '@angular/forms';
-import {DefaultControlAccessorProvider,DefaultControlValidatorProvider,FormHelperSetDisabledState, FormHelperValidate} from '../../helpers/form.helpers';
+import {FormComponentHelper} from '../../helpers/form-component-helper';
 
 @Component({
   selector: 'cm-input-standard',
   templateUrl: './cm-input-standard.component.html',
   styleUrls: ['./cm-input-standard.component.css'],
   providers : [
-    DefaultControlAccessorProvider(() => CmInputStandardComponent),
-    DefaultControlValidatorProvider(() => CmInputStandardComponent),
+    FormComponentHelper.CreateControlValueAccessorProvider(() => CmInputStandardComponent),
+    FormComponentHelper.CreateValidatorProvider(() => CmInputStandardComponent),
   ]
 })
 export class CmInputStandardComponent implements ControlValueAccessor, Validator  {
@@ -54,7 +54,7 @@ export class CmInputStandardComponent implements ControlValueAccessor, Validator
    
   }
   setDisabledState?(isDisabled: boolean): void {
-    FormHelperSetDisabledState(this.control, isDisabled);
+    FormComponentHelper.SetDisabledState(this.control, isDisabled);
   }
 
   registerOnValidatorChange?(fn: () => void): void {
@@ -62,6 +62,6 @@ export class CmInputStandardComponent implements ControlValueAccessor, Validator
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    return FormHelperValidate(this.control);
+    return FormComponentHelper.Validate(this.control);
   }
 }

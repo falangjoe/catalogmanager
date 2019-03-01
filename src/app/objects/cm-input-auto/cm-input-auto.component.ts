@@ -3,7 +3,7 @@ import {FormControl, Validators, ValidatorFn, AbstractControl, ControlValueAcces
 import {InputMetadataService } from '../input-metadata.service';
 import { map, startWith } from 'rxjs/operators';
 import {Observable} from 'rxjs';
-import {DefaultControlAccessorProvider,DefaultControlValidatorProvider,FormHelperSetDisabledState, FormHelperValidate} from '../../helpers/form.helpers';
+import {FormComponentHelper} from '../../helpers/form-component-helper';
 
 
 @Component({
@@ -11,8 +11,8 @@ import {DefaultControlAccessorProvider,DefaultControlValidatorProvider,FormHelpe
   templateUrl: './cm-input-auto.component.html',
   styleUrls: ['./cm-input-auto.component.css'],
   providers : [
-    DefaultControlAccessorProvider(() => CmInputAutoComponent),
-    DefaultControlValidatorProvider(() => CmInputAutoComponent),
+    FormComponentHelper.CreateControlValueAccessorProvider(() => CmInputAutoComponent),
+    FormComponentHelper.CreateValidatorProvider(() => CmInputAutoComponent),
   ]
 })
 export class CmInputAutoComponent implements ControlValueAccessor, Validator  {
@@ -115,7 +115,7 @@ export class CmInputAutoComponent implements ControlValueAccessor, Validator  {
    
   }
   setDisabledState?(isDisabled: boolean): void {
-    FormHelperSetDisabledState(this.control, isDisabled);
+    FormComponentHelper.SetDisabledState(this.control, isDisabled);
   }
 
   registerOnValidatorChange?(fn: () => void): void {
@@ -124,7 +124,7 @@ export class CmInputAutoComponent implements ControlValueAccessor, Validator  {
 
   validate(control: AbstractControl): ValidationErrors | null {
 
-    let result = FormHelperValidate(this.control);
+    let result = FormComponentHelper.Validate(this.control);
 
     return result;
   }

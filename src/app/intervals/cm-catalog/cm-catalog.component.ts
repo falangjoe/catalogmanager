@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {CatalogService } from '../catalog.service';
 import {FormGroup, FormControl, Validators, AbstractControl, ControlValueAccessor, Validator, ValidationErrors, ValidatorFn} from '@angular/forms';
-import {DefaultControlAccessorProvider,DefaultControlValidatorProvider,FormComponentHelper} from '../../helpers/form.helpers';
+import {FormComponentHelper} from '../../helpers/form-component-helper';
 
 @Component({
   selector: 'cm-catalog',
   templateUrl: './cm-catalog.component.html',
   styleUrls: ['./cm-catalog.component.css'],
   providers : [
-    DefaultControlAccessorProvider(() => CmCatalogComponent),
-    DefaultControlValidatorProvider(() => CmCatalogComponent),
+    FormComponentHelper.CreateControlValueAccessorProvider(() => CmCatalogComponent),
+    FormComponentHelper.CreateValidatorProvider(() => CmCatalogComponent),
   ]
 })
 export class CmCatalogComponent implements OnInit, ControlValueAccessor, Validator  {
@@ -17,12 +17,10 @@ export class CmCatalogComponent implements OnInit, ControlValueAccessor, Validat
   constructor(catalogService : CatalogService) { 
 
     this.control = new FormGroup({
-      Environment: new FormControl('',Validators.required),
-      CatalogId: new FormControl('',Validators.required),
+      Environment: new FormControl(undefined,Validators.required),
+      CatalogId: new FormControl(undefined,Validators.required),
     },[this.getCatalogValidator()]);
     
-    this.formComponentHelper = new FormComponentHelper(this.control);
-
     this.catalogService = catalogService;
 
     this.environment = this.control.get('Environment');
@@ -31,7 +29,6 @@ export class CmCatalogComponent implements OnInit, ControlValueAccessor, Validat
 
   private catalogService : CatalogService;
 
-  private formComponentHelper : FormComponentHelper;
 
   private environment : AbstractControl;
   private catalog : AbstractControl;
@@ -98,31 +95,37 @@ export class CmCatalogComponent implements OnInit, ControlValueAccessor, Validat
   writeValue(obj: any): void {
 
     if(obj){
-      this.environment.setValue(obj.Environment, {emitEvent : false});
-      this.setCatalogs(obj.Environment);
-      this.catalog.setValue(obj.CatalogId,{emitEvent : false});
+
+      this.control.setValue(obj,{emitEvent : false});
+      this.setCatalogs(this.environment.value);
+    
     }
-    this.formComponentHelper.writeValue(obj);
+ 
+
   }
+
   registerOnChange(fn: any): void {
-    this.formComponentHelper.registerOnChange(fn);
+
+    this.control.valueChanges.subscribe(fn);
   }
+
   registerOnTouched(fn: any): void {
-    this.formComponentHelper.registerOnTouched(fn);
+    
   }
+
   setDisabledState?(isDisabled: boolean): void {
 
-    this.formComponentHelper.setDisabledState(isDisabled);
+    FormComponentHelper.SetDisabledState(this.control,isDisabled);
   }
 
 
   registerOnValidatorChange?(fn: () => void): void {
-    this.formComponentHelper.registerOnValidatorChange(fn);
+ 
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
 
-    return this.formComponentHelper.validate(control);
+    return FormComponentHelper.Validate(this.control);
   }
 
 }
