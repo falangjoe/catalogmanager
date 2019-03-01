@@ -47,7 +47,15 @@ export class CmInputComponent implements ControlValueAccessor, Validator {
   }
 
   registerOnValidatorChange?(fn: () => void): void {
-   
+
+    this.control.statusChanges.subscribe(x => {
+
+      if(x === 'VALID' || x === 'INVALID'){
+        fn();
+      }
+
+    });
+
   }
 
   validate(control: AbstractControl): ValidationErrors | null {

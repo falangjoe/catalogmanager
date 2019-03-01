@@ -108,8 +108,6 @@ export class CmInputAutoComponent implements ControlValueAccessor, Validator  {
   }
   registerOnChange(fn: any): void {
     this.control.valueChanges.subscribe(fn);
-    fn(this.control.value);
-
   }
   registerOnTouched(fn: any): void {
    
@@ -119,7 +117,20 @@ export class CmInputAutoComponent implements ControlValueAccessor, Validator  {
   }
 
   registerOnValidatorChange?(fn: () => void): void {
-   
+
+    this.control.statusChanges.subscribe(x => {
+
+      if(x === 'VALID' || x === 'INVALID'){
+        fn();
+      }
+
+    });
+
+    if(this.control.invalid){
+      fn();
+    }
+
+
   }
 
   validate(control: AbstractControl): ValidationErrors | null {

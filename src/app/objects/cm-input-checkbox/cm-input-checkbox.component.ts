@@ -52,14 +52,7 @@ export class CmInputCheckboxComponent implements ControlValueAccessor, Validator
     this.control.setValue(obj, {emitEvent : false});
   }
   registerOnChange(fn: any): void {
-
-    if(!this.control.value){
-      this.control.setValue(false, {emitEvent : false});
-    }
     this.control.valueChanges.subscribe(fn);
-
-    fn(this.control.value);
-
   }
   registerOnTouched(fn: any): void {
    
@@ -69,7 +62,19 @@ export class CmInputCheckboxComponent implements ControlValueAccessor, Validator
   }
 
   registerOnValidatorChange?(fn: () => void): void {
-   
+
+    this.control.statusChanges.subscribe(x => {
+
+      if(x === 'VALID' || x === 'INVALID'){
+        fn();
+      }
+
+    });
+
+    if(this.control.invalid){
+      fn();
+    }
+
   }
 
   validate(control: AbstractControl): ValidationErrors | null {

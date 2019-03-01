@@ -433,11 +433,6 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
   registerOnChange(fn: any): void {
 
     this.registeredPropagateChange = fn;
-    this.registeredPropagateChange(this.control.value);
-  
-    // if(this.nodetype === 'list' && this.control.value.length === 0){
-    //   this.registeredPropagateChange(this.control.value);
-    // }
 
   }
   registerOnTouched(fn: any): void {
@@ -448,7 +443,14 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
   }
 
   registerOnValidatorChange?(fn: () => void): void {
-    console.log("registerOnValidatorChange called " + this.nodetype );
+
+    this.control.statusChanges.subscribe(x => {
+
+        if(x === 'VALID' || x === 'INVALID'){
+          fn();
+        }
+ 
+    });
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
@@ -457,8 +459,5 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
   }
 
   
-
-
-
 
 }
