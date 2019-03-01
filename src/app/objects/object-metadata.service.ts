@@ -55,7 +55,7 @@ export class ObjectMetadataService {
     },
     "Campaign": {
       properties: [
-        { name: "CampaignId", nodetype: "input", configuration: {type: "auto", selector : 'Campaign', validate: true, required: true } },
+        { name: "CampaignId", nodetype: "input", configuration: {type: "auto", selector : 'Campaign', required: true } },
         { name: "Name", nodetype: "input", configuration: {required: true } },
         { name: "Rank ", nodetype: "input", configuration: {type:"number", required: true } },
         { name: "Groups", nodetype: "list", configuration: { nodetype: "input", configuration : { required: true } } },
