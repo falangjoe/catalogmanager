@@ -56,6 +56,8 @@ export class CmInputComponent implements ControlValueAccessor, Validator {
 
     });
 
+    fn();
+
   }
 
   validate(control: AbstractControl): ValidationErrors | null {

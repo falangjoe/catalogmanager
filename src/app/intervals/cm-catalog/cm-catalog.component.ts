@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CatalogService } from '../catalog.service';
 import {FormGroup, FormControl, Validators, AbstractControl, ControlValueAccessor, Validator, ValidationErrors, ValidatorFn} from '@angular/forms';
 import {FormComponentHelper} from '../../helpers/form-component-helper';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'cm-catalog',
@@ -40,17 +41,9 @@ export class CmCatalogComponent implements OnInit, ControlValueAccessor, Validat
 
   ngOnInit() {
 
-    this.setEnvironments();
-    this.subscribeEnvironmentValueChanges();
-  }
-
-  private setEnvironments() : void{
     this.catalogService.getEnvironments().subscribe(x => {
       this.environments = x;
     });
-  }
-
-  private subscribeEnvironmentValueChanges() : void{
 
     this.environment.valueChanges.subscribe(x => {
       this.setCatalogs(x);
@@ -58,18 +51,23 @@ export class CmCatalogComponent implements OnInit, ControlValueAccessor, Validat
     });
   }
 
-  private setCatalogs(environment) : void{
-    if(environment){
-      this.catalogService.getCatalogs(environment).subscribe(x => {
-        this.catalogs = x;
-      });
 
-    }
-    else{
-      this.catalogs = [];
-    }
+  private setCatalogs(environment, fn: () => void = undefined) : void
+  {
+    
+    let catalogs : Observable<any> = environment ? this.catalogService.getCatalogs(environment) : of([]);
+
+    catalogs.subscribe(x => {
+
+      this.catalogs = x;
+
+      if(fn){
+        fn();
+      }
+
+    });
+ 
   }
-
 
   private getCatalogValidator() : ValidatorFn {
 
@@ -94,11 +92,13 @@ export class CmCatalogComponent implements OnInit, ControlValueAccessor, Validat
 
   writeValue(obj: any): void {
 
-    if(obj){
+    if(obj && obj.Environment){
 
-      this.control.setValue(obj,{emitEvent : false});
-      this.setCatalogs(this.environment.value);
-    
+      this.setCatalogs(obj.Environment, () => {
+
+        this.control.setValue(obj,{emitEvent : false});
+
+      });
     }
  
 
@@ -120,7 +120,16 @@ export class CmCatalogComponent implements OnInit, ControlValueAccessor, Validat
 
 
   registerOnValidatorChange?(fn: () => void): void {
+
+    this.control.statusChanges.subscribe(x => {
+
+        if(x === 'VALID' || x === 'INVALID'){
+          fn();
+        }
  
+    });
+
+    fn();
   }
 
   validate(control: AbstractControl): ValidationErrors | null {

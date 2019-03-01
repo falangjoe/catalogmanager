@@ -24,7 +24,6 @@ export class CatalogService {
         "IntervalId": this.getIndex(),
         "StartDate": "2019-02-25T11:00",
         "EndDate": "2019-02-26T11:00",
-        "IsActive": true,
         "Association": {
           "ProductId": "002562",
           "Price": "10.00",
@@ -44,7 +43,6 @@ export class CatalogService {
         "IntervalId": this.getIndex(),
         "StartDate": "2019-02-26T11:00",
         "EndDate": "2019-02-27T10:00",
-        "IsActive": true,
         "Association": {
           "ProductId": "002562",
           "Price": "12.00",
@@ -64,7 +62,6 @@ export class CatalogService {
         "IntervalId": this.getIndex(),
         "StartDate": "2019-02-27T10:00",
         "EndDate": null,
-        "IsActive": false,
         "Association": {
           "ProductId": "002562",
           "Price": "12.00",

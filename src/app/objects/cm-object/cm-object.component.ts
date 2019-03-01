@@ -451,6 +451,8 @@ export class CmObjectComponent implements OnInit, ControlValueAccessor, Validato
         }
  
     });
+
+    fn();
   }
 
   validate(control: AbstractControl): ValidationErrors | null {

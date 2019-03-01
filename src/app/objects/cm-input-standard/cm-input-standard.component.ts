@@ -66,9 +66,7 @@ export class CmInputStandardComponent implements ControlValueAccessor, Validator
 
     });
 
-    if(this.control.invalid){
-      fn();
-    }
+    fn();
 
   }
 

@@ -71,9 +71,7 @@ export class CmInputCheckboxComponent implements ControlValueAccessor, Validator
 
     });
 
-    if(this.control.invalid){
-      fn();
-    }
+    fn();
 
   }
 
